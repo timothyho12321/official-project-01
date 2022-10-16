@@ -30,12 +30,37 @@ window.addEventListener("DOMContentLoaded", async function () {
         popupAnchor: [-3, -76]
     })
 
-
     // PLACING ICON ON THE MAP
     let parkMarker = L.marker([1.3634, 103.8436], { icon: parkIcon });
     parkMarker.addTo(map);
 
     // Add popup marker to park icon
     parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
-    //////////////////////////////////////////////////////////////////////////
+
+
+    // Adding Npark tracks 
+    // Read in geojson data for park connector track 
+    let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
+    console.log(connectorResponse.data);
+
+    //Create Park Connector Track Network Layer
+    let connectorLayer = L.geoJson(connectorResponse.data, {
+
+        onEachFeature: function (features, subLayer) {
+            let holderElement = document.createElement("div");
+            holderElement.innerHTML = features.properties.Description;
+
+            subLayer.bindPopup(`<div>${features.properties.Description}</div>`);
+        }
+    });
+    connectorLayer.addTo(map);
+
+    // Adjust style of park connector layer
+    connectorLayer.setStyle({
+        'color': '#FD5DA8',
+        'strokeWidth': '0.5'
+
+    })
+
+
 })
