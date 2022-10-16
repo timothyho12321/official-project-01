@@ -26,15 +26,16 @@ window.addEventListener("DOMContentLoaded", async function () {
         iconUrl: 'park-icon.png',
 
         iconSize: [60, 80],
-        iconAnchor: [50,50],
+        iconAnchor: [10, 50],
         popupAnchor: [-3, -76]
     })
 
 
     // PLACING ICON ON THE MAP
-L.marker([1.3634,103.8436], {icon: parkIcon}).addTo(map);
+    let parkMarker = L.marker([1.3634, 103.8436], { icon: parkIcon });
+    parkMarker.addTo(map);
 
-
-
+    // Add popup marker to park icon
+    parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
     //////////////////////////////////////////////////////////////////////////
 })
