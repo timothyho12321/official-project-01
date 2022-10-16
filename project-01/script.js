@@ -50,7 +50,12 @@ window.addEventListener("DOMContentLoaded", async function () {
             let holderElement = document.createElement("div");
             holderElement.innerHTML = features.properties.Description;
 
-            subLayer.bindPopup(`<div>${features.properties.Description}</div>`);
+            let tdNum = holderElement.querySelectorAll("td");
+            // console.log(tdNum);
+            let connectorName = tdNum[0].innerText;
+            // console.log(connectorName);
+            let connectorKind = tdNum[1].innerText;
+            subLayer.bindPopup(`<h5>Connect your journey via <div> this ${connectorKind.toLowerCase()} at ${connectorName}. </div></h5>`);
         }
     });
     connectorLayer.addTo(map);
