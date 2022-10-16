@@ -20,5 +20,21 @@ window.addEventListener("DOMContentLoaded", async function () {
         accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw' //demo access token
     }).addTo(map);
 
+    // CODE FOR CREATING ICON
+    // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
+    let greenIcon = L.icon({
+        iconUrl: 'park-icon.png',
+
+        iconSize: [38, 95],
+        iconAnchor: [0, 0],
+        popupAnchor: [-3, -76]
+    })
+
+
+    // PLACING ICON ON THE MAP
+
+
+
+
     //////////////////////////////////////////////////////////////////////////
 })
