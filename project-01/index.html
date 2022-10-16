@@ -19,10 +19,32 @@
 
 <body>
 
-<div id = "overall-container">
+    <div id="overall-container">
+        <div id="interaction-container">
+            <div id="top-bar-left">
+                <input type="checkbox" class="travel-mode" value="show-tracks" /><label>Display Npark Tracks</label>
+                <input type="checkbox" class="travel-mode" value="show-cycle" /><label>Display Cycling Tracks</label>
 
-    <div id ="map"></div>
-</div>
+            </div>
+            <div id="top-bar-right">
+                <input type="submit"value="Search" id="search-input" style="float: right"/>
+                <input type="text" id="search-park" placeholder="Search park name" />
+                <!-- <button id=" submit-button">Search</button> -->
+
+            </div>
+            <div>
+                <div id="display-search">
+                    <p>TESTING 123</p>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div id="map"></div>
+    </div>
 
     <!-- axios-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"
