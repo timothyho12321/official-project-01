@@ -22,17 +22,17 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
-    let greenIcon = L.icon({
+    let parkIcon = L.icon({
         iconUrl: 'park-icon.png',
 
-        iconSize: [38, 95],
-        iconAnchor: [0, 0],
+        iconSize: [60, 80],
+        iconAnchor: [50,50],
         popupAnchor: [-3, -76]
     })
 
 
     // PLACING ICON ON THE MAP
-
+L.marker([1.3634,103.8436], {icon: parkIcon}).addTo(map);
 
 
 
