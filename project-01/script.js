@@ -30,12 +30,67 @@ window.addEventListener("DOMContentLoaded", async function () {
         popupAnchor: [-3, -76]
     })
 
-
     // PLACING ICON ON THE MAP
     let parkMarker = L.marker([1.3634, 103.8436], { icon: parkIcon });
     parkMarker.addTo(map);
 
     // Add popup marker to park icon
     parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
-    //////////////////////////////////////////////////////////////////////////
+
+
+    // Adding Npark tracks 
+    // Read in geojson data for park connector track 
+    let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
+    // console.log(connectorResponse.data);
+
+    //Create Park Connector Track Network Layer
+    let connectorLayer = L.geoJson(connectorResponse.data, {
+
+        onEachFeature: function (features, subLayer) {
+            let holderElement = document.createElement("div");
+            holderElement.innerHTML = features.properties.Description;
+
+            let tdNum = holderElement.querySelectorAll("td");
+            // console.log(tdNum);
+            let connectorName = tdNum[0].innerText;
+            // console.log(connectorName);
+            let connectorKind = tdNum[1].innerText;
+            subLayer.bindPopup(`<h5>Connect your journey via <div> this ${connectorKind.toLowerCase()} at ${connectorName}. </div></h5>`);
+        }
+    });
+    connectorLayer.addTo(map);
+
+    // Adjust style of park connector layer
+    connectorLayer.setStyle({
+        'color': '#FD5DA8',
+        'strokeWidth': '0.5'
+
+    })
+
+
+    // Display geojson for Nparks parks on leaflet map
+    // input 
+    let parkResponse = await axios.get("nparks-parks-geojson.geojson");
+    console.log(parkResponse.data);
+
+    //Create Park Connector Track Network Layer
+    let parkLayer = L.geoJson(parkResponse.data, {
+
+        onEachFeature: function (features, parkLayer) {
+            let holderElement = document.createElement("div");
+            holderElement.innerHTML = features.properties.Description;
+            // console.log(holderElement.innerHTML);
+            let tdFirst = holderElement.querySelectorAll("td");
+            let tdOne = tdFirst[1].innerText;
+           
+            parkLayer.bindPopup(`<h3>This green space is ${tdOne}!</h3>`);
+        }
+    });
+    parkLayer.addTo(map);
+
+    parkLayer.setStyle({
+        'color': '#32CD32',
+        'strokeWidth': '0.5'
+
+    })
 })
