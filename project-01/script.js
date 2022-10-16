@@ -79,14 +79,18 @@ window.addEventListener("DOMContentLoaded", async function () {
         onEachFeature: function (features, parkLayer) {
             let holderElement = document.createElement("div");
             holderElement.innerHTML = features.properties.Description;
-
-            // let tdNum = holderElement.querySelectorAll("td");
-            // // console.log(tdNum);
-            // let connectorName = tdNum[0].innerText;
-            // // console.log(connectorName);
-            // let connectorKind = tdNum[1].innerText;
-            parkLayer.bindPopup(`<h5>Japan</h5>`);
+            // console.log(holderElement.innerHTML);
+            let tdFirst = holderElement.querySelectorAll("td");
+            let tdOne = tdFirst[1].innerText;
+           
+            parkLayer.bindPopup(`<h3>This green space is ${tdOne}!</h3>`);
         }
     });
     parkLayer.addTo(map);
+
+    parkLayer.setStyle({
+        'color': '#32CD32',
+        'strokeWidth': '0.5'
+
+    })
 })
