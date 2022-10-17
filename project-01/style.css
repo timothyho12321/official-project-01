@@ -9,6 +9,12 @@
     position: relative;
 }
 
+#search-surrounding {
+
+    background-color: aquamarine;
+    z-index: 34000;
+    padding: 15px;
+}
 
 #top-bar-left {
 
@@ -39,6 +45,8 @@
 
     position: absolute;
     z-index: 35000;
-    top: 3.5%;
+    top: 9%;
     left: 67%;
+    max-height: 200px;
+    overflow-y: scroll;
 }

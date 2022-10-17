@@ -150,6 +150,11 @@ window.addEventListener("DOMContentLoaded", async function () {
         let parkClusterLayer = L.markerClusterGroup();
         parkClusterLayer.addTo(map);
 
+        let displaySearch = document.querySelector("#display-search");
+        console.log(displaySearch);
+
+
+        //Create For Loop to create parkMarkers from park Search results
         for (let p of firstSearch.results) {
 
             // Display the marker
@@ -166,8 +171,25 @@ window.addEventListener("DOMContentLoaded", async function () {
             searchMarker.addTo(parkClusterLayer);
 
 
+            //Output displaySearch of search results
+            let parkDummy = document.createElement("div");
+            parkDummy.innerHTML = p.name;
+
+            parkDummy.addEventListener("click", function () {
+                map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 14)
+                searchMarker.openPopup();
+
+
+            })
+
+            function close() {
+                searchMarker.bindPopup(``)
+            }
+
+            displaySearch.appendChild(parkDummy);
 
         }
+
 
     })
 
