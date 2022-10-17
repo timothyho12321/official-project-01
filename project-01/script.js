@@ -119,7 +119,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 "query": search,
                 "radius": radius,
                 "category": category,  // ok for category to be empty string
-                "limit": 25,
+                "limit": 50,
                 "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
             }
         });
@@ -127,31 +127,37 @@ window.addEventListener("DOMContentLoaded", async function () {
         return response.data;  // return the search results from the function
     }
 
-    let searchResultLayer = L.layerGroup();
-    searchResultLayer.addTo(map);
+    let searchParkLayer = L.layerGroup();
+    searchParkLayer.addTo(map);
+
+    let locationName = document.querySelector("#search-park-type");
+    // console.log(locationName);
 
     let searchPark = document.querySelector("#search-input-click");
     searchPark.addEventListener("click", async function () {
 
-        let firstSearch = await search("1.3521,103.8198", "park", 25000, 16000);
+        searchParkLayer.clearLayers();
+
+        //DOES NOT WORK WHEN COMBINED NAME TO FIND BISHAN PARK. Otherwise,
+        //search results not accurate, give things other than park
+        // let combinedName = locationName.value+ " park"
+
+        let firstSearch = await search("1.3521,103.8198", locationName.value, 25000, 16035 && 16000);
         console.log(firstSearch.results);
 
-        for (let r of firstSearch.results) {
+        for (let p of firstSearch.results) {
 
             // Display the marker
-            let lat = r.geocodes.main.latitude;
-            let lng = r.geocodes.main.longitude;
+            let lat = p.geocodes.main.latitude;
+            let lng = p.geocodes.main.longitude;
             console.log(lat, lng);
 
             let marker = L.marker([lat, lng], { icon: parkIcon });
-            marker.bindPopup(`<h1>${r.name}</h1>`);
-            marker.addTo(searchResultLayer);
+            marker.bindPopup(`This place is <h1>${p.name}</h1>`);
+            marker.addTo(searchParkLayer);
 
 
 
-            //MINE
-            //let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
-            // parkMarker.addTo(map);
 
         }
 
