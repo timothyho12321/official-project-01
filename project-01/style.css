@@ -15,6 +15,13 @@
     z-index: 34000;
     padding: 15px;
 }
+/* 
+.search-peri{
+
+    background-color: aquamarine;
+    z-index: 34000;
+    padding: 15px;
+} */
 
 #top-bar-left {
 
@@ -45,7 +52,7 @@
 
     position: absolute;
     z-index: 35000;
-    top: 9%;
+    top: 11%;
     left: 67%;
     max-height: 200px;
     overflow-y: scroll;
