@@ -23,15 +23,15 @@ window.addEventListener("DOMContentLoaded", async function () {
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
     let parkIcon = L.icon({
-        iconUrl: 'park-icon.png',
+        iconUrl: 'tree.png',
 
-        iconSize: [60, 80],
-        iconAnchor: [10, 50],
+        iconSize: [45, 50],
+        iconAnchor: [23, 45],
         popupAnchor: [-3, -76]
     })
 
     // PLACING ICON ON THE MAP
-    let parkMarker = L.marker([1.3634, 103.8436], { icon: parkIcon });
+    let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
     parkMarker.addTo(map);
 
     // Add popup marker to park icon
@@ -71,7 +71,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     // Display geojson for Nparks parks on leaflet map
     // input 
     let parkResponse = await axios.get("nparks-parks-geojson.geojson");
-    console.log(parkResponse.data);
+    // console.log(parkResponse.data);
 
     // //Create Npark parks Layer
     // let parkLayer = L.geoJson(parkResponse.data, {
@@ -127,20 +127,60 @@ window.addEventListener("DOMContentLoaded", async function () {
         return response.data;  // return the search results from the function
     }
 
-
-    let firstSearch = await search("1.3521,103.8198", "park", 25000, 16000);
-    console.log(firstSearch.results);
-
-
-    // let results = placeSearch();
-    // console.log(results.data.data);
+    let searchResultLayer = L.layerGroup();
+    searchResultLayer.addTo(map);
 
     let searchPark = document.querySelector("#search-input-click");
     searchPark.addEventListener("click", async function () {
 
+        let firstSearch = await search("1.3521,103.8198", "park", 25000, 16000);
+        console.log(firstSearch.results);
 
+        for (let r of firstSearch.results) {
+
+            // Display the marker
+            let lat = r.geocodes.main.latitude;
+            let lng = r.geocodes.main.longitude;
+            console.log(lat, lng);
+
+            let marker = L.marker([lat, lng], { icon: parkIcon });
+            marker.bindPopup(`<h1>${r.name}</h1>`);
+            marker.addTo(searchResultLayer);
+
+
+
+            //MINE
+            //let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
+            // parkMarker.addTo(map);
+
+        }
 
     })
+
+
+
+    //     let searchTerms = document.querySelector("#searchTerms").value;
+    // let boundaries = map.getBounds();
+    // let center = boundaries.getCenter();  // in lat lng
+    // let latLng = center.lat + "," + center.lng; // Foursquare expects lat lng to be in the format "lat,lng"
+    // let searchResults = await search(latLng, searchTerms, 5000);
+    // // console.log(searchResults);
+    // let searchResultElement = document.querySelector("#results");
+
+    // for (let r of searchResults.results) {
+
+    //     // Display the marker
+    //     let lat = r.geocodes.main.latitude;
+    //     let lng = r.geocodes.main.longitude;
+    //     let marker = L.marker([lat, lng]).addTo(searchResultLayer);
+    //     marker.bindPopup(`<h1>${r.name}</h1>`)
+
+    //     // add to the search results
+    //     let resultElement = document.createElement("div");
+    //     resultElement.innerText = r.name;
+    //     resultElement.classList.add("search-result");
+
+    // )
 
 
 })
