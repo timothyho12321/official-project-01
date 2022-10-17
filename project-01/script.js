@@ -73,24 +73,24 @@ window.addEventListener("DOMContentLoaded", async function () {
     let parkResponse = await axios.get("nparks-parks-geojson.geojson");
     console.log(parkResponse.data);
 
-    //Create Park Connector Track Network Layer
-    let parkLayer = L.geoJson(parkResponse.data, {
+    // //Create Npark parks Layer
+    // let parkLayer = L.geoJson(parkResponse.data, {
 
-        onEachFeature: function (features, parkLayer) {
-            let holderElement = document.createElement("div");
-            holderElement.innerHTML = features.properties.Description;
-            // console.log(holderElement.innerHTML);
-            let tdFirst = holderElement.querySelectorAll("td");
-            let tdOne = tdFirst[1].innerText;
+    //     onEachFeature: function (features, parkLayer) {
+    //         let holderElement = document.createElement("div");
+    //         holderElement.innerHTML = features.properties.Description;
+    //         // console.log(holderElement.innerHTML);
+    //         let tdFirst = holderElement.querySelectorAll("td");
+    //         let tdOne = tdFirst[1].innerText;
            
-            parkLayer.bindPopup(`<h3>This green space is ${tdOne}!</h3>`);
-        }
-    });
-    parkLayer.addTo(map);
+    //         parkLayer.bindPopup(`<h3>This green space is ${tdOne}!</h3>`);
+    //     }
+    // });
+    // parkLayer.addTo(map);
 
-    parkLayer.setStyle({
-        'color': '#32CD32',
-        'strokeWidth': '0.5'
+    // parkLayer.setStyle({
+    //     'color': '#32CD32',
+    //     'strokeWidth': '0.5'
 
-    })
+    // })
 })
