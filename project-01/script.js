@@ -109,7 +109,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // this is a global function
     // therefore other JS files can  make use of it
-    async function search(ll, search, radius, category = "") {
+    async function search(ll, search = "", radius, category = "") {
 
         let url = FSQUARE_URL + "search";
         let response = await axios.get(url, {
@@ -145,6 +145,11 @@ window.addEventListener("DOMContentLoaded", async function () {
         let firstSearch = await search("1.3521,103.8198", locationName.value, 25000, 16035 && 16000);
         console.log(firstSearch.results);
 
+
+        //create parkClusterLayer
+        let parkClusterLayer = L.markerClusterGroup();
+        parkClusterLayer.addTo(map);
+
         for (let p of firstSearch.results) {
 
             // Display the marker
@@ -152,10 +157,13 @@ window.addEventListener("DOMContentLoaded", async function () {
             let lng = p.geocodes.main.longitude;
             console.log(lat, lng);
 
-            let marker = L.marker([lat, lng], { icon: parkIcon });
-            marker.bindPopup(`This place is <h1>${p.name}</h1>`);
-            marker.addTo(searchParkLayer);
+            let searchMarker = L.marker([lat, lng], { icon: parkIcon });
+            searchMarker.bindPopup(`This place is <h1>${p.name}</h1>`);
+            searchMarker.addTo(searchParkLayer);
 
+            //maybe generate another marker group with all the park spread out over SIngapore
+            //and assign that layer as the parkClusterLayer
+            searchMarker.addTo(parkClusterLayer);
 
 
 
