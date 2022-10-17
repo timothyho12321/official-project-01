@@ -31,6 +31,10 @@
     float: right;
 }
 
+#search-park-type {
+    float: left;
+}
+
 #display-search {
 
     position: absolute;

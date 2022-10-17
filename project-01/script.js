@@ -82,7 +82,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     //         // console.log(holderElement.innerHTML);
     //         let tdFirst = holderElement.querySelectorAll("td");
     //         let tdOne = tdFirst[1].innerText;
-           
+
     //         parkLayer.bindPopup(`<h3>This green space is ${tdOne}!</h3>`);
     //     }
     // });
@@ -93,4 +93,54 @@ window.addEventListener("DOMContentLoaded", async function () {
     //     'strokeWidth': '0.5'
 
     // })
+
+
+
+    // Add foursquare input to search for nearby parks
+
+
+    const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
+    const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
+
+    const headers = {
+        "Accept": "application/json",
+        "Authorization": FSQUARE_KEY
+    }
+
+    // this is a global function
+    // therefore other JS files can  make use of it
+    async function search(ll, search, radius, category = "") {
+
+        let url = FSQUARE_URL + "search";
+        let response = await axios.get(url, {
+            "headers": headers,
+            "params": {
+                "ll": ll,
+                "query": search,
+                "radius": radius,
+                "category": category,  // ok for category to be empty string
+                "limit": 25,
+                "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+            }
+        });
+
+        return response.data;  // return the search results from the function
+    }
+
+
+    let firstSearch = await search("1.3521,103.8198", "park", 25000, 16000);
+    console.log(firstSearch.results);
+
+
+    // let results = placeSearch();
+    // console.log(results.data.data);
+
+    let searchPark = document.querySelector("#search-input-click");
+    searchPark.addEventListener("click", async function () {
+
+
+
+    })
+
+
 })
