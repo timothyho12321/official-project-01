@@ -127,6 +127,25 @@ window.addEventListener("DOMContentLoaded", async function () {
         return response.data;  // return the search results from the function
     }
 
+    // ALTERNATIVE BUT COULD NOT DETERMINE BOUNDARIES ERROR MESSAGE
+    // async function search(ll, location, category = "") {
+
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "ll": ll,
+    //             "query": 'park',
+    //             "near": location,
+    //             "category": category,  // ok for category to be empty string
+    //             "limit": 50,
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
+
+    //     return response.data;  // return the search results from the function
+    // }
+
     let searchParkLayer = L.layerGroup();
     searchParkLayer.addTo(map);
 
@@ -142,7 +161,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         //search results not accurate, give things other than park
         // let combinedName = locationName.value+ " park"
 
-        let firstSearch = await search("1.3521,103.8198", locationName.value, 25000, 16035 && 16000);
+        let firstSearch = await search("1.3521,103.8198", locationName.value, 10000, 16035);
         console.log(firstSearch.results);
 
 
