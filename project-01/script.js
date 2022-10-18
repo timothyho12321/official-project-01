@@ -138,7 +138,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
                 "query": query,// example location name (clementi)
                 "sort": "relevance", //sort by MAKE BUTTON FOR THIS IN HTML
-                "limit": 20, // number of search results MAKE BUTTON FOR THIS IN HTML 
+                "limit": 20, // number of search results MAKE TEXT INPUT FOR THIS IN HTML 
                 "ll": "1.3521,103.8198", // latLng of SG
                 "radius": 15000,//radius of search
 
