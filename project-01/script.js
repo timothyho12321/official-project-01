@@ -138,7 +138,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
                 "query": query,// example location name (clementi)
                 "sort": "relevance", //sort by MAKE BUTTON FOR THIS IN HTML
-                "limit": 20, // number of search results MAKE TEXT INPUT FOR THIS IN HTML 
+                "limit": limit, // number of search results MAKE TEXT INPUT FOR THIS IN HTML 
                 "ll": "1.3521,103.8198", // latLng of SG
                 "radius": 15000,//radius of search
 
@@ -184,20 +184,37 @@ window.addEventListener("DOMContentLoaded", async function () {
 
         // Key in First Search using form buttons on map 
 
+        // READ IN VALUES FROM SORT BUTTON
 
+        let sortName = document.querySelectorAll(".sort-button");
+        // console.log(sortName);
+        let selectedSort = null;
+        for (let radio of sortName) {
+            if (radio.checked) {
+                selectedSort = radio.value;
+            }
+        }
+        console.log(selectedSort);
 
-        console.log(selectedCategories);
-        console.log(queryLocationName.value);
-
+        // READ IN VALUES FROM LIMIT BUTTON
+        let limitName = document.querySelectorAll(".limit-button");
+        // console.log(limitName);
+        let selectedLimit = null;
+        for (let radio of limitName) {
+            if (radio.checked) {
+                selectedLimit = radio.value;
+            }
+        }
+        console.log(selectedLimit);
 
         // TEST CASE - USE CLEMENTI TO FILTER LOCATION. USE KALLANG ALSO. MUST BE SINGLE WORD LOCATION NAME.
-        let testSearch = await search(selectedCategories, queryLocationName.value, "relevance", 50);
-        console.log(testSearch.results);
+        // let testSearch = await search(selectedCategories, queryLocationName.value, "relevance", 50);
+        // console.log(testSearch.results);
 
 
-        // let firstSearch = await search("1.3521,103.8198", queryLocationName.value, 10000, 16035);
-        // console.log(firstSearch.results);
-
+        //Pass testSearch2 case STOP HERE FOR 19OCT
+        let testSearch2 = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
+        console.log(testSearch2.results);
 
         //create parkClusterLayer
         let parkClusterLayer = L.markerClusterGroup();
