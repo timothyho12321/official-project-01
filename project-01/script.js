@@ -135,10 +135,12 @@ window.addEventListener("DOMContentLoaded", async function () {
         let response = await axios.get(url, {
             "headers": headers,
             "params": {
-                "categories": categories,
-                "query": query,
-                "sort": "relevance",
-                "limit": limit,
+                "categories": categories,// example either 16019(hiking),16032(park),16017(garden)
+                "query": query,// example location name (clementi)
+                "sort": "relevance", //sort by
+                "limit": limit, // number of search results
+                "ll": "1.3521,103.8198", // latLng of SG
+                "radius":15000,//radius of search
 
                 "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
             }
@@ -147,7 +149,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         return response.data;  // return the search results from the function
     }
 
-    let testSearch = await search(16019, "Clementi", "relevance");
+    let testSearch = await search(16019, "", "relevance", 50);
     console.log(testSearch.results);
 
 
