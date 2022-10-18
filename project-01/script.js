@@ -128,19 +128,19 @@ window.addEventListener("DOMContentLoaded", async function () {
     }
 
 
-    // // ALTERNATIVE BUT COULD NOT DETERMINE BOUNDARIES ERROR MESSAGE
+    // Try out test Search (success)
     async function search(categories, query, sort, limit = "") {
 
         let url = FSQUARE_URL + "search";
         let response = await axios.get(url, {
             "headers": headers,
             "params": {
-                "categories": categories,// example either 16019(hiking),16032(park),16017(garden)
+                "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
                 "query": query,// example location name (clementi)
                 "sort": "relevance", //sort by
                 "limit": limit, // number of search results
                 "ll": "1.3521,103.8198", // latLng of SG
-                "radius":15000,//radius of search
+                "radius": 15000,//radius of search
 
                 "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
             }
@@ -150,27 +150,37 @@ window.addEventListener("DOMContentLoaded", async function () {
     }
 
     let testSearch = await search(16019, "", "relevance", 50);
-    console.log(testSearch.results);
+    // console.log(testSearch.results);
 
 
 
     let searchParkLayer = L.layerGroup();
     searchParkLayer.addTo(map);
 
-    let locationName = document.querySelector("#search-park-type");
-    // console.log(locationName);
+
+    let queryLocationName = document.querySelector("#search-park-type");
+    // console.log(queryLocationName);
 
     let searchPark = document.querySelector("#search-input-click");
     searchPark.addEventListener("click", async function () {
 
+
+        let categoriesName = document.querySelectorAll(".categories");
+        // console.log(categoriesName);
+        let selectedCategories = null;
+        for (let radio of categoriesName) {
+            if (radio.checked) {
+                selectedCategories = radio.value;
+            }
+        }
+        console.log(selectedCategories);
+
+
         searchParkLayer.clearLayers();
 
-        //DOES NOT WORK WHEN COMBINED NAME TO FIND BISHAN PARK. Otherwise,
-        //search results not accurate, give things other than park
-        // let combinedName = locationName.value+ " park"
 
-        let firstSearch = await search("1.3521,103.8198", locationName.value, 10000, 16035);
-        console.log(firstSearch.results);
+        // let firstSearch = await search("1.3521,103.8198", queryLocationName.value, 10000, 16035);
+        // console.log(firstSearch.results);
 
 
         //create parkClusterLayer
@@ -178,7 +188,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         parkClusterLayer.addTo(map);
 
         let displaySearch = document.querySelector("#display-search");
-        console.log(displaySearch);
+        // console.log(displaySearch);
 
 
         //Create For Loop to create parkMarkers from park Search results

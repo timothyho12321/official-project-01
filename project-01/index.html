@@ -36,8 +36,14 @@
             <div id="search-surrounding">
                 <div id="top-bar-right" class="search-peri">
 
+                    <!-- BELOW IS SUBMIT BUTTON -->
                     <input type="submit" value="Search" id="search-input-click" class = "btn btn-primary"/>
-                    <input type="text" id="search-park-type" placeholder="Search park area" />
+                    <!-- BELOW IS CATEGORIES SEARCH ALL PARK, HIKING TRAILS, OR GARDEN. -->
+                    <input type="radio" value="16032" id="categories-park" class ="categories" name ="categories"/><label>Park</label>
+                    <input type="radio" value="16019" id="categories-hiking" class ="categories" name ="categories"/><label>Hiking Trail</label>
+                    <input type="radio" value="16017" id="categories-garden" class ="categories" name ="categories"/><label>Garden</label>
+
+                    <input type="text" id="search-park-type" placeholder="Park location (called query)" />
                    
                     <!-- <button id=" submit-button">Search</button> -->
 
