@@ -137,8 +137,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             "params": {
                 "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
                 "query": query,// example location name (clementi)
-                "sort": "relevance", //sort by
-                "limit": limit, // number of search results
+                "sort": "relevance", //sort by MAKE BUTTON FOR THIS IN HTML
+                "limit": 20, // number of search results MAKE BUTTON FOR THIS IN HTML 
                 "ll": "1.3521,103.8198", // latLng of SG
                 "radius": 15000,//radius of search
 
@@ -158,13 +158,14 @@ window.addEventListener("DOMContentLoaded", async function () {
     searchParkLayer.addTo(map);
 
 
-    let queryLocationName = document.querySelector("#search-park-type");
-    // console.log(queryLocationName);
 
+
+    //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
     let searchPark = document.querySelector("#search-input-click");
+
     searchPark.addEventListener("click", async function () {
 
-
+        // READ THE VALUE OF SELECTED CATEGORIES BUTTON
         let categoriesName = document.querySelectorAll(".categories");
         // console.log(categoriesName);
         let selectedCategories = null;
@@ -173,10 +174,25 @@ window.addEventListener("DOMContentLoaded", async function () {
                 selectedCategories = radio.value;
             }
         }
-        console.log(selectedCategories);
+        // console.log(selectedCategories);
+
+        let queryLocationName = document.querySelector("#search-park-type");
+        // console.log(queryLocationName.value);
 
 
         searchParkLayer.clearLayers();
+
+        // Key in First Search using form buttons on map 
+
+
+
+        console.log(selectedCategories);
+        console.log(queryLocationName.value);
+
+
+        // TEST CASE - USE CLEMENTI TO FILTER LOCATION. USE KALLANG ALSO. MUST BE SINGLE WORD LOCATION NAME.
+        let testSearch = await search(selectedCategories, queryLocationName.value, "relevance", 50);
+        console.log(testSearch.results);
 
 
         // let firstSearch = await search("1.3521,103.8198", queryLocationName.value, 10000, 16035);
