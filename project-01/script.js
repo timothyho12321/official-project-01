@@ -127,7 +127,30 @@ window.addEventListener("DOMContentLoaded", async function () {
         return response.data;  // return the search results from the function
     }
 
-    // ALTERNATIVE BUT COULD NOT DETERMINE BOUNDARIES ERROR MESSAGE
+
+    // // ALTERNATIVE BUT COULD NOT DETERMINE BOUNDARIES ERROR MESSAGE
+    // async function search(location, category) {
+
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "near": location,
+    //             "query": 'park',
+
+    //             "category": category,  // ok for category to be empty string
+    //             "limit": 50,
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
+
+    //     return response.data;  // return the search results from the function
+    // }
+
+    // let testSearch = await search("bishan park", 10000, 16035);
+    // console.log(testSearch.results);
+
+
     // async function search(ll, location, category = "") {
 
     //     let url = FSQUARE_URL + "search";
