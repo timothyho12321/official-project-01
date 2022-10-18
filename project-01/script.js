@@ -23,15 +23,15 @@ window.addEventListener("DOMContentLoaded", async function () {
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
     let parkIcon = L.icon({
-        iconUrl: 'park-icon.png',
+        iconUrl: 'tree.png',
 
-        iconSize: [60, 80],
-        iconAnchor: [10, 50],
+        iconSize: [45, 50],
+        iconAnchor: [23, 45],
         popupAnchor: [-3, -76]
     })
 
     // PLACING ICON ON THE MAP
-    let parkMarker = L.marker([1.3634, 103.8436], { icon: parkIcon });
+    let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
     parkMarker.addTo(map);
 
     // Add popup marker to park icon
@@ -71,26 +71,194 @@ window.addEventListener("DOMContentLoaded", async function () {
     // Display geojson for Nparks parks on leaflet map
     // input 
     let parkResponse = await axios.get("nparks-parks-geojson.geojson");
-    console.log(parkResponse.data);
+    // console.log(parkResponse.data);
 
-    //Create Park Connector Track Network Layer
-    let parkLayer = L.geoJson(parkResponse.data, {
+    // //Create Npark parks Layer
+    // let parkLayer = L.geoJson(parkResponse.data, {
 
-        onEachFeature: function (features, parkLayer) {
-            let holderElement = document.createElement("div");
-            holderElement.innerHTML = features.properties.Description;
-            // console.log(holderElement.innerHTML);
-            let tdFirst = holderElement.querySelectorAll("td");
-            let tdOne = tdFirst[1].innerText;
-           
-            parkLayer.bindPopup(`<h3>This green space is ${tdOne}!</h3>`);
+    //     onEachFeature: function (features, parkLayer) {
+    //         let holderElement = document.createElement("div");
+    //         holderElement.innerHTML = features.properties.Description;
+    //         // console.log(holderElement.innerHTML);
+    //         let tdFirst = holderElement.querySelectorAll("td");
+    //         let tdOne = tdFirst[1].innerText;
+
+    //         parkLayer.bindPopup(`<h3>This green space is ${tdOne}!</h3>`);
+    //     }
+    // });
+    // parkLayer.addTo(map);
+
+    // parkLayer.setStyle({
+    //     'color': '#32CD32',
+    //     'strokeWidth': '0.5'
+
+    // })
+
+
+
+    // Add foursquare input to search for nearby parks
+
+
+    const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
+    const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
+
+    const headers = {
+        "Accept": "application/json",
+        "Authorization": FSQUARE_KEY
+    }
+
+    // this is a global function
+    // therefore other JS files can  make use of it
+    async function search(ll, search = "", radius, category = "") {
+
+        let url = FSQUARE_URL + "search";
+        let response = await axios.get(url, {
+            "headers": headers,
+            "params": {
+                "ll": ll,
+                "query": search,
+                "radius": radius,
+                "category": category,  // ok for category to be empty string
+                "limit": 50,
+                "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+            }
+        });
+
+        return response.data;  // return the search results from the function
+    }
+
+
+    // // ALTERNATIVE BUT COULD NOT DETERMINE BOUNDARIES ERROR MESSAGE
+    // async function search(location, category) {
+
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "near": location,
+    //             "query": 'park',
+
+    //             "category": category,  // ok for category to be empty string
+    //             "limit": 50,
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
+
+    //     return response.data;  // return the search results from the function
+    // }
+
+    // let testSearch = await search("bishan park", 10000, 16035);
+    // console.log(testSearch.results);
+
+
+    // async function search(ll, location, category = "") {
+
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "ll": ll,
+    //             "query": 'park',
+    //             "near": location,
+    //             "category": category,  // ok for category to be empty string
+    //             "limit": 50,
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
+
+    //     return response.data;  // return the search results from the function
+    // }
+
+    let searchParkLayer = L.layerGroup();
+    searchParkLayer.addTo(map);
+
+    let locationName = document.querySelector("#search-park-type");
+    // console.log(locationName);
+
+    let searchPark = document.querySelector("#search-input-click");
+    searchPark.addEventListener("click", async function () {
+
+        searchParkLayer.clearLayers();
+
+        //DOES NOT WORK WHEN COMBINED NAME TO FIND BISHAN PARK. Otherwise,
+        //search results not accurate, give things other than park
+        // let combinedName = locationName.value+ " park"
+
+        let firstSearch = await search("1.3521,103.8198", locationName.value, 10000, 16035);
+        console.log(firstSearch.results);
+
+
+        //create parkClusterLayer
+        let parkClusterLayer = L.markerClusterGroup();
+        parkClusterLayer.addTo(map);
+
+        let displaySearch = document.querySelector("#display-search");
+        console.log(displaySearch);
+
+
+        //Create For Loop to create parkMarkers from park Search results
+        for (let p of firstSearch.results) {
+
+            // Display the marker
+            let lat = p.geocodes.main.latitude;
+            let lng = p.geocodes.main.longitude;
+            console.log(lat, lng);
+
+            let searchMarker = L.marker([lat, lng], { icon: parkIcon });
+            searchMarker.bindPopup(`This place is <h1>${p.name}</h1>`);
+            searchMarker.addTo(searchParkLayer);
+
+            //maybe generate another marker group with all the park spread out over SIngapore
+            //and assign that layer as the parkClusterLayer
+            searchMarker.addTo(parkClusterLayer);
+
+
+            //Output displaySearch of search results
+            let parkDummy = document.createElement("div");
+            parkDummy.innerHTML = p.name;
+
+            parkDummy.addEventListener("click", function () {
+                map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 14)
+                searchMarker.openPopup();
+
+
+            })
+
+            function close() {
+                searchMarker.bindPopup(``)
+            }
+
+            displaySearch.appendChild(parkDummy);
+
         }
-    });
-    parkLayer.addTo(map);
 
-    parkLayer.setStyle({
-        'color': '#32CD32',
-        'strokeWidth': '0.5'
 
     })
+
+
+
+    //     let searchTerms = document.querySelector("#searchTerms").value;
+    // let boundaries = map.getBounds();
+    // let center = boundaries.getCenter();  // in lat lng
+    // let latLng = center.lat + "," + center.lng; // Foursquare expects lat lng to be in the format "lat,lng"
+    // let searchResults = await search(latLng, searchTerms, 5000);
+    // // console.log(searchResults);
+    // let searchResultElement = document.querySelector("#results");
+
+    // for (let r of searchResults.results) {
+
+    //     // Display the marker
+    //     let lat = r.geocodes.main.latitude;
+    //     let lng = r.geocodes.main.longitude;
+    //     let marker = L.marker([lat, lng]).addTo(searchResultLayer);
+    //     marker.bindPopup(`<h1>${r.name}</h1>`)
+
+    //     // add to the search results
+    //     let resultElement = document.createElement("div");
+    //     resultElement.innerText = r.name;
+    //     resultElement.classList.add("search-result");
+
+    // )
+
+
 })

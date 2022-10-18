@@ -2,3 +2,58 @@
 
     height: 100vh;
 }
+
+
+#map-container {
+
+    position: relative;
+}
+
+#search-surrounding {
+
+    background-color: aquamarine;
+    z-index: 34000;
+    padding: 15px;
+}
+/* 
+.search-peri{
+
+    background-color: aquamarine;
+    z-index: 34000;
+    padding: 15px;
+} */
+
+#top-bar-left {
+
+    position: absolute;
+    z-index: 35000;
+    left: 16%;
+}
+
+
+
+#top-bar-right {
+
+    position: absolute;
+    z-index: 35000;
+    left: 66%;
+}
+
+
+#search-input {
+    float: right;
+}
+
+#search-park-type {
+    float: left;
+}
+
+#display-search {
+
+    position: absolute;
+    z-index: 35000;
+    top: 11%;
+    left: 67%;
+    max-height: 200px;
+    overflow-y: scroll;
+}
