@@ -33,11 +33,11 @@ window.addEventListener("DOMContentLoaded", async function () {
     })
 
     // PLACING ICON ON THE MAP
-    let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
-    parkMarker.addTo(map);
+    // let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
+    // parkMarker.addTo(map);
 
-    // Add popup marker to park icon
-    parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
+    // // Add popup marker to park icon
+    // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
 
 
     // Adding Npark tracks 
@@ -69,13 +69,41 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     })
 
+    // READ IN FILE FOR CYCLING PATH NETWORK
+    let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
+    console.log(cyclingResponse.data);
+
+    //Create Park Connector Track Network Layer
+    let cyclingLayer = L.geoJson(cyclingResponse.data, {
+
+        onEachFeature: function (features, subLayer) {
+            let holderElement = document.createElement("div");
+            holderElement.innerHTML = features.properties.Description;
+            // console.log(holderElement.innerHTML);
+            // subLayer.bindPopup(`<h5>${holderElement.innerHTML}</h5>`);
+            
+    
+                let tdNum = holderElement.querySelectorAll("td");
+                // console.log(tdNum);
+                let cyclingPathName = tdNum[0].innerText;
+                // console.log(cyclingPathName);
+                let correctAgency = tdNum[1].innerText;
+                // console.log(correctAgency);
+                subLayer.bindPopup(`<h5>You can use this cycling path at <div> ${cyclingPathName}.</div> Path maintained by <div>${correctAgency}.</div></h5>`);
+            }
+        });
+    cyclingLayer.addTo(map);
+
+
+
+
 
     // Display geojson for Nparks parks on leaflet map 
     // SWITCH TO CYCLING PATHS AND PARK CONNECTORS INSTEAD.
     //QUESTION HOW TO SHADE INSIDE OF PARK?
     // input 
-    let parkResponse = await axios.get("nparks-parks-geojson.geojson");
-    // console.log(parkResponse.data);
+    // let parkResponse = await axios.get("nparks-parks-geojson.geojson");
+    // // console.log(parkResponse.data);
 
     // //Create Npark parks Layer
     // let parkLayer = L.geoJson(parkResponse.data, {
@@ -255,7 +283,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             console.log(lat, lng);
 
 
-            
+
             // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
             let weatherSearch = await searchWeather(lat, lng);
             console.log(weatherSearch);
@@ -271,9 +299,9 @@ window.addEventListener("DOMContentLoaded", async function () {
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
             searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
             Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
-            //HOW TO INCLUDE IMAGES?
 
-            // TO DELETE LATER (REPEAT LAYER)
+
+            // TO DELETE AFTER CONFIRMING DOES NOT INTERACT WITH OTHER CODE (REPEAT LAYER)
             // searchMarker.addTo(searchParkLayer);
 
             //maybe generate another marker group with all the park spread out over SIngapore
