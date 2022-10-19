@@ -10,6 +10,8 @@ window.addEventListener("DOMContentLoaded", async function () {
     // set the center point and the zoom
     map.setView([1.35, 103.81], 12);
 
+    //const latLng =[1.3521,103.8198] // SINGAPORE's lat lng set as constant 
+
     // need set up the tile layer
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -22,7 +24,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
-    let parkIcon = L.icon({
+    const parkIcon = L.icon({
         iconUrl: 'tree.png',
 
         iconSize: [45, 50],
@@ -68,7 +70,9 @@ window.addEventListener("DOMContentLoaded", async function () {
     })
 
 
-    // Display geojson for Nparks parks on leaflet map
+    // Display geojson for Nparks parks on leaflet map 
+    // SWITCH TO CYCLING PATHS AND PARK CONNECTORS INSTEAD.
+    //QUESTION HOW TO SHADE INSIDE OF PARK?
     // input 
     let parkResponse = await axios.get("nparks-parks-geojson.geojson");
     // console.log(parkResponse.data);
@@ -90,14 +94,14 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // parkLayer.setStyle({
     //     'color': '#32CD32',
-    //     'strokeWidth': '0.5'
+    //     'strokeWidth': '0.5',
+    //     'fillColor': '#32CD32'
 
     // })
 
 
 
     // Add foursquare input to search for nearby parks
-
 
     const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
     const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
@@ -107,8 +111,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Authorization": FSQUARE_KEY
     }
 
-    // this is a global function
-    // therefore other JS files can  make use of it
+    // Global search function for nearby category
     async function search(ll, search = "", radius, category = "") {
 
         let url = FSQUARE_URL + "search";
@@ -128,63 +131,110 @@ window.addEventListener("DOMContentLoaded", async function () {
     }
 
 
-    // // ALTERNATIVE BUT COULD NOT DETERMINE BOUNDARIES ERROR MESSAGE
-    // async function search(location, category) {
+    // Try out test Search (success)
+    async function search(categories, query, sort, limit = "") {
 
-    //     let url = FSQUARE_URL + "search";
-    //     let response = await axios.get(url, {
-    //         "headers": headers,
-    //         "params": {
-    //             "near": location,
-    //             "query": 'park',
+        let url = FSQUARE_URL + "search";
+        let response = await axios.get(url, {
+            "headers": headers,
+            "params": {
+                "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
+                "query": query,// example location name (clementi)
+                "sort": "relevance", //sort by 
+                "limit": limit, // number of search results 
+                "ll": "1.3521,103.8198", // latLng of SG
+                "radius": 15000,//radius of search
 
-    //             "category": category,  // ok for category to be empty string
-    //             "limit": 50,
-    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
-    //         }
-    //     });
+                "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+            }
+        });
 
-    //     return response.data;  // return the search results from the function
-    // }
+        return response.data;  // return the search results from the function
+    }
 
-    // let testSearch = await search("bishan park", 10000, 16035);
+    let testSearch = await search(16019, "", "relevance", 50);
     // console.log(testSearch.results);
-
-
-    // async function search(ll, location, category = "") {
-
-    //     let url = FSQUARE_URL + "search";
-    //     let response = await axios.get(url, {
-    //         "headers": headers,
-    //         "params": {
-    //             "ll": ll,
-    //             "query": 'park',
-    //             "near": location,
-    //             "category": category,  // ok for category to be empty string
-    //             "limit": 50,
-    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
-    //         }
-    //     });
-
-    //     return response.data;  // return the search results from the function
-    // }
 
     let searchParkLayer = L.layerGroup();
     searchParkLayer.addTo(map);
 
-    let locationName = document.querySelector("#search-park-type");
-    // console.log(locationName);
+    // ADD IN SECOND API WEATHER 
+    //SOURCE: https://openweathermap.org/api/one-call-api
+    //Initial test search with OpenWeather
+    // const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
+    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
+    let app_id = "891b31000be51f52585183d6ffdb3dc1"; //OpenWeather API Key 
 
+    let exclude = 'minutely,daily,alerts';
+
+    async function searchWeather(lat, lon) {
+
+        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
+        // console.log(url);
+        let response = await axios.get(url)
+
+        return (response.data);
+    };
+
+    // return the test search results from the searchWeather function
+    let weatherSearch = await searchWeather(1.3521, 103.8198);
+    // console.log(weatherSearch);
+
+
+    //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
     let searchPark = document.querySelector("#search-input-click");
+
     searchPark.addEventListener("click", async function () {
+
+        // READ THE VALUE OF SELECTED CATEGORIES BUTTON
+        let categoriesName = document.querySelectorAll(".categories");
+        // console.log(categoriesName);
+        let selectedCategories = null;
+        for (let radio of categoriesName) {
+            if (radio.checked) {
+                selectedCategories = radio.value;
+            }
+        }
+        // console.log(selectedCategories);
+
+        let queryLocationName = document.querySelector("#search-park-type");
+        // console.log(queryLocationName.value);
+
 
         searchParkLayer.clearLayers();
 
-        //DOES NOT WORK WHEN COMBINED NAME TO FIND BISHAN PARK. Otherwise,
-        //search results not accurate, give things other than park
-        // let combinedName = locationName.value+ " park"
+        // Key in First Search using form buttons on map 
 
-        let firstSearch = await search("1.3521,103.8198", locationName.value, 10000, 16035);
+        // READ IN VALUES FROM SORT BUTTON
+
+        let sortName = document.querySelectorAll(".sort-button");
+        // console.log(sortName);
+        let selectedSort = null;
+        for (let radio of sortName) {
+            if (radio.checked) {
+                selectedSort = radio.value;
+            }
+        }
+        // console.log(selectedSort);
+
+        // READ IN VALUES FROM LIMIT BUTTON
+        let limitName = document.querySelectorAll(".limit-button");
+        // console.log(limitName);
+        let selectedLimit = null;
+        for (let radio of limitName) {
+            if (radio.checked) {
+                selectedLimit = radio.value;
+            }
+        }
+        // console.log(selectedLimit);
+
+        // TEST CASE - USE CLEMENTI TO FILTER LOCATION. USE KALLANG ALSO. MUST BE SINGLE WORD LOCATION NAME.
+        // let testSearch = await search(selectedCategories, queryLocationName.value, "relevance", 50);
+        // console.log(testSearch.results);
+
+
+        //Pass firstSearch case 
+        let firstSearch = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
         console.log(firstSearch.results);
 
 
@@ -193,7 +243,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         parkClusterLayer.addTo(map);
 
         let displaySearch = document.querySelector("#display-search");
-        console.log(displaySearch);
+        // console.log(displaySearch);
 
 
         //Create For Loop to create parkMarkers from park Search results
@@ -204,9 +254,27 @@ window.addEventListener("DOMContentLoaded", async function () {
             let lng = p.geocodes.main.longitude;
             console.log(lat, lng);
 
+
+            
+            // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
+            let weatherSearch = await searchWeather(lat, lng);
+            console.log(weatherSearch);
+
+            let weatherDescription = weatherSearch.current.weather[0].description;
+            console.log(weatherDescription);
+            let weatherIcon = weatherSearch.current.weather[0].description;
+            console.log(weatherIcon);
+            let weatherTemp = weatherSearch.current.temp;
+            console.log(weatherTemp);
+
+            //PLACE MARKERS FOR PARK SEARCH 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-            searchMarker.bindPopup(`This place is <h1>${p.name}</h1>`);
-            searchMarker.addTo(searchParkLayer);
+            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
+            Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
+            //HOW TO INCLUDE IMAGES?
+
+            // TO DELETE LATER (REPEAT LAYER)
+            // searchMarker.addTo(searchParkLayer);
 
             //maybe generate another marker group with all the park spread out over SIngapore
             //and assign that layer as the parkClusterLayer
@@ -216,6 +284,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             //Output displaySearch of search results
             let parkDummy = document.createElement("div");
             parkDummy.innerHTML = p.name;
+            parkDummy.classList.add("park-result"); // add class to parkDummy
+
 
             parkDummy.addEventListener("click", function () {
                 map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 14)
@@ -224,9 +294,10 @@ window.addEventListener("DOMContentLoaded", async function () {
 
             })
 
-            function close() {
-                searchMarker.bindPopup(``)
-            }
+            // function close() {
+            //     searchMarker.bindPopup(``)
+            // }
+
 
             displaySearch.appendChild(parkDummy);
 
@@ -234,31 +305,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
     })
-
-
-
-    //     let searchTerms = document.querySelector("#searchTerms").value;
-    // let boundaries = map.getBounds();
-    // let center = boundaries.getCenter();  // in lat lng
-    // let latLng = center.lat + "," + center.lng; // Foursquare expects lat lng to be in the format "lat,lng"
-    // let searchResults = await search(latLng, searchTerms, 5000);
-    // // console.log(searchResults);
-    // let searchResultElement = document.querySelector("#results");
-
-    // for (let r of searchResults.results) {
-
-    //     // Display the marker
-    //     let lat = r.geocodes.main.latitude;
-    //     let lng = r.geocodes.main.longitude;
-    //     let marker = L.marker([lat, lng]).addTo(searchResultLayer);
-    //     marker.bindPopup(`<h1>${r.name}</h1>`)
-
-    //     // add to the search results
-    //     let resultElement = document.createElement("div");
-    //     resultElement.innerText = r.name;
-    //     resultElement.classList.add("search-result");
-
-    // )
 
 
 })
