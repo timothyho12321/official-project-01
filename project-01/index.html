@@ -37,8 +37,6 @@
             <div id="search-surrounding">
                 <div id="top-bar-right" class="search-peri">
 
-                    <!-- BELOW IS SUBMIT BUTTON -->
-                    <input type="submit" value="Search" id="search-input-click" class="btn btn-primary" />
                     <!-- BELOW IS CATEGORIES SEARCH ALL PARK, HIKING TRAILS, OR GARDEN. -->
                     <div><input type="radio" value="16032" id="categories-park" class="categories"
                             name="categories" /><label>Park</label>
@@ -48,11 +46,11 @@
                             name="categories" /><label>Garden</label>
                     </div>
                     <!-- SEARCH TEXT BOX FOR PARK LOCATION -->
-                    <div ><input type="text" id="search-park-type" placeholder="Park location (called query)" />
+                    <div><input type="text" id="search-park-type" placeholder="Park location (called query)" />
                     </div>
 
                     <!-- RADIO BUTTON FOR RELEVANCE INPUT FOR FOURSQUARE -->
-                    <div class ="d-md-inline-block">
+                    <div class="d-md-inline-block">
                         <!-- QUESTION: HOW COME THE SELECTOR CIRCLE CANNOT GO TO THE NEXT LINE??? -->
                         <input type="radio" value="relevance" id="sort-relevance" class="sort-button"
                             name="sort-button" /><label>By Relevance</label>
@@ -62,19 +60,22 @@
 
                     <div>
                         <!-- QUESTION: HOW COME THE SELECTOR CIRCLE CANNOT GO TO THE NEXT LINE??? -->
-                        <input type="radio" value=20 id="limit-20" class="limit-button"
-                            name="limit-button" /><label>See 20 Results</label>
-                        <input type="radio" value=50 id="limit-50" class="limit-button"
-                            name="limit-button" /><label>See 50 Results</label>
+                        <input type="radio" value=20 id="limit-20" class="limit-button" name="limit-button" /><label>See
+                            20 Results</label>
+                        <input type="radio" value=50 id="limit-50" class="limit-button" name="limit-button" /><label>See
+                            50 Results</label>
                     </div>
+                    <!-- BELOW IS SUBMIT BUTTON -->
+                    <input type="submit" value="Search" id="search-input-click" class="btn btn-primary" />
 
 
+                    <!-- Display search result -->
+                    <div id="display-search" class="search-peri "></div>
 
                     <!-- <button id=" submit-button">Search</button> -->
 
                 </div>
 
-                <div id="display-search" class="search-peri"></div>
 
             </div>
 

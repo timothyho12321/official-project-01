@@ -54,11 +54,11 @@
 }
 
 #display-search {
-
+/* 
     position: absolute;
     z-index: 35000;
     top: 33%;
-    left: 67%;
+    left: 67%; */
     max-height: 200px;
     overflow-y: scroll;
 }
