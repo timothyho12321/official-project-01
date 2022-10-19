@@ -73,7 +73,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
     console.log(cyclingResponse.data);
 
-    //Create Park Connector Track Network Layer
+    //Create Cycling Path Network Layer
     let cyclingLayer = L.geoJson(cyclingResponse.data, {
 
         onEachFeature: function (features, subLayer) {
@@ -81,21 +81,49 @@ window.addEventListener("DOMContentLoaded", async function () {
             holderElement.innerHTML = features.properties.Description;
             // console.log(holderElement.innerHTML);
             // subLayer.bindPopup(`<h5>${holderElement.innerHTML}</h5>`);
-            
-    
-                let tdNum = holderElement.querySelectorAll("td");
-                // console.log(tdNum);
-                let cyclingPathName = tdNum[0].innerText;
-                // console.log(cyclingPathName);
-                let correctAgency = tdNum[1].innerText;
-                // console.log(correctAgency);
-                subLayer.bindPopup(`<h5>You can use this cycling path at <div> ${cyclingPathName}.</div> Path maintained by <div>${correctAgency}.</div></h5>`);
-            }
-        });
+
+
+            let tdNum = holderElement.querySelectorAll("td");
+            // console.log(tdNum);
+            let cyclingPathName = tdNum[0].innerText;
+            // console.log(cyclingPathName);
+            let correctAgency = tdNum[1].innerText;
+            // console.log(correctAgency);
+            subLayer.bindPopup(`<h5>You can use this cycling path at <div> ${cyclingPathName}.</div> Path maintained by <div>${correctAgency}.</div></h5>`);
+        }
+    });
     cyclingLayer.addTo(map);
 
+    cyclingLayer.setStyle({
+        'color': 'purple',
+        'strokeWidth': '0.5'
+    })
 
 
+    // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
+    // SOURCE: https://leafletjs.com/examples/layers-control/
+    // let baseMaps = {
+
+    // };
+
+    let overlayMaps = {
+        // "<span style = 'color: grayscale'>Grayscale</span>": grayscale,
+        // ERROR MESSAGE ReferenceError: grayscale is not defined
+        "Park Connectors": connectorLayer,
+        "Cycling path track": cyclingLayer
+    }
+
+    let layerControl = L.control.layers(null, overlayMaps).addTo(map);
+    // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
+
+    // CHANGE STYLING FOR LAYERCONTROL PANEL 
+    let
+
+    // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?
+    // var baseMaps = {
+    //     "<span style='color: gray'>Grayscale</span>": grayscale,
+    //     "Streets": streets
+    // };
 
 
     // Display geojson for Nparks parks on leaflet map 
@@ -126,6 +154,8 @@ window.addEventListener("DOMContentLoaded", async function () {
     //     'fillColor': '#32CD32'
 
     // })
+
+
 
 
 
