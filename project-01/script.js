@@ -116,10 +116,8 @@ window.addEventListener("DOMContentLoaded", async function () {
     let layerControl = L.control.layers(null, overlayMaps).addTo(map);
     // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
 
-    // CHANGE STYLING FOR LAYERCONTROL PANEL 
-    let
-
     // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?
+    //https://leafletjs.com/examples/layers-control/
     // var baseMaps = {
     //     "<span style='color: gray'>Grayscale</span>": grayscale,
     //     "Streets": streets
