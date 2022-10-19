@@ -240,7 +240,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             Click link to website <a href = "">LINK NOTHING</a>`);
             //HOW TO INCLUDE IMAGES?
 
-            searchMarker.addTo(searchParkLayer);
+            // TO DELETE LATER (REPEAT LAYER)
+            // searchMarker.addTo(searchParkLayer);
 
             //maybe generate another marker group with all the park spread out over SIngapore
             //and assign that layer as the parkClusterLayer
