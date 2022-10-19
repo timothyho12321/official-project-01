@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
-    let parkIcon = L.icon({
+    const parkIcon = L.icon({
         iconUrl: 'tree.png',
 
         iconSize: [45, 50],
@@ -236,7 +236,10 @@ window.addEventListener("DOMContentLoaded", async function () {
             console.log(lat, lng);
 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
+            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
+            Click link to website <a href = "">LINK NOTHING</a>`);
+            //HOW TO INCLUDE IMAGES?
+
             searchMarker.addTo(searchParkLayer);
 
             //maybe generate another marker group with all the park spread out over SIngapore
@@ -248,8 +251,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             let parkDummy = document.createElement("div");
             parkDummy.innerHTML = p.name;
             parkDummy.classList.add("park-result"); // add class to parkDummy
-        
-            
+
+
             parkDummy.addEventListener("click", function () {
                 map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 14)
                 searchMarker.openPopup();

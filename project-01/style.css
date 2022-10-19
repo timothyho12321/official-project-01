@@ -9,12 +9,15 @@
     position: relative;
 }
 
+
+/* Latest attempt below */
+/* 
 #search-surrounding {
 
     background-color: aquamarine;
     z-index: 34000;
     padding: 15px;
-}
+} */
 /* 
 .search-peri{
 
@@ -22,6 +25,8 @@
     z-index: 34000;
     padding: 15px;
 } */
+
+
 
 #top-bar-left {
 
