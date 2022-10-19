@@ -10,6 +10,8 @@ window.addEventListener("DOMContentLoaded", async function () {
     // set the center point and the zoom
     map.setView([1.35, 103.81], 12);
 
+    //const latLng =[1.3521,103.8198] // SINGAPORE's lat lng set as constant 
+
     // need set up the tile layer
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -109,8 +111,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Authorization": FSQUARE_KEY
     }
 
-    // this is a global function
-    // therefore other JS files can  make use of it
+    // Global search function for nearby category
     async function search(ll, search = "", radius, category = "") {
 
         let url = FSQUARE_URL + "search";
@@ -152,14 +153,29 @@ window.addEventListener("DOMContentLoaded", async function () {
     }
 
     let testSearch = await search(16019, "", "relevance", 50);
-    // console.log(testSearch.results);
-
-
+    console.log(testSearch.results);
 
     let searchParkLayer = L.layerGroup();
     searchParkLayer.addTo(map);
 
+    // ADD IN SECOND API WEATHER 
+    //SOURCE: https://openweathermap.org/api/one-call-api
+    //Initial test search with OpenWeather
 
+    async function search() {
+
+        let url =
+            "https://api.openweathermap.org/data/2.5/onecall?lat=1.3521&lon=103.8198&exclude=&appid=891b31000be51f52585183d6ffdb3dc1"
+            ;
+
+        let response = await axios.get(url)
+
+        return (response.data);
+    };
+
+    // return the search results from the function
+    let weatherSearch = await search();
+    console.log(weatherSearch);
 
 
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
