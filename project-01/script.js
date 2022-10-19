@@ -153,7 +153,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     }
 
     let testSearch = await search(16019, "", "relevance", 50);
-    console.log(testSearch.results);
+    // console.log(testSearch.results);
 
     let searchParkLayer = L.layerGroup();
     searchParkLayer.addTo(map);
@@ -161,21 +161,24 @@ window.addEventListener("DOMContentLoaded", async function () {
     // ADD IN SECOND API WEATHER 
     //SOURCE: https://openweathermap.org/api/one-call-api
     //Initial test search with OpenWeather
+    // const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
+    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
+    let app_id = "891b31000be51f52585183d6ffdb3dc1"; //OpenWeather API Key 
 
-    async function search() {
+    let exclude = 'minutely,daily,alerts';
 
-        let url =
-            "https://api.openweathermap.org/data/2.5/onecall?lat=1.3521&lon=103.8198&exclude=&appid=891b31000be51f52585183d6ffdb3dc1"
-            ;
+    async function searchWeather(lat, lon) {
 
+        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
+        // console.log(url);
         let response = await axios.get(url)
 
         return (response.data);
     };
 
-    // return the search results from the function
-    let weatherSearch = await search();
-    console.log(weatherSearch);
+    // return the test search results from the searchWeather function
+    let weatherSearch = await searchWeather(1.3521, 103.8198);
+    // console.log(weatherSearch);
 
 
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
@@ -251,9 +254,23 @@ window.addEventListener("DOMContentLoaded", async function () {
             let lng = p.geocodes.main.longitude;
             console.log(lat, lng);
 
+
+            
+            // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
+            let weatherSearch = await searchWeather(lat, lng);
+            console.log(weatherSearch);
+
+            let weatherDescription = weatherSearch.current.weather[0].description;
+            console.log(weatherDescription);
+            let weatherIcon = weatherSearch.current.weather[0].description;
+            console.log(weatherIcon);
+            let weatherTemp = weatherSearch.current.temp;
+            console.log(weatherTemp);
+
+            //PLACE MARKERS FOR PARK SEARCH 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
             searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
-            Click link to website <a href = "">LINK NOTHING</a>`);
+            Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
             //HOW TO INCLUDE IMAGES?
 
             // TO DELETE LATER (REPEAT LAYER)
@@ -277,9 +294,10 @@ window.addEventListener("DOMContentLoaded", async function () {
 
             })
 
-            function close() {
-                searchMarker.bindPopup(``)
-            }
+            // function close() {
+            //     searchMarker.bindPopup(``)
+            // }
+
 
             displaySearch.appendChild(parkDummy);
 
