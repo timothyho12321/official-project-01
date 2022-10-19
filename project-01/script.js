@@ -68,7 +68,9 @@ window.addEventListener("DOMContentLoaded", async function () {
     })
 
 
-    // Display geojson for Nparks parks on leaflet map
+    // Display geojson for Nparks parks on leaflet map 
+    // SWITCH TO CYCLING PATHS AND PARK CONNECTORS INSTEAD.
+    //QUESTION HOW TO SHADE INSIDE OF PARK?
     // input 
     let parkResponse = await axios.get("nparks-parks-geojson.geojson");
     // console.log(parkResponse.data);
@@ -90,14 +92,14 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // parkLayer.setStyle({
     //     'color': '#32CD32',
-    //     'strokeWidth': '0.5'
+    //     'strokeWidth': '0.5',
+    //     'fillColor': '#32CD32'
 
     // })
 
 
 
     // Add foursquare input to search for nearby parks
-
 
     const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
     const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
@@ -137,8 +139,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             "params": {
                 "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
                 "query": query,// example location name (clementi)
-                "sort": "relevance", //sort by MAKE BUTTON FOR THIS IN HTML
-                "limit": limit, // number of search results MAKE TEXT INPUT FOR THIS IN HTML 
+                "sort": "relevance", //sort by 
+                "limit": limit, // number of search results 
                 "ll": "1.3521,103.8198", // latLng of SG
                 "radius": 15000,//radius of search
 
@@ -194,7 +196,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 selectedSort = radio.value;
             }
         }
-        console.log(selectedSort);
+        // console.log(selectedSort);
 
         // READ IN VALUES FROM LIMIT BUTTON
         let limitName = document.querySelectorAll(".limit-button");
@@ -205,16 +207,17 @@ window.addEventListener("DOMContentLoaded", async function () {
                 selectedLimit = radio.value;
             }
         }
-        console.log(selectedLimit);
+        // console.log(selectedLimit);
 
         // TEST CASE - USE CLEMENTI TO FILTER LOCATION. USE KALLANG ALSO. MUST BE SINGLE WORD LOCATION NAME.
         // let testSearch = await search(selectedCategories, queryLocationName.value, "relevance", 50);
         // console.log(testSearch.results);
 
 
-        //Pass testSearch2 case STOP HERE FOR 19OCT
-        let testSearch2 = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
-        console.log(testSearch2.results);
+        //Pass firstSearch case 
+        let firstSearch = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
+        console.log(firstSearch.results);
+
 
         //create parkClusterLayer
         let parkClusterLayer = L.markerClusterGroup();
@@ -233,7 +236,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             console.log(lat, lng);
 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-            searchMarker.bindPopup(`This place is <h1>${p.name}</h1>`);
+            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
             searchMarker.addTo(searchParkLayer);
 
             //maybe generate another marker group with all the park spread out over SIngapore
@@ -244,7 +247,9 @@ window.addEventListener("DOMContentLoaded", async function () {
             //Output displaySearch of search results
             let parkDummy = document.createElement("div");
             parkDummy.innerHTML = p.name;
-
+            parkDummy.classList.add("park-result"); // add class to parkDummy
+        
+            
             parkDummy.addEventListener("click", function () {
                 map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 14)
                 searchMarker.openPopup();
@@ -262,31 +267,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
     })
-
-
-
-    //     let searchTerms = document.querySelector("#searchTerms").value;
-    // let boundaries = map.getBounds();
-    // let center = boundaries.getCenter();  // in lat lng
-    // let latLng = center.lat + "," + center.lng; // Foursquare expects lat lng to be in the format "lat,lng"
-    // let searchResults = await search(latLng, searchTerms, 5000);
-    // // console.log(searchResults);
-    // let searchResultElement = document.querySelector("#results");
-
-    // for (let r of searchResults.results) {
-
-    //     // Display the marker
-    //     let lat = r.geocodes.main.latitude;
-    //     let lng = r.geocodes.main.longitude;
-    //     let marker = L.marker([lat, lng]).addTo(searchResultLayer);
-    //     marker.bindPopup(`<h1>${r.name}</h1>`)
-
-    //     // add to the search results
-    //     let resultElement = document.createElement("div");
-    //     resultElement.innerText = r.name;
-    //     resultElement.classList.add("search-result");
-
-    // )
 
 
 })
