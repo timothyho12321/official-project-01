@@ -71,7 +71,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // READ IN FILE FOR CYCLING PATH NETWORK
     let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
-    console.log(cyclingResponse.data);
+    // console.log(cyclingResponse.data);
 
     //Create Cycling Path Network Layer
     let cyclingLayer = L.geoJson(cyclingResponse.data, {
@@ -219,7 +219,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     //Initial test search with OpenWeather
     // const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
     let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
-    let app_id = "891b31000be51f52585183d6ffdb3dc1"; //OpenWeather API Key 
+    // let app_id = "2a0076487a241d1a333c9896bc072673"; //OpenWeather API Key 
 
     let exclude = 'minutely,daily,alerts';
 
@@ -233,7 +233,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     };
 
     // return the test search results from the searchWeather function
-    let weatherSearch = await searchWeather(1.3521, 103.8198);
+    // let weatherSearch = await searchWeather(1.3521, 103.8198);
     // console.log(weatherSearch);
 
 
@@ -329,21 +329,23 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
             // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
-            let weatherSearch = await searchWeather(lat, lng);
+            // let weatherSearch = await searchWeather(lat, lng);
             // console.log(weatherSearch);
 
-            let weatherDescription = weatherSearch.current.weather[0].description;
-            // console.log(weatherDescription);
-            let weatherIcon = weatherSearch.current.weather[0].description;
-            // console.log(weatherIcon);
-            let weatherTemp = weatherSearch.current.temp;
-            // console.log(weatherTemp);
+            // let weatherDescription = weatherSearch.current.weather[0].description;
+            // // console.log(weatherDescription);
+            // let weatherIcon = weatherSearch.current.weather[0].description;
+            // // console.log(weatherIcon);
+            // let weatherTemp = weatherSearch.current.temp;
+            // // console.log(weatherTemp);
 
             //PLACE MARKERS FOR PARK SEARCH 
-            let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
-            Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
+            // let searchMarker = L.marker([lat, lng], { icon: parkIcon });
+            // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
+            // Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
 
+            let searchMarker = L.marker([lat, lng], { icon: parkIcon });
+            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
 
             // TO DELETE AFTER CONFIRMING DOES NOT INTERACT WITH OTHER CODE (REPEAT LAYER)
             // searchMarker.addTo(searchParkLayer);
