@@ -64,3 +64,9 @@
     max-height: 200px;
     overflow-y: scroll;
 }
+
+#categories-error {
+font-size:xx-small;
+color:red;
+font-weight: 500;
+}

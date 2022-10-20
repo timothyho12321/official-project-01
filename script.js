@@ -242,6 +242,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     searchPark.addEventListener("click", async function () {
 
+
+        let isCategoriesValid = false; 
         // READ THE VALUE OF SELECTED CATEGORIES BUTTON
         let categoriesName = document.querySelectorAll(".categories");
         // console.log(categoriesName);
@@ -249,9 +251,23 @@ window.addEventListener("DOMContentLoaded", async function () {
         for (let radio of categoriesName) {
             if (radio.checked) {
                 selectedCategories = radio.value;
+                isCategoriesValid=true;
             }
         }
         // console.log(selectedCategories);
+
+displayErrors(isCategoriesValid);
+
+// User validation input of categories
+function displayErrors(isCategoriesValid){
+    if(!isCategoriesValid){
+        let categoriesError = document.querySelector("#categories-error");
+        // console.log(categoriesError);
+        categoriesError.innerHTML = `<div>Please select at least one category option.</div>`
+    }
+}
+
+
 
         let queryLocationName = document.querySelector("#search-park-type");
         // console.log(queryLocationName.value);
@@ -308,20 +324,20 @@ window.addEventListener("DOMContentLoaded", async function () {
             // Display the marker
             let lat = p.geocodes.main.latitude;
             let lng = p.geocodes.main.longitude;
-            console.log(lat, lng);
+            // console.log(lat, lng);
 
 
 
             // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
             let weatherSearch = await searchWeather(lat, lng);
-            console.log(weatherSearch);
+            // console.log(weatherSearch);
 
             let weatherDescription = weatherSearch.current.weather[0].description;
-            console.log(weatherDescription);
+            // console.log(weatherDescription);
             let weatherIcon = weatherSearch.current.weather[0].description;
-            console.log(weatherIcon);
+            // console.log(weatherIcon);
             let weatherTemp = weatherSearch.current.temp;
-            console.log(weatherTemp);
+            // console.log(weatherTemp);
 
             //PLACE MARKERS FOR PARK SEARCH 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
