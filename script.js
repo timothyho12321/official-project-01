@@ -4,6 +4,8 @@
 // Use DOMContentLoaded as our main entry point
 window.addEventListener("DOMContentLoaded", async function () {
 
+
+    
     // SETUP //////////////////////////////////////////////////////////////////
     // create a map object
     let map = L.map('map');
@@ -255,9 +257,9 @@ window.addEventListener("DOMContentLoaded", async function () {
     //Initial test search with OpenWeather
     // const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
     let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
-    // let app_id = "2a0076487a241d1a333c9896bc072673"; //OpenWeather API Key 
+    // let app_id = "629e361798b0ccce5466e1e70f3e4712" //OpenWeather API Key 
 
-    let exclude = 'minutely,daily,alerts';
+    let exclude = 'minutely,hourly,daily,alerts';
 
     async function searchWeather(lat, lon) {
 

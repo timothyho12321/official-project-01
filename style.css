@@ -23,7 +23,7 @@
 
 .search-peri{
 
-    background-color: rgba(247, 247, 241, 0.409);
+    background-color: rgba(247, 247, 241, 0.60);
     z-index: 34000;
     padding: 5px;
 }
@@ -43,7 +43,8 @@
 
     position: absolute;
     z-index: 35000;
-    left: 60%;
+    left: 4.5%;
+    top:2%
 }
 
 
