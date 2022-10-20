@@ -25,16 +25,17 @@
 
     <div id="overall-container">
         <div id="interaction-container">
-            <div id="top-bar-left">
+            <!-- <div id="top-bar-left">
                 <input type="checkbox" class="travel-mode" value="show-tracks" /><label>Display Npark Tracks</label>
                 <input type="checkbox" class="travel-mode" value="show-cycle" /><label>Display Cycling Tracks</label>
 
-            </div>
+            </div> -->
+            <!-- TO ONLY INCLUDE ABOVE IF WANTED TO MANUAL CODE LAYER CONTROL -->
 
             <!-- Why does using id of search-surrounding not apply to the right boxes? Should I apply as class to the
                  individual search button search bar and search  result instead?-->
 
-            <div id="search-surrounding" class = "">
+            <div id="search-surrounding" class="">
                 <div id="top-bar-right" class="search-peri bg-rgba(15, 201, 37, 0.18)">
 
                     <!-- BELOW IS CATEGORIES SEARCH ALL PARK, HIKING TRAILS, OR GARDEN. -->
@@ -45,6 +46,7 @@
                         <input type="radio" value="16017" id="categories-garden" class="categories"
                             name="categories" /><label>Garden</label>
                     </div>
+                    <div class="error mb-1" id="categories-error"></div>
                     <!-- SEARCH TEXT BOX FOR PARK LOCATION -->
                     <div><input type="text" id="search-park-type" placeholder="Park location (called query)" />
                     </div>

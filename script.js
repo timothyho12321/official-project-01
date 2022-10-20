@@ -33,11 +33,11 @@ window.addEventListener("DOMContentLoaded", async function () {
     })
 
     // PLACING ICON ON THE MAP
-    let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
-    parkMarker.addTo(map);
+    // let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
+    // parkMarker.addTo(map);
 
-    // Add popup marker to park icon
-    parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
+    // // Add popup marker to park icon
+    // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
 
 
     // Adding Npark tracks 
@@ -69,13 +69,67 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     })
 
+    // READ IN FILE FOR CYCLING PATH NETWORK
+    let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
+    console.log(cyclingResponse.data);
+
+    //Create Cycling Path Network Layer
+    let cyclingLayer = L.geoJson(cyclingResponse.data, {
+
+        onEachFeature: function (features, subLayer) {
+            let holderElement = document.createElement("div");
+            holderElement.innerHTML = features.properties.Description;
+            // console.log(holderElement.innerHTML);
+            // subLayer.bindPopup(`<h5>${holderElement.innerHTML}</h5>`);
+
+
+            let tdNum = holderElement.querySelectorAll("td");
+            // console.log(tdNum);
+            let cyclingPathName = tdNum[0].innerText;
+            // console.log(cyclingPathName);
+            let correctAgency = tdNum[1].innerText;
+            // console.log(correctAgency);
+            subLayer.bindPopup(`<h5>You can use this cycling path at <div> ${cyclingPathName}.</div> Path maintained by <div>${correctAgency}.</div></h5>`);
+        }
+    });
+    cyclingLayer.addTo(map);
+
+    cyclingLayer.setStyle({
+        'color': 'purple',
+        'strokeWidth': '0.5'
+    })
+
+
+    // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
+    // SOURCE: https://leafletjs.com/examples/layers-control/
+    // let baseMaps = {
+
+    // };
+
+    let overlayMaps = {
+        // "<span style = 'color: grayscale'>Grayscale</span>": grayscale,
+        // ERROR MESSAGE ReferenceError: grayscale is not defined
+        "Park Connectors": connectorLayer,
+        "Cycling path track": cyclingLayer
+    }
+
+    let layerControl = L.control.layers(null, overlayMaps).addTo(map);
+    // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
+
+    // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?
+    //https://leafletjs.com/examples/layers-control/
+    // var baseMaps = {
+    //     "<span style='color: gray'>Grayscale</span>": grayscale,
+    //     "Streets": streets
+    // };
+
 
     // Display geojson for Nparks parks on leaflet map 
     // SWITCH TO CYCLING PATHS AND PARK CONNECTORS INSTEAD.
     //QUESTION HOW TO SHADE INSIDE OF PARK?
     // input 
-    let parkResponse = await axios.get("nparks-parks-geojson.geojson");
-    // console.log(parkResponse.data);
+    // let parkResponse = await axios.get("nparks-parks-geojson.geojson");
+    // // console.log(parkResponse.data);
 
     // //Create Npark parks Layer
     // let parkLayer = L.geoJson(parkResponse.data, {
@@ -98,6 +152,8 @@ window.addEventListener("DOMContentLoaded", async function () {
     //     'fillColor': '#32CD32'
 
     // })
+
+
 
 
 
@@ -186,6 +242,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     searchPark.addEventListener("click", async function () {
 
+
+        let isCategoriesValid = false;
         // READ THE VALUE OF SELECTED CATEGORIES BUTTON
         let categoriesName = document.querySelectorAll(".categories");
         // console.log(categoriesName);
@@ -193,9 +251,23 @@ window.addEventListener("DOMContentLoaded", async function () {
         for (let radio of categoriesName) {
             if (radio.checked) {
                 selectedCategories = radio.value;
+                isCategoriesValid = true;
             }
         }
         // console.log(selectedCategories);
+
+        displayErrors(isCategoriesValid);
+
+        // User validation input of categories
+        function displayErrors(isCategoriesValid) {
+            if (!isCategoriesValid) {
+                let categoriesError = document.querySelector("#categories-error");
+                // console.log(categoriesError);
+                categoriesError.innerHTML = `<div>Please select at least one category option.</div>`
+            }
+        }
+
+
 
         let queryLocationName = document.querySelector("#search-park-type");
         // console.log(queryLocationName.value);
@@ -252,28 +324,28 @@ window.addEventListener("DOMContentLoaded", async function () {
             // Display the marker
             let lat = p.geocodes.main.latitude;
             let lng = p.geocodes.main.longitude;
-            console.log(lat, lng);
+            // console.log(lat, lng);
 
 
-            
+
             // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
             let weatherSearch = await searchWeather(lat, lng);
-            console.log(weatherSearch);
+            // console.log(weatherSearch);
 
             let weatherDescription = weatherSearch.current.weather[0].description;
-            console.log(weatherDescription);
+            // console.log(weatherDescription);
             let weatherIcon = weatherSearch.current.weather[0].description;
-            console.log(weatherIcon);
+            // console.log(weatherIcon);
             let weatherTemp = weatherSearch.current.temp;
-            console.log(weatherTemp);
+            // console.log(weatherTemp);
 
             //PLACE MARKERS FOR PARK SEARCH 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
             searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
             Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
-            //HOW TO INCLUDE IMAGES?
 
-            // TO DELETE LATER (REPEAT LAYER)
+
+            // TO DELETE AFTER CONFIRMING DOES NOT INTERACT WITH OTHER CODE (REPEAT LAYER)
             // searchMarker.addTo(searchParkLayer);
 
             //maybe generate another marker group with all the park spread out over SIngapore

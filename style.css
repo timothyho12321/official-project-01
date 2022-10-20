@@ -43,7 +43,7 @@
 
     position: absolute;
     z-index: 35000;
-    left: 66%;
+    left: 60%;
 }
 
 
@@ -63,4 +63,10 @@
     left: 67%; */
     max-height: 200px;
     overflow-y: scroll;
+}
+
+#categories-error {
+font-size:xx-small;
+color:red;
+font-weight: 500;
 }
