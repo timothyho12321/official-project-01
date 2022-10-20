@@ -134,9 +134,13 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
-    // let baseMaps = {
-
-    // };
+    let baseMaps = {
+        "OneMapSG": OneMapSG_Default,
+        "Landscape image": Esri_WorldImagery,
+        "Outdoors": Stadia_Outdoors,
+        "Cycle direction": CyclOSM,
+        "OneMapSG-Night": OneMapSG_Night
+    };
 
     let overlayMaps = {
         // "<span style = 'color: grayscale'>Grayscale</span>": grayscale,
@@ -145,7 +149,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Cycling path track": cyclingLayer
     }
 
-    let layerControl = L.control.layers(null, overlayMaps).addTo(map);
+    let layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
     // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
 
     // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?
