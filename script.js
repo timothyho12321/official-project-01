@@ -237,6 +237,10 @@ window.addEventListener("DOMContentLoaded", async function () {
     // console.log(weatherSearch);
 
 
+    let parkClusterLayer = L.markerClusterGroup();
+    parkClusterLayer.addTo(map);
+
+
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
     let searchPark = document.querySelector("#search-input-click");
 
@@ -273,7 +277,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         // console.log(queryLocationName.value);
 
 
-        searchParkLayer.clearLayers();
+        parkClusterLayer.clearLayers();
 
         // Key in First Search using form buttons on map 
 
@@ -311,8 +315,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
         //create parkClusterLayer
-        let parkClusterLayer = L.markerClusterGroup();
-        parkClusterLayer.addTo(map);
+        // let parkClusterLayer = L.markerClusterGroup();
+        // parkClusterLayer.addTo(map);
 
         let displaySearch = document.querySelector("#display-search");
         // console.log(displaySearch);
@@ -373,7 +377,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             // }
 
 
-            displaySearch.appendChild(parkDummy);
+            displaySearch.append(parkDummy);
 
         }
 
