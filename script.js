@@ -243,7 +243,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     searchPark.addEventListener("click", async function () {
 
 
-        let isCategoriesValid = false; 
+        let isCategoriesValid = false;
         // READ THE VALUE OF SELECTED CATEGORIES BUTTON
         let categoriesName = document.querySelectorAll(".categories");
         // console.log(categoriesName);
@@ -251,21 +251,21 @@ window.addEventListener("DOMContentLoaded", async function () {
         for (let radio of categoriesName) {
             if (radio.checked) {
                 selectedCategories = radio.value;
-                isCategoriesValid=true;
+                isCategoriesValid = true;
             }
         }
         // console.log(selectedCategories);
 
-displayErrors(isCategoriesValid);
+        displayErrors(isCategoriesValid);
 
-// User validation input of categories
-function displayErrors(isCategoriesValid){
-    if(!isCategoriesValid){
-        let categoriesError = document.querySelector("#categories-error");
-        // console.log(categoriesError);
-        categoriesError.innerHTML = `<div>Please select at least one category option.</div>`
-    }
-}
+        // User validation input of categories
+        function displayErrors(isCategoriesValid) {
+            if (!isCategoriesValid) {
+                let categoriesError = document.querySelector("#categories-error");
+                // console.log(categoriesError);
+                categoriesError.innerHTML = `<div>Please select at least one category option.</div>`
+            }
+        }
 
 
 
