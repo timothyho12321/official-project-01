@@ -49,7 +49,7 @@
                     </div>
                     <div class="error mb-1" id="categories-error"></div>
                     <!-- SEARCH TEXT BOX FOR PARK LOCATION -->
-                    <div><input type="text" id="search-park-type" placeholder="Park location (called query)" />
+                    <div><input class="d-md-inline-block" type="text" id="search-park-type" placeholder="Park location (called query)" />
                     </div>
 
                     <!-- RADIO BUTTON FOR RELEVANCE INPUT FOR FOURSQUARE -->
@@ -87,15 +87,15 @@
                     </div> -->
 
                     <!-- QUESTION BOOTSTRAP 5. NEED TO ADD ANYTHING ELSE? https://getbootstrap.com/docs/5.0/components/collapse/-->
-                    <p>
+                    <div class="mb-1">
                         <!-- This button combines the search and collapse function -->
                         <button class="btn btn-primary mb-0" style ="padding-bottom: 0%" value="search" id="search-input-click" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             Search and collapse
                         </button>
-                    </p>
+                    </div>
                     <div class="collapse" id="collapseExample">
-                        <div class="card card-body" style ="padding-top: 0%">
+                        <div class="card card-body" style ="padding-top: 0%; background-color: rgba(247, 247, 241, 0.60)">
                             <div id="display-search" class="search-peri "></div>
                         </div>
                     </div>

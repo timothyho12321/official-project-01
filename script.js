@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     // var map = L.mapbox.map('map', { zoomControl: false });
     //const latLng =[1.3521,103.8198] // SINGAPORE's lat lng set as constant 
 
-    
+
     // change position of zoomControl to top right
     L.control.zoom({
         position: 'topright'
@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     var OneMapSG_Default = L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
         minZoom: 11,
         maxZoom: 18,
-        
+
         bounds: [[1.56073, 104.11475], [1.16, 103.502]],
         attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
     }).addTo(map);
@@ -406,9 +406,76 @@ window.addEventListener("DOMContentLoaded", async function () {
             // Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
 
 
-            //USE THIS ONE WITHOUT OPEN WEATHER API CALL 
+
+
+
+            //REFERENCE getPhoto function 
+            // async function getPhoto(fsq_id) {
+            //     let response = await axios.get(API_BASE_URL + `${fsq_id}/photos`,{
+            //         'headers': headers
+            //     });
+            //     return response.data;
+            // }
+
+
+            //REFERENCE 
+            // marker.bindPopup( function(){
+
+            //     let el = document.createElement('div');
+            //     // add the 'popup' class to the <div>
+            //     // see style.css for its definition
+            //     el.classList.add("popup")
+            //     el.innerHTML = `<h1>${r.name}</h1>`
+            //     async function getPicture() {
+            //         let photos = await getPhoto(r.fsq_id);
+            //         let firstPhoto = photos[0];
+            //         let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
+            //         el.innerHTML += `<img src="${url}"/>`
+            //     }
+
+            //      getPicture();
+            //     return el;
+            // })
+
+            async function getPhoto(fsq_id) {
+                let response = await axios.get(FSQUARE_URL  + `${fsq_id}/photos`, {
+                    'headers': headers
+                    
+
+                });
+                
+                return response.data;
+            }
+
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
+           
+
+            searchMarker.bindPopup(function () {
+
+                let el = document.createElement('div');
+                el.classList.add("popup")
+                el.innerHTML = `Display photo`
+                async function getPicture() {
+                    let photos = await getPhoto(p.fsq_id);
+                    console.log(photos);
+                    let firstPhoto = photos[0];
+                    let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
+                    el.innerHTML += `<img src ="${url}"/>`
+                }
+
+                getPicture();
+                return el;
+
+
+
+            })
+
+
+
+            //USE THIS ONE WITHOUT OPEN WEATHER API CALL 
+ // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
+
+
 
             // TO DELETE AFTER CONFIRMING DOES NOT INTERACT WITH OTHER CODE (REPEAT LAYER)
             // searchMarker.addTo(searchParkLayer);
