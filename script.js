@@ -5,31 +5,42 @@
 window.addEventListener("DOMContentLoaded", async function () {
 
 
-    
+
     // SETUP //////////////////////////////////////////////////////////////////
     // create a map object
-    let map = L.map('map');
+    let map = L.map('map', { zoomControl: false });
     // set the center point and the zoom
     map.setView([1.35, 103.81], 12);
 
+    // var map = L.mapbox.map('map', { zoomControl: false });
     //const latLng =[1.3521,103.8198] // SINGAPORE's lat lng set as constant 
 
-    // need set up the tile layer
-    // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-    //     maxZoom: 18,
-    //     id: 'mapbox/streets-v11',
-    //     tileSize: 512,
-    //     zoomOffset: -1,
-    //     accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw' //demo access token
-    // }).addTo(map);
+    
+    // change position of zoomControl to top right
+    L.control.zoom({
+        position: 'topright'
+    }).addTo(map);
+
+
 
     //QUESTION WHAT IS THIS ERROR MESSAGE FOR ONE MAP DEFAULT? Cross-Origin Read Blocking (CORB) blocked cross-origin response <URL> with MIME type text/html. See <URL> for more details.
+
+    // need set up the tile layer
+    var leaflet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        // zoomControl: false,
+        accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw' //demo access token
+    });
 
     // SOURCE FOR MAPS http://leaflet-extras.github.io/leaflet-providers/preview/index.html
     var OneMapSG_Default = L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
         minZoom: 11,
         maxZoom: 18,
+        
         bounds: [[1.56073, 104.11475], [1.16, 103.502]],
         attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
     }).addTo(map);
@@ -137,6 +148,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
     let baseMaps = {
+        "Leaflet": leaflet,
         "OneMapSG": OneMapSG_Default,
         "Landscape image": Esri_WorldImagery,
         "Outdoors": Stadia_Outdoors,
@@ -255,9 +267,9 @@ window.addEventListener("DOMContentLoaded", async function () {
     // ADD IN SECOND API WEATHER 
     //SOURCE: https://openweathermap.org/api/one-call-api
     //Initial test search with OpenWeather
-    
-    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
-    let app_id = "629e361798b0ccce5466e1e70f3e4712" //OpenWeather API Key 
+
+    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
+    let app_id = "2a0076487a241d1a333c9896bc072673" //OpenWeather API Key 
 
     let exclude = 'minutely,hourly,daily,alerts';
 
@@ -265,18 +277,18 @@ window.addEventListener("DOMContentLoaded", async function () {
 
         // let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
         // let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=629e361798b0ccce5466e1e70f3e4712"
-        let url =`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${app_id}`
-        console.log(url);
+
+        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&appid=${app_id}&units=metric`
+
+        // console.log(url);
         let response = await axios.get(url)
 
         return (response.data);
     };
 
-
-    
     // return the test search results from the searchWeather function
-    let weatherSearch = await searchWeather(1.3521, 103.8198);
-    console.log(weatherSearch);
+    // let weatherSearch = await searchWeather(1.3521, 103.8198);
+    // console.log(weatherSearch);
 
 
     let parkClusterLayer = L.markerClusterGroup();
@@ -378,18 +390,23 @@ window.addEventListener("DOMContentLoaded", async function () {
             // let weatherSearch = await searchWeather(lat, lng);
             // console.log(weatherSearch);
 
-            // let weatherDescription = weatherSearch.current.weather[0].description;
-            // // console.log(weatherDescription);
-            // let weatherIcon = weatherSearch.current.weather[0].description;
-            // // console.log(weatherIcon);
-            // let weatherTemp = weatherSearch.current.temp;
-            // // console.log(weatherTemp);
+            // let weatherDescription = weatherSearch.weather[0].description;
+            // console.log(weatherDescription);
+
+            // let weatherTemp = weatherSearch.main.temp;
+            // console.log(weatherTemp);
+
+            //TO CONSIDER WHETHER TO INCLUDE IMAGE OF WEATHER ICON
+            // let weatherIcon = weatherSearch.weather[0].description;
+            // console.log(weatherIcon);
 
             //PLACE MARKERS FOR PARK SEARCH 
             // let searchMarker = L.marker([lat, lng], { icon: parkIcon });
             // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
             // Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
 
+
+            //USE THIS ONE WITHOUT OPEN WEATHER API CALL 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
             searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
 
