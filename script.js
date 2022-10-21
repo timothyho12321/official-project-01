@@ -255,24 +255,28 @@ window.addEventListener("DOMContentLoaded", async function () {
     // ADD IN SECOND API WEATHER 
     //SOURCE: https://openweathermap.org/api/one-call-api
     //Initial test search with OpenWeather
-    // const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
+    
     let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
-    // let app_id = "629e361798b0ccce5466e1e70f3e4712" //OpenWeather API Key 
+    let app_id = "629e361798b0ccce5466e1e70f3e4712" //OpenWeather API Key 
 
     let exclude = 'minutely,hourly,daily,alerts';
 
     async function searchWeather(lat, lon) {
 
-        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
-        // console.log(url);
+        // let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
+        // let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=629e361798b0ccce5466e1e70f3e4712"
+        let url =`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${app_id}`
+        console.log(url);
         let response = await axios.get(url)
 
         return (response.data);
     };
 
+
+    
     // return the test search results from the searchWeather function
-    // let weatherSearch = await searchWeather(1.3521, 103.8198);
-    // console.log(weatherSearch);
+    let weatherSearch = await searchWeather(1.3521, 103.8198);
+    console.log(weatherSearch);
 
 
     let parkClusterLayer = L.markerClusterGroup();
