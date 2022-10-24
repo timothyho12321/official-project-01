@@ -2,6 +2,8 @@
 // BOILER PLATE CODE from Paul 
 // SOURCE: https://gist.githubusercontent.com/kunxin-chor/f1517e174acaf8d4d7196ad70b447f39/raw/0cabdff18d8ec0571b382346f97d020af63666a6/script.js
 // Use DOMContentLoaded as our main entry point
+
+
 window.addEventListener("DOMContentLoaded", async function () {
 
 
@@ -85,9 +87,17 @@ window.addEventListener("DOMContentLoaded", async function () {
     // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
 
 
+    async function axiosCall(url) {
+        let callResponse = await axios.get(url);
+        return callResponse;
+    }
+
     // Adding Npark tracks 
     // Read in geojson data for park connector track 
-    let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
+    // let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
+    let connectorResponse = axiosCall("nparks-tracks-geojson.geojson");
+
+
     // console.log(connectorResponse.data);
 
     //Create Park Connector Track Network Layer
@@ -115,7 +125,10 @@ window.addEventListener("DOMContentLoaded", async function () {
     })
 
     // READ IN FILE FOR CYCLING PATH NETWORK
-    let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
+    // let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
+    // refactor into function - to delete
+    let cyclingResponse = axiosCall("cycling-path-network-geojson.geojson");
+
     // console.log(cyclingResponse.data);
 
     //Create Cycling Path Network Layer
@@ -386,7 +399,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-            // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
             // let weatherSearch = await searchWeather(lat, lng);
             // console.log(weatherSearch);
 
@@ -438,23 +450,25 @@ window.addEventListener("DOMContentLoaded", async function () {
             // })
 
             async function getPhoto(fsq_id) {
-                let response = await axios.get(FSQUARE_URL  + `${fsq_id}/photos`, {
+                let response = await axios.get(FSQUARE_URL + `${fsq_id}/photos`, {
                     'headers': headers
-                    
+
 
                 });
-                
+
                 return response.data;
             }
 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-           
+
 
             searchMarker.bindPopup(function () {
 
                 let el = document.createElement('div');
                 el.classList.add("popup")
-                el.innerHTML = `Display photo`
+                el.innerHTML = `This place is <h4>${p.name}.</h4>`
+                
+                // el.innerHTML = `This place is <h4>${p.name}.</h4> Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
                     console.log(photos);
@@ -473,7 +487,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
             //USE THIS ONE WITHOUT OPEN WEATHER API CALL 
- // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
+            // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
 
 
 
@@ -492,7 +506,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
             parkDummy.addEventListener("click", function () {
-                map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 14)
+                map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 13)
                 searchMarker.openPopup();
 
 
