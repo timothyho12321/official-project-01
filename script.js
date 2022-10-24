@@ -389,7 +389,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         let displaySearch = document.querySelector("#display-search");
         // console.log(displaySearch);
 
-
+        displaySearch.innerHTML = "";
         //Create For Loop to create parkMarkers from park Search results
         for (let p of firstSearch.results) {
 
@@ -468,7 +468,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 let el = document.createElement('div');
                 el.classList.add("popup")
                 el.innerHTML = `This place is <h4>${p.name}.</h4>`
-                el.style.fontFamily='Roboto Slab, serif';
+                el.style.fontFamily = 'Roboto Slab, serif';
 
                 // el.innerHTML = `This place is <h4>${p.name}.</h4> Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`
                 async function getPicture() {
@@ -519,7 +519,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             // }
 
 
-            displaySearch.prepend(parkDummy);
+            displaySearch.append(parkDummy);
 
         }
 
