@@ -468,7 +468,8 @@ window.addEventListener("DOMContentLoaded", async function () {
                 let el = document.createElement('div');
                 el.classList.add("popup")
                 el.innerHTML = `This place is <h4>${p.name}.</h4>`
-                
+                el.style.fontFamily='Roboto Slab, serif';
+
                 // el.innerHTML = `This place is <h4>${p.name}.</h4> Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
