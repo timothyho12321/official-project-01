@@ -95,10 +95,10 @@ window.addEventListener("DOMContentLoaded", async function () {
     // Adding Npark tracks 
     // Read in geojson data for park connector track 
     // let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
-    let connectorResponse = axiosCall("nparks-tracks-geojson.geojson");
+    let connectorResponse = await axiosCall("nparks-tracks-geojson.geojson");
 
 
-    // console.log(connectorResponse.data);
+    console.log(connectorResponse.data);
 
     //Create Park Connector Track Network Layer
     let connectorLayer = L.geoJson(connectorResponse.data, {
@@ -119,7 +119,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // Adjust style of park connector layer
     connectorLayer.setStyle({
-        'color': '#FD5DA8',
+        'color': '#2E8B57',
         'strokeWidth': '0.5'
 
     })
@@ -127,7 +127,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     // READ IN FILE FOR CYCLING PATH NETWORK
     // let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
     // refactor into function - to delete
-    let cyclingResponse = axiosCall("cycling-path-network-geojson.geojson");
+    let cyclingResponse = await axiosCall("cycling-path-network-geojson.geojson");
 
     // console.log(cyclingResponse.data);
 
@@ -153,7 +153,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     cyclingLayer.addTo(map);
 
     cyclingLayer.setStyle({
-        'color': 'purple',
+        'color': '#8B0000',
         'strokeWidth': '0.5'
     })
 
@@ -259,7 +259,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             "params": {
                 "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
                 "query": query,// example location name (clementi)
-                "sort": "relevance", //sort by 
+                "sort": sort, //sort by 
                 "limit": limit, // number of search results 
                 "ll": "1.3521,103.8198", // latLng of SG
                 "radius": 15000,//radius of search
@@ -314,6 +314,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     searchPark.addEventListener("click", async function () {
 
 
+        //Input verification
         let isCategoriesValid = false;
         // READ THE VALUE OF SELECTED CATEGORIES BUTTON
         let categoriesName = document.querySelectorAll(".categories");
