@@ -23,7 +23,7 @@
 
 .search-peri{
 
-    background-color: rgba(247, 247, 241, 0.409);
+    background-color: rgba(247, 247, 241, 0.60);
     z-index: 34000;
     padding: 5px;
 }
@@ -43,17 +43,18 @@
 
     position: absolute;
     z-index: 35000;
-    left: 60%;
+    left: 1.5%;
+    top:1.5%
 }
 
-
+/* 
 #search-input {
     float: right;
-}
-
+} */
+/* 
 #search-park-type {
     float: left;
-}
+} */
 
 #display-search {
 /* 
@@ -62,6 +63,7 @@
     top: 33%;
     left: 67%; */
     max-height: 200px;
+    max-width: 200px;
     overflow-y: scroll;
 }
 
@@ -69,4 +71,11 @@
 font-size:xx-small;
 color:red;
 font-weight: 500;
+}
+
+
+.popup{
+    overflow: scroll;
+    width:300px;
+    height:300px;
 }

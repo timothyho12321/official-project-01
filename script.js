@@ -4,23 +4,68 @@
 // Use DOMContentLoaded as our main entry point
 window.addEventListener("DOMContentLoaded", async function () {
 
+
+
     // SETUP //////////////////////////////////////////////////////////////////
     // create a map object
-    let map = L.map('map');
+    let map = L.map('map', { zoomControl: false });
     // set the center point and the zoom
     map.setView([1.35, 103.81], 12);
 
+    // var map = L.mapbox.map('map', { zoomControl: false });
     //const latLng =[1.3521,103.8198] // SINGAPORE's lat lng set as constant 
 
+
+    // change position of zoomControl to top right
+    L.control.zoom({
+        position: 'topright'
+    }).addTo(map);
+
+
+
+    //QUESTION WHAT IS THIS ERROR MESSAGE FOR ONE MAP DEFAULT? Cross-Origin Read Blocking (CORB) blocked cross-origin response <URL> with MIME type text/html. See <URL> for more details.
+
     // need set up the tile layer
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    var leaflet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
+        // zoomControl: false,
         accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw' //demo access token
+    });
+
+    // SOURCE FOR MAPS http://leaflet-extras.github.io/leaflet-providers/preview/index.html
+    var OneMapSG_Default = L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
+        minZoom: 11,
+        maxZoom: 18,
+
+        bounds: [[1.56073, 104.11475], [1.16, 103.502]],
+        attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
     }).addTo(map);
+
+    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    });
+
+    var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    var OneMapSG_Night = L.tileLayer('https://maps-{s}.onemap.sg/v3/Night/{z}/{x}/{y}.png', {
+        minZoom: 11,
+        maxZoom: 18,
+        bounds: [[1.56073, 104.11475], [1.16, 103.502]],
+        attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
+    });
+
 
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
@@ -71,7 +116,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // READ IN FILE FOR CYCLING PATH NETWORK
     let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
-    console.log(cyclingResponse.data);
+    // console.log(cyclingResponse.data);
 
     //Create Cycling Path Network Layer
     let cyclingLayer = L.geoJson(cyclingResponse.data, {
@@ -102,9 +147,14 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
-    // let baseMaps = {
-
-    // };
+    let baseMaps = {
+        "Leaflet": leaflet,
+        "OneMapSG": OneMapSG_Default,
+        "Landscape image": Esri_WorldImagery,
+        "Outdoors": Stadia_Outdoors,
+        "Cycle direction": CyclOSM,
+        "OneMapSG-Night": OneMapSG_Night
+    };
 
     let overlayMaps = {
         // "<span style = 'color: grayscale'>Grayscale</span>": grayscale,
@@ -113,7 +163,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Cycling path track": cyclingLayer
     }
 
-    let layerControl = L.control.layers(null, overlayMaps).addTo(map);
+    let layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
     // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
 
     // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?
@@ -217,15 +267,19 @@ window.addEventListener("DOMContentLoaded", async function () {
     // ADD IN SECOND API WEATHER 
     //SOURCE: https://openweathermap.org/api/one-call-api
     //Initial test search with OpenWeather
-    // const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
-    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall";
-    let app_id = "891b31000be51f52585183d6ffdb3dc1"; //OpenWeather API Key 
 
-    let exclude = 'minutely,daily,alerts';
+    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
+    let app_id = "2a0076487a241d1a333c9896bc072673" //OpenWeather API Key 
+
+    let exclude = 'minutely,hourly,daily,alerts';
 
     async function searchWeather(lat, lon) {
 
-        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
+        // let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
+        // let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=629e361798b0ccce5466e1e70f3e4712"
+
+        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&appid=${app_id}&units=metric`
+
         // console.log(url);
         let response = await axios.get(url)
 
@@ -233,8 +287,12 @@ window.addEventListener("DOMContentLoaded", async function () {
     };
 
     // return the test search results from the searchWeather function
-    let weatherSearch = await searchWeather(1.3521, 103.8198);
+    // let weatherSearch = await searchWeather(1.3521, 103.8198);
     // console.log(weatherSearch);
+
+
+    let parkClusterLayer = L.markerClusterGroup();
+    parkClusterLayer.addTo(map);
 
 
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
@@ -273,7 +331,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         // console.log(queryLocationName.value);
 
 
-        searchParkLayer.clearLayers();
+        parkClusterLayer.clearLayers();
 
         // Key in First Search using form buttons on map 
 
@@ -311,8 +369,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
         //create parkClusterLayer
-        let parkClusterLayer = L.markerClusterGroup();
-        parkClusterLayer.addTo(map);
+        // let parkClusterLayer = L.markerClusterGroup();
+        // parkClusterLayer.addTo(map);
 
         let displaySearch = document.querySelector("#display-search");
         // console.log(displaySearch);
@@ -329,20 +387,94 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
             // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
-            let weatherSearch = await searchWeather(lat, lng);
+            // let weatherSearch = await searchWeather(lat, lng);
             // console.log(weatherSearch);
 
-            let weatherDescription = weatherSearch.current.weather[0].description;
+            // let weatherDescription = weatherSearch.weather[0].description;
             // console.log(weatherDescription);
-            let weatherIcon = weatherSearch.current.weather[0].description;
-            // console.log(weatherIcon);
-            let weatherTemp = weatherSearch.current.temp;
+
+            // let weatherTemp = weatherSearch.main.temp;
             // console.log(weatherTemp);
 
+            //TO CONSIDER WHETHER TO INCLUDE IMAGE OF WEATHER ICON
+            // let weatherIcon = weatherSearch.weather[0].description;
+            // console.log(weatherIcon);
+
             //PLACE MARKERS FOR PARK SEARCH 
+            // let searchMarker = L.marker([lat, lng], { icon: parkIcon });
+            // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
+            // Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
+
+
+
+
+
+            //REFERENCE getPhoto function 
+            // async function getPhoto(fsq_id) {
+            //     let response = await axios.get(API_BASE_URL + `${fsq_id}/photos`,{
+            //         'headers': headers
+            //     });
+            //     return response.data;
+            // }
+
+
+            //REFERENCE 
+            // marker.bindPopup( function(){
+
+            //     let el = document.createElement('div');
+            //     // add the 'popup' class to the <div>
+            //     // see style.css for its definition
+            //     el.classList.add("popup")
+            //     el.innerHTML = `<h1>${r.name}</h1>`
+            //     async function getPicture() {
+            //         let photos = await getPhoto(r.fsq_id);
+            //         let firstPhoto = photos[0];
+            //         let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
+            //         el.innerHTML += `<img src="${url}"/>`
+            //     }
+
+            //      getPicture();
+            //     return el;
+            // })
+
+            async function getPhoto(fsq_id) {
+                let response = await axios.get(FSQUARE_URL  + `${fsq_id}/photos`, {
+                    'headers': headers
+                    
+
+                });
+                
+                return response.data;
+            }
+
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-            searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>
-            Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`);
+           
+
+            searchMarker.bindPopup(function () {
+
+                let el = document.createElement('div');
+                el.classList.add("popup")
+                el.innerHTML = `Display photo`
+                async function getPicture() {
+                    let photos = await getPhoto(p.fsq_id);
+                    console.log(photos);
+                    let firstPhoto = photos[0];
+                    let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
+                    el.innerHTML += `<img src ="${url}"/>`
+                }
+
+                getPicture();
+                return el;
+
+
+
+            })
+
+
+
+            //USE THIS ONE WITHOUT OPEN WEATHER API CALL 
+ // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
+
 
 
             // TO DELETE AFTER CONFIRMING DOES NOT INTERACT WITH OTHER CODE (REPEAT LAYER)
@@ -371,7 +503,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             // }
 
 
-            displaySearch.appendChild(parkDummy);
+            displaySearch.prepend(parkDummy);
 
         }
 
