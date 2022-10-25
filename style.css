@@ -10,6 +10,10 @@
 }
 
 
+body {
+    font-family: 'Roboto Slab', serif;
+}
+
 /* Latest attempt below */
 /* 
 #search-surrounding {
@@ -67,7 +71,7 @@
     overflow-y: scroll;
 }
 
-#categories-error {
+#categories-error,  #sort-error{
 font-size:xx-small;
 color:red;
 font-weight: 500;
@@ -76,6 +80,6 @@ font-weight: 500;
 
 .popup{
     overflow: scroll;
-    width:300px;
-    height:300px;
+    width:320px;
+    height:150px;
 }

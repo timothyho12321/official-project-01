@@ -2,6 +2,8 @@
 // BOILER PLATE CODE from Paul 
 // SOURCE: https://gist.githubusercontent.com/kunxin-chor/f1517e174acaf8d4d7196ad70b447f39/raw/0cabdff18d8ec0571b382346f97d020af63666a6/script.js
 // Use DOMContentLoaded as our main entry point
+
+
 window.addEventListener("DOMContentLoaded", async function () {
 
 
@@ -85,10 +87,18 @@ window.addEventListener("DOMContentLoaded", async function () {
     // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
 
 
+    async function axiosCall(url) {
+        let callResponse = await axios.get(url);
+        return callResponse;
+    }
+
     // Adding Npark tracks 
     // Read in geojson data for park connector track 
-    let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
-    // console.log(connectorResponse.data);
+    // let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
+    let connectorResponse = await axiosCall("nparks-tracks-geojson.geojson");
+
+
+    console.log(connectorResponse.data);
 
     //Create Park Connector Track Network Layer
     let connectorLayer = L.geoJson(connectorResponse.data, {
@@ -102,20 +112,23 @@ window.addEventListener("DOMContentLoaded", async function () {
             let connectorName = tdNum[0].innerText;
             // console.log(connectorName);
             let connectorKind = tdNum[1].innerText;
-            subLayer.bindPopup(`<h5>Connect your journey via <div> this ${connectorKind.toLowerCase()} at ${connectorName}. </div></h5>`);
+            let stringVariable = `<p style ="font-size:1em">Connect your journey via <br> this ${connectorKind.toLowerCase()}  at <br> ${connectorName}. </p>`
+            subLayer.bindPopup(stringVariable);
         }
     });
     connectorLayer.addTo(map);
 
     // Adjust style of park connector layer
     connectorLayer.setStyle({
-        'color': '#FD5DA8',
+        'color': '#2E8B57',
         'strokeWidth': '0.5'
-
     })
 
     // READ IN FILE FOR CYCLING PATH NETWORK
-    let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
+    // let cyclingResponse = await axios.get("cycling-path-network-geojson.geojson");
+    // refactor into function - to delete
+    let cyclingResponse = await axiosCall("cycling-path-network-geojson.geojson");
+
     // console.log(cyclingResponse.data);
 
     //Create Cycling Path Network Layer
@@ -127,20 +140,20 @@ window.addEventListener("DOMContentLoaded", async function () {
             // console.log(holderElement.innerHTML);
             // subLayer.bindPopup(`<h5>${holderElement.innerHTML}</h5>`);
 
-
             let tdNum = holderElement.querySelectorAll("td");
             // console.log(tdNum);
             let cyclingPathName = tdNum[0].innerText;
             // console.log(cyclingPathName);
             let correctAgency = tdNum[1].innerText;
             // console.log(correctAgency);
-            subLayer.bindPopup(`<h5>You can use this cycling path at <div> ${cyclingPathName}.</div> Path maintained by <div>${correctAgency}.</div></h5>`);
+            let stringVariable = `<p style ="font-size:1em">You can use this cycling path at <br>${cyclingPathName}. <br> Path maintained by: <br>${correctAgency}. </p>`
+            subLayer.bindPopup(stringVariable);
         }
     });
     cyclingLayer.addTo(map);
 
     cyclingLayer.setStyle({
-        'color': 'purple',
+        'color': '#cd5252',
         'strokeWidth': '0.5'
     })
 
@@ -246,7 +259,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             "params": {
                 "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
                 "query": query,// example location name (clementi)
-                "sort": "relevance", //sort by 
+                "sort": sort, //sort by 
                 "limit": limit, // number of search results 
                 "ll": "1.3521,103.8198", // latLng of SG
                 "radius": 15000,//radius of search
@@ -301,6 +314,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     searchPark.addEventListener("click", async function () {
 
 
+        //Input validation 
         let isCategoriesValid = false;
         // READ THE VALUE OF SELECTED CATEGORIES BUTTON
         let categoriesName = document.querySelectorAll(".categories");
@@ -319,11 +333,46 @@ window.addEventListener("DOMContentLoaded", async function () {
         // User validation input of categories
         function displayErrors(isCategoriesValid) {
             if (!isCategoriesValid) {
+
                 let categoriesError = document.querySelector("#categories-error");
                 // console.log(categoriesError);
                 categoriesError.innerHTML = `<div>Please select at least one category option.</div>`
+            } else {
+                let categoriesError = document.querySelector("#categories-error");
+                categoriesError.innerHTML = "";
             }
         }
+
+
+        //Input validation 
+        let isSortValid = false;
+        // READ THE VALUE OF SELECTED CATEGORIES BUTTON
+        let sortStore = document.querySelectorAll(".sort-button");
+        // console.log(sortStore);
+        let chosenSort = null;
+        for (let radio of sortStore) {
+            if (radio.checked) {
+                chosenSort = radio.value;
+                // console.log(radio.value);
+                isSortValid = true;
+            }
+        }
+        // console.log(selectedCategories);
+
+        displayErrors2(isSortValid);
+
+        // User validation input of categories
+        function displayErrors2(isSortValid) {
+            if (!isSortValid) {
+                let sortError = document.querySelector("#sort-error");
+                // console.log(categoriesError);
+                sortError.innerHTML = `<div>Please select at least one sort option.</div>`
+            } else {
+                let sortError = document.querySelector("#sort-error");
+                sortError.innerHTML = "";
+            }
+        }
+
 
 
 
@@ -375,7 +424,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         let displaySearch = document.querySelector("#display-search");
         // console.log(displaySearch);
 
-
+        displaySearch.innerHTML = "";
         //Create For Loop to create parkMarkers from park Search results
         for (let p of firstSearch.results) {
 
@@ -386,7 +435,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-            // QUESTION (OVERLAPPING FUNCTION?) TAKE IN READING OF PARK MARKER LAT LNG AND PASS INTO SEARCHWEATHER TO FIND WEATHER FOR THIS PARK MARKER 
             // let weatherSearch = await searchWeather(lat, lng);
             // console.log(weatherSearch);
 
@@ -438,23 +486,25 @@ window.addEventListener("DOMContentLoaded", async function () {
             // })
 
             async function getPhoto(fsq_id) {
-                let response = await axios.get(FSQUARE_URL  + `${fsq_id}/photos`, {
+                let response = await axios.get(FSQUARE_URL + `${fsq_id}/photos`, {
                     'headers': headers
-                    
+
 
                 });
-                
+
                 return response.data;
             }
 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
-           
 
             searchMarker.bindPopup(function () {
 
                 let el = document.createElement('div');
                 el.classList.add("popup")
-                el.innerHTML = `Display photo`
+                el.innerHTML = `This place is <h4>${p.name}.</h4>`
+                el.style.fontFamily = 'Roboto Slab, serif';
+
+                // el.innerHTML = `This place is <h4>${p.name}.</h4> Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
                     console.log(photos);
@@ -473,7 +523,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
             //USE THIS ONE WITHOUT OPEN WEATHER API CALL 
- // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
+            // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
 
 
 
@@ -490,12 +540,28 @@ window.addEventListener("DOMContentLoaded", async function () {
             parkDummy.innerHTML = p.name;
             parkDummy.classList.add("park-result"); // add class to parkDummy
 
-
             parkDummy.addEventListener("click", function () {
-                map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 14)
-                searchMarker.openPopup();
+                // map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 19)
+                // // setTimeout((searchMarker.openPopup()),10000);
 
+                // setTimeout(() => {
+                //     searchMarker.openPopup();
+                //     // console.log(`Apple`);
+                // }, 3000)
 
+                parkClusterLayer.zoomToShowLayer(searchMarker,
+
+                    (function () {
+                        map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+
+                        setTimeout(() => {searchMarker.openPopup() }, 2000);
+                    }))
+
+                // parkClusterLayer.zoomToShowLayer(searchMarker, (function () {
+                //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+
+                //     searchMarker.openPopup();
+                // }))
             })
 
             // function close() {
@@ -503,7 +569,7 @@ window.addEventListener("DOMContentLoaded", async function () {
             // }
 
 
-            displaySearch.prepend(parkDummy);
+            displaySearch.append(parkDummy);
 
         }
 
