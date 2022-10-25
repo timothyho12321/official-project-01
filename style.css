@@ -71,7 +71,7 @@ body {
     overflow-y: scroll;
 }
 
-#categories-error {
+#categories-error,  #sort-error{
 font-size:xx-small;
 color:red;
 font-weight: 500;

@@ -314,7 +314,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     searchPark.addEventListener("click", async function () {
 
 
-        //Input verification
+        //Input validation 
         let isCategoriesValid = false;
         // READ THE VALUE OF SELECTED CATEGORIES BUTTON
         let categoriesName = document.querySelectorAll(".categories");
@@ -327,17 +327,52 @@ window.addEventListener("DOMContentLoaded", async function () {
             }
         }
         // console.log(selectedCategories);
-
+        
         displayErrors(isCategoriesValid);
 
         // User validation input of categories
         function displayErrors(isCategoriesValid) {
             if (!isCategoriesValid) {
+               
                 let categoriesError = document.querySelector("#categories-error");
                 // console.log(categoriesError);
                 categoriesError.innerHTML = `<div>Please select at least one category option.</div>`
+            } else {
+                let categoriesError = document.querySelector("#categories-error");
+                categoriesError.innerHTML = "";
             }
         }
+
+
+        //Input validation 
+        let isSortValid = false;
+        // READ THE VALUE OF SELECTED CATEGORIES BUTTON
+        let sortStore = document.querySelectorAll(".sort-button");
+        // console.log(sortStore);
+        let chosenSort = null;
+        for (let radio of sortStore) {
+            if (radio.checked) {
+                chosenSort = radio.value;
+                // console.log(radio.value);
+                isSortValid  = true;
+            }
+        }
+        // console.log(selectedCategories);
+        
+        displayErrors2(isSortValid);
+
+        // User validation input of categories
+        function displayErrors2(isSortValid) {
+            if (!isSortValid) {
+                let sortError = document.querySelector("#sort-error");
+                // console.log(categoriesError);
+                sortError.innerHTML = `<div>Please select at least one sort option.</div>`
+            } else {
+                let sortError = document.querySelector("#sort-error");
+                sortError.innerHTML = "";
+            }
+        }
+
 
 
 
