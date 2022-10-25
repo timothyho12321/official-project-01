@@ -217,9 +217,6 @@ window.addEventListener("DOMContentLoaded", async function () {
     // })
 
 
-
-
-
     // Add foursquare input to search for nearby parks
 
     const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
