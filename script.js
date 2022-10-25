@@ -112,7 +112,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             let connectorName = tdNum[0].innerText;
             // console.log(connectorName);
             let connectorKind = tdNum[1].innerText;
-            subLayer.bindPopup(`<h5>Connect your journey via <div> this ${connectorKind.toLowerCase()} at ${connectorName}. </div></h5>`);
+            let stringVariable = `<p style ="font-size:1em">Connect your journey via <br> this ${connectorKind.toLowerCase()}  at <br> ${connectorName}. </p>`
+            subLayer.bindPopup(stringVariable);
         }
     });
     connectorLayer.addTo(map);
@@ -121,7 +122,6 @@ window.addEventListener("DOMContentLoaded", async function () {
     connectorLayer.setStyle({
         'color': '#2E8B57',
         'strokeWidth': '0.5'
-
     })
 
     // READ IN FILE FOR CYCLING PATH NETWORK
@@ -140,20 +140,20 @@ window.addEventListener("DOMContentLoaded", async function () {
             // console.log(holderElement.innerHTML);
             // subLayer.bindPopup(`<h5>${holderElement.innerHTML}</h5>`);
 
-
             let tdNum = holderElement.querySelectorAll("td");
             // console.log(tdNum);
             let cyclingPathName = tdNum[0].innerText;
             // console.log(cyclingPathName);
             let correctAgency = tdNum[1].innerText;
             // console.log(correctAgency);
-            subLayer.bindPopup(`<h5>You can use this cycling path at <div> ${cyclingPathName}.</div> Path maintained by <div>${correctAgency}.</div></h5>`);
+            let stringVariable = `<p style ="font-size:1em">You can use this cycling path at <br>${cyclingPathName}. <br> Path maintained by: <br>${correctAgency}. </p>`
+            subLayer.bindPopup(stringVariable);
         }
     });
     cyclingLayer.addTo(map);
 
     cyclingLayer.setStyle({
-        'color': '#8B0000',
+        'color': '#cd5252',
         'strokeWidth': '0.5'
     })
 
@@ -540,7 +540,6 @@ window.addEventListener("DOMContentLoaded", async function () {
             parkDummy.innerHTML = p.name;
             parkDummy.classList.add("park-result"); // add class to parkDummy
 
-
             parkDummy.addEventListener("click", function () {
                 // map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 19)
                 // // setTimeout((searchMarker.openPopup()),10000);
@@ -550,27 +549,19 @@ window.addEventListener("DOMContentLoaded", async function () {
                 //     // console.log(`Apple`);
                 // }, 3000)
 
+                parkClusterLayer.zoomToShowLayer(searchMarker,
 
+                    (function () {
+                        map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
 
-
-
-                parkClusterLayer.zoomToShowLayer(searchMarker, 
-                
-                (function () {
-                    map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
-
-
-                    setTimeout(()=> {searchMarker.openPopup()},2000)
-                    ;
-                }))
+                        setTimeout(() => {searchMarker.openPopup() }, 2000);
+                    }))
 
                 // parkClusterLayer.zoomToShowLayer(searchMarker, (function () {
                 //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
 
                 //     searchMarker.openPopup();
                 // }))
-
-
             })
 
             // function close() {
