@@ -7,6 +7,7 @@
 window.addEventListener("DOMContentLoaded", async function () {
 
 
+    //SOURCE FOR CHANGING BASEMAP: https://leaflet-extras.github.io/leaflet-providers/preview/
 
     // SETUP //////////////////////////////////////////////////////////////////
     // create a map object
@@ -87,10 +88,6 @@ window.addEventListener("DOMContentLoaded", async function () {
     // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
 
 
-    async function axiosCall(url) {
-        let callResponse = await axios.get(url);
-        return callResponse;
-    }
 
     // Adding Npark tracks 
     // Read in geojson data for park connector track 
@@ -102,7 +99,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     //Create Park Connector Track Network Layer
     let connectorLayer = L.geoJson(connectorResponse.data, {
-
         onEachFeature: function (features, subLayer) {
             let holderElement = document.createElement("div");
             holderElement.innerHTML = features.properties.Description;
@@ -506,7 +502,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                     let photos = await getPhoto(p.fsq_id);
                     console.log(photos);
 
-                    if (photos.length){
+                    if (photos.length) {
                         let firstPhoto = photos[0];
                         let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
                         el.innerHTML += `<img src ="${url}"/>`
@@ -514,7 +510,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                         // console.log("Insert stock photo");
                         el.innerHTML += `<img src ="tree-when-invalid-photo.jpg"/>`
                     }
-                    
+
                 }
 
                 getPicture();
@@ -558,7 +554,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                     (function () {
                         map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
 
-                        setTimeout(() => {searchMarker.openPopup() }, 2000);
+                        setTimeout(() => { searchMarker.openPopup() }, 2000);
                     }))
 
                 // parkClusterLayer.zoomToShowLayer(searchMarker, (function () {
