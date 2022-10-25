@@ -327,13 +327,13 @@ window.addEventListener("DOMContentLoaded", async function () {
             }
         }
         // console.log(selectedCategories);
-        
+
         displayErrors(isCategoriesValid);
 
         // User validation input of categories
         function displayErrors(isCategoriesValid) {
             if (!isCategoriesValid) {
-               
+
                 let categoriesError = document.querySelector("#categories-error");
                 // console.log(categoriesError);
                 categoriesError.innerHTML = `<div>Please select at least one category option.</div>`
@@ -354,11 +354,11 @@ window.addEventListener("DOMContentLoaded", async function () {
             if (radio.checked) {
                 chosenSort = radio.value;
                 // console.log(radio.value);
-                isSortValid  = true;
+                isSortValid = true;
             }
         }
         // console.log(selectedCategories);
-        
+
         displayErrors2(isSortValid);
 
         // User validation input of categories
@@ -497,7 +497,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
             let searchMarker = L.marker([lat, lng], { icon: parkIcon });
 
-
             searchMarker.bindPopup(function () {
 
                 let el = document.createElement('div');
@@ -543,8 +542,33 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
             parkDummy.addEventListener("click", function () {
-                map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 13)
-                searchMarker.openPopup();
+                // map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 19)
+                // // setTimeout((searchMarker.openPopup()),10000);
+
+                // setTimeout(() => {
+                //     searchMarker.openPopup();
+                //     // console.log(`Apple`);
+                // }, 3000)
+
+
+
+
+
+                parkClusterLayer.zoomToShowLayer(searchMarker, 
+                
+                (function () {
+                    map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+
+
+                    setTimeout(()=> {searchMarker.openPopup()},2000)
+                    ;
+                }))
+
+                // parkClusterLayer.zoomToShowLayer(searchMarker, (function () {
+                //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+
+                //     searchMarker.openPopup();
+                // }))
 
 
             })
