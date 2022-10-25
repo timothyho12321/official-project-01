@@ -98,7 +98,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     let connectorResponse = await axiosCall("nparks-tracks-geojson.geojson");
 
 
-    console.log(connectorResponse.data);
+    // console.log(connectorResponse.data);
 
     //Create Park Connector Track Network Layer
     let connectorLayer = L.geoJson(connectorResponse.data, {
@@ -505,9 +505,16 @@ window.addEventListener("DOMContentLoaded", async function () {
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
                     console.log(photos);
-                    let firstPhoto = photos[0];
-                    let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
-                    el.innerHTML += `<img src ="${url}"/>`
+
+                    if (photos.length){
+                        let firstPhoto = photos[0];
+                        let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
+                        el.innerHTML += `<img src ="${url}"/>`
+                    } else {
+                        // console.log("Insert stock photo");
+                        el.innerHTML += `<img src ="tree-when-invalid-photo.jpg"/>`
+                    }
+                    
                 }
 
                 getPicture();
