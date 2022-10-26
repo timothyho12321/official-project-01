@@ -12,6 +12,7 @@
 
 body {
     font-family: 'Roboto Slab', serif;
+    font-size: medium;
 }
 
 /* Latest attempt below */
@@ -27,7 +28,7 @@ body {
 
 .search-peri {
 
-    background-color: rgba(247, 247, 241, 0.60);
+    background-color: rgb(97, 97, 96);
     z-index: 34000;
     padding: 5px;
 }
@@ -44,11 +45,13 @@ body {
 
 
 #top-bar-right {
-
+    color: white;
     position: absolute;
     z-index: 35000;
     left: 1.5%;
-    top: 1.5%
+    top: 1.5%;
+    
+    
 }
 
 
@@ -68,7 +71,7 @@ body {
     top: 86%;
     left: 2%;
     font-size: 0.7em;
-    width:80px
+    width: 80px
 }
 
 
@@ -83,9 +86,9 @@ body {
     top: 86%;
     left: 2%;
     font-size: 0.7em;
-    width:80px
-
+    width: 80px
 }
+
 /* 
 .click-about-us {
     position: absolute;
@@ -97,16 +100,16 @@ body {
 
 
 #about-us {
-position:absolute;
-z-index: 34500;
-top:79%;
-left:25%;
-background-color: #32CD32;
-display: none;
-margin-right: 6px;
-border-radius: 15px;
-padding: 2px;
-min-height: 85px
+    position: absolute;
+    z-index: 34500;
+    top: 79%;
+    left: 25%;
+    background-color: #32CD32;
+    display: none;
+    margin-right: 6px;
+    border-radius: 15px;
+    padding: 2px;
+    min-height: 85px
 }
 
 /* 
@@ -127,6 +130,8 @@ min-height: 85px
     max-height: 200px;
     max-width: 200px;
     overflow-y: scroll;
+    background-color: white;
+    color: black
 }
 
 #categories-error,
@@ -136,10 +141,10 @@ min-height: 85px
     font-weight: 500;
 }
 
-#search-terms
-{
+#search-terms {
     font-weight: 800;
 }
+
 .popup {
     overflow: scroll;
     width: 320px;
