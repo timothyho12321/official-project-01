@@ -135,7 +135,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // Adjust style of park connector layer
     connectorLayer.setStyle({
-        'color': '#457B9D',
+        'color': '#228C22',
         'strokeWidth': '0.5'
     })
 
@@ -168,10 +168,10 @@ window.addEventListener("DOMContentLoaded", async function () {
     cyclingLayer.addTo(map);
 
     cyclingLayer.setStyle({
-        'color': '#6EF9F5',
+        'color': '  #0999ec',
         'strokeWidth': '0.5'
     })
-
+//#414288
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/

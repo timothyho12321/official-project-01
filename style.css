@@ -28,13 +28,13 @@ body {
 
 .search-peri {
 
-    background-color: rgb(97, 97, 96);
+    background-color: #2D4620;
     z-index: 34000;
     padding: 5px;
 }
 
 
-
+/*  rgb(97, 97, 96) grey */
 #top-bar-left {
 
     position: absolute;
@@ -128,9 +128,9 @@ body {
     top: 33%;
     left: 67%; */
     max-height: 200px;
-    max-width: 200px;
+    max-width: 243px;
     overflow-y: scroll;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.90);
     color: black
 }
 
@@ -142,7 +142,7 @@ body {
 }
 
 #search-terms {
-    font-weight: 800;
+    font-size:large;
 }
 
 .popup {
