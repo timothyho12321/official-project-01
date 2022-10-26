@@ -309,23 +309,24 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     let aboutButton = document.querySelector(".about-button");
     // console.log(aboutButton);
+
     aboutButton.addEventListener("click", function () {
-       let aboutUsBanner = document.querySelector("#about-us");
-       let aboutUsDisplay = aboutUsBanner.style.display;
-    //    console.dir(aboutUsBanner);
-    //    console.log(aboutUsDisplay);
+        let aboutUsBanner = document.querySelector("#about-us");
+        let aboutUsDisplay = aboutUsBanner.style.display;
+        //    console.dir(aboutUsBanner);
+        //    console.log(aboutUsDisplay);
 
-    if (!aboutUsDisplay){
-        // document.querySelector("#about-us").style.display = "block";
-        aboutUsBanner .style.display = "block";
+        if (!aboutUsDisplay || aboutUsDisplay == "none") {
+            // document.querySelector("#about-us").style.display = "block";
+            aboutUsBanner.style.display = "block";
 
-        aboutButton.innerText = "Close banner"
-        
-    } else if (aboutUsDisplay){
+            aboutButton.innerText = "Close banner"
+
+        } else if (aboutUsDisplay) {
             // document.querySelector("#about-us").style.display = "block";
             aboutUsBanner.style.display = "none";
             aboutButton.innerText = "About SGParks"
-    }
+        }
 
     })
 
@@ -334,10 +335,10 @@ window.addEventListener("DOMContentLoaded", async function () {
     //     let aboutUsDisplay = aboutUsBanner.style.display;
     //  //    console.dir(aboutUsBanner);
     //  //    console.log(aboutUsDisplay);
- 
-         
+
+
     //  }
- 
+
     //  })
 
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
@@ -592,11 +593,28 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                 parkClusterLayer.zoomToShowLayer(searchMarker,
 
+                    //CHANGE ZOOM TO SO THAT NOT BLOCKED BY SEARCH BAR 
                     (function () {
-                        map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+                        // console.log(p.geocodes.main.latitude);
+                        // finalLat= parseFloat(p.geocodes.main.latitude) + 0.0024
+                        // console.log(finalLat)
 
+                        // console.log(p.geocodes.main.longitude);
+                        // finalLng= parseFloat(p.geocodes.main.longitude) - 0.0009
+                        // console.log(finalLng)
+                        map.flyTo([finalLat, p.geocodes.main.longitude], 17)
+                       
                         setTimeout(() => { searchMarker.openPopup() }, 2000);
                     }))
+
+
+
+                    // (function () {
+                    //     console.log(p.geocodes.main.latitude);
+                    //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+                       
+                    //     setTimeout(() => { searchMarker.openPopup() }, 2000);
+                    // }))
 
                 // parkClusterLayer.zoomToShowLayer(searchMarker, (function () {
                 //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
