@@ -1,5 +1,5 @@
 
-// BOILER PLATE CODE from Paul 
+// BOILER PLATE CODE 
 // SOURCE: https://gist.githubusercontent.com/kunxin-chor/f1517e174acaf8d4d7196ad70b447f39/raw/0cabdff18d8ec0571b382346f97d020af63666a6/script.js
 // Use DOMContentLoaded as our main entry point
 
@@ -95,7 +95,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // set up leaf logo icon 
     // SOURCE: <a href="https://www.flaticon.com/free-icons/nature" title="nature icons">Nature icons created by Freepik - Flaticon</a>
-
+    // let icon = document.querySelector("#icon");
+    // icon.innerHTML = `<img src = "leaf-logo.png"/>`;
 
 
 
@@ -304,6 +305,40 @@ window.addEventListener("DOMContentLoaded", async function () {
     let parkClusterLayer = L.markerClusterGroup();
     parkClusterLayer.addTo(map);
 
+
+
+    let aboutButton = document.querySelector(".about-button");
+    // console.log(aboutButton);
+    aboutButton.addEventListener("click", function () {
+       let aboutUsBanner = document.querySelector("#about-us");
+       let aboutUsDisplay = aboutUsBanner.style.display;
+    //    console.dir(aboutUsBanner);
+    //    console.log(aboutUsDisplay);
+
+    if (!aboutUsDisplay){
+        // document.querySelector("#about-us").style.display = "block";
+        aboutUsBanner .style.display = "block";
+
+        aboutButton.innerText = "Close banner"
+        
+    } else if (aboutUsDisplay){
+            // document.querySelector("#about-us").style.display = "block";
+            aboutUsBanner.style.display = "none";
+            aboutButton.innerText = "About SGParks"
+    }
+
+    })
+
+    // aboutButton.addEventListener("click", function () {
+    //     let aboutUsBanner = document.querySelector("#about-us");
+    //     let aboutUsDisplay = aboutUsBanner.style.display;
+    //  //    console.dir(aboutUsBanner);
+    //  //    console.log(aboutUsDisplay);
+ 
+         
+    //  }
+ 
+    //  })
 
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
     let searchPark = document.querySelector("#search-input-click");
