@@ -504,7 +504,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                     if (photos.length) {
                         let firstPhoto = photos[0];
-                        let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
+                        let url = firstPhoto.prefix + "300x200" + firstPhoto.suffix;
                         el.innerHTML += `<img src ="${url}"/>`
                     } else {
                         // console.log("Insert stock photo");
