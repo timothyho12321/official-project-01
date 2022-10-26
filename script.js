@@ -26,9 +26,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-    //QUESTION WHAT IS THIS ERROR MESSAGE FOR ONE MAP DEFAULT? Cross-Origin Read Blocking (CORB) blocked cross-origin response <URL> with MIME type text/html. See <URL> for more details.
 
-    // need set up the tile layer
+    // set up the tile layer
     var leaflet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -93,6 +92,11 @@ window.addEventListener("DOMContentLoaded", async function () {
     // Read in geojson data for park connector track 
     // let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
     let connectorResponse = await axiosCall("nparks-tracks-geojson.geojson");
+
+    // set up leaf logo icon 
+    // SOURCE: <a href="https://www.flaticon.com/free-icons/nature" title="nature icons">Nature icons created by Freepik - Flaticon</a>
+
+
 
 
     // console.log(connectorResponse.data);
@@ -477,6 +481,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             //      getPicture();
             //     return el;
             // })
+
+            //SOURCE OF TREE PHOTO: https://www.pexels.com/photo/bottom-view-of-green-leaved-tree-during-daytime-91153/
 
             async function getPhoto(fsq_id) {
                 let response = await axios.get(FSQUARE_URL + `${fsq_id}/photos`, {
