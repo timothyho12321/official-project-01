@@ -135,7 +135,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // Adjust style of park connector layer
     connectorLayer.setStyle({
-        'color': '#2E8B57',
+        'color': '#457B9D',
         'strokeWidth': '0.5'
     })
 
@@ -168,7 +168,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     cyclingLayer.addTo(map);
 
     cyclingLayer.setStyle({
-        'color': '#cd5252',
+        'color': '#6EF9F5',
         'strokeWidth': '0.5'
     })
 
