@@ -43,7 +43,7 @@
 
             <div id="search-surrounding" class="">
                 <div id="top-bar-right" class="search-peri bg-rgba(15, 201, 37, 0.18)">
-
+                    <div id="search-terms">Search Terms</div>
                     <!-- BELOW IS CATEGORIES SEARCH ALL PARK, HIKING TRAILS, OR GARDEN. -->
                     <div><input type="radio" value="16032" id="categories-park" class="categories"
                             name="categories" /><label>Park</label>
@@ -54,12 +54,11 @@
                     </div>
                     <div class="error mb-1" id="categories-error"></div>
                     <!-- SEARCH TEXT BOX FOR PARK LOCATION -->
-                    <div><input class="d-md-inline-block" type="text" id="search-park-type"
-                            placeholder="Park location (called query)" />
+                    <div><input type="text" id="search-park-type" placeholder="Park location" />
                     </div>
 
                     <!-- RADIO BUTTON FOR RELEVANCE INPUT FOR FOURSQUARE -->
-                    <div class="d-md-inline-block">
+                    <div>
                         <!-- QUESTION: HOW COME THE SELECTOR CIRCLE CANNOT GO TO THE NEXT LINE??? -->
                         <input type="radio" value="relevance" id="sort-relevance" class="sort-button"
                             name="sort-button" /><label>By Relevance</label>
