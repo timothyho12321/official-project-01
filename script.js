@@ -92,6 +92,15 @@ window.addEventListener("DOMContentLoaded", async function () {
     // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
 
 
+    // Javascript for Modal to display about us message - gives error of undefined for myinput
+    // var myModal = document.getElementById('exampleModal')
+    // var myInput = document.getElementById('myInput')
+
+    // myModal.addEventListener('shown.bs.modal', function () {
+    //     myInput.focus()
+    // })
+
+
 
     // Adding Npark tracks 
     // Read in geojson data for park connector track 
