@@ -11,7 +11,12 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // SETUP //////////////////////////////////////////////////////////////////
     // create a map object
-    let map = L.map('map', { zoomControl: false });
+    let map = L.map('map',
+        {
+            zoomControl: false,
+            // closePopupOnClick: false
+
+        });
     // set the center point and the zoom
     map.setView([1.35, 103.81], 12);
 
@@ -596,25 +601,34 @@ window.addEventListener("DOMContentLoaded", async function () {
                     //CHANGE ZOOM TO SO THAT NOT BLOCKED BY SEARCH BAR 
                     (function () {
                         // console.log(p.geocodes.main.latitude);
-                        // finalLat= parseFloat(p.geocodes.main.latitude) + 0.0024
+                        finalLat = parseFloat(p.geocodes.main.latitude) + 0.0024
                         // console.log(finalLat)
 
                         // console.log(p.geocodes.main.longitude);
                         // finalLng= parseFloat(p.geocodes.main.longitude) - 0.0009
                         // console.log(finalLng)
                         map.flyTo([finalLat, p.geocodes.main.longitude], 17)
-                       
+
                         setTimeout(() => { searchMarker.openPopup() }, 2000);
+
+                        // Collapse search list with Javascript after call 
+                        var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                        var collapseList = collapseElementList.map(function (collapseEl) {
+                            return new bootstrap.Collapse(collapseEl)
+                        })
+
+
+
                     }))
 
 
 
-                    // (function () {
-                    //     console.log(p.geocodes.main.latitude);
-                    //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
-                       
-                    //     setTimeout(() => { searchMarker.openPopup() }, 2000);
-                    // }))
+                // (function () {
+                //     console.log(p.geocodes.main.latitude);
+                //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+
+                //     setTimeout(() => { searchMarker.openPopup() }, 2000);
+                // }))
 
                 // parkClusterLayer.zoomToShowLayer(searchMarker, (function () {
                 //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
