@@ -70,6 +70,22 @@ body {
     font-size: 0.7em;
     width:80px
 }
+
+
+.modal {
+    z-index: 36000;
+}
+
+.modal-button {
+    margin-top: 4px;
+    position: absolute;
+    z-index: 34500;
+    top: 86%;
+    left: 2%;
+    font-size: 0.7em;
+    width:80px
+
+}
 /* 
 .click-about-us {
     position: absolute;
