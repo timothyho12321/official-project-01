@@ -40,12 +40,10 @@
             </div> -->
             <!-- TO ONLY INCLUDE ABOVE IF WANTED TO MANUAL CODE LAYER CONTROL -->
 
-            <!-- Why does using id of search-surrounding not apply to the right boxes? Should I apply as class to the
-                 individual search button search bar and search  result instead?-->
 
             <div id="search-surrounding" class="">
                 <div id="top-bar-right" class="search-peri bg-rgba(15, 201, 37, 0.18)">
-
+                    <div id="search-terms">Search Terms</div>
                     <!-- BELOW IS CATEGORIES SEARCH ALL PARK, HIKING TRAILS, OR GARDEN. -->
                     <div><input type="radio" value="16032" id="categories-park" class="categories"
                             name="categories" /><label>Park</label>
@@ -56,19 +54,18 @@
                     </div>
                     <div class="error mb-1" id="categories-error"></div>
                     <!-- SEARCH TEXT BOX FOR PARK LOCATION -->
-                    <div><input class="d-md-inline-block" type="text" id="search-park-type"
-                            placeholder="Park location (called query)" />
+                    <div><input type="text" id="search-park-type" placeholder="Park location" />
                     </div>
 
                     <!-- RADIO BUTTON FOR RELEVANCE INPUT FOR FOURSQUARE -->
-                    <div class="d-md-inline-block">
+                    <div>
                         <!-- QUESTION: HOW COME THE SELECTOR CIRCLE CANNOT GO TO THE NEXT LINE??? -->
                         <input type="radio" value="relevance" id="sort-relevance" class="sort-button"
                             name="sort-button" /><label>By Relevance</label>
                         <input type="radio" value="rating" id="sort-rating" class="sort-button"
                             name="sort-button" /><label>By Rating</label>
-                            <div class="error mb-1" id="sort-error"></div>
-                        </div>
+                        <div class="error mb-1" id="sort-error"></div>
+                    </div>
 
                     <div>
                         <input type="radio" value=20 id="limit-20" class="limit-button" name="limit-button" /><label>See
@@ -77,31 +74,13 @@
                             50 Results</label>
                     </div>
 
-                    <!-- TO DELETE -->
-                    <!-- BELOW IS SUBMIT BUTTON -->
-                    <!-- <input type="submit" value="search" id="search-input-click" class="btn btn-primary" /> -->
-                    <!-- SEEMS TO WORK BETTER W3Schools https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_collapsible2&stacked=h
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="#collapse1">Collapsible panel</a>
-                                </h4>
-                            </div>
-                            <div id="collapse1" class="panel-collapse collapse">
-                                <div class="panel-body">Panel Body</div>
-                                <div class="panel-footer">Panel Footer</div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- QUESTION BOOTSTRAP 5. NEED TO ADD ANYTHING ELSE? https://getbootstrap.com/docs/5.0/components/collapse/-->
+                    <!-- Bootstrap for collapse function https://getbootstrap.com/docs/5.0/components/collapse/-->
                     <div class="mb-1">
                         <!-- This button combines the search and collapse function -->
-                        <button class="btn btn-primary mb-0" style="padding-bottom: 0%" value="search"
-                            id="search-input-click" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            Search and collapse
+                        <button class="btn btn-info" style="padding-bottom: 2%" value="search" id="search-input-click"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            Open results
                         </button>
                     </div>
                     <div class="collapse" id="collapseExample">
@@ -121,13 +100,25 @@
 
             </div>
 
+            <div class="icon" id="icon">
+
+                <div id="leaf-and-button">
+                    <img src="leaf-logo.png" class="leaf-icon" />
+                    <button class="btn btn-success about-button">About SGParks</button>
+                </div>
+
+                <!-- <a href="#" class = "click-about-us">About-us</a> -->
+                <div id="about-us"><span>Since 2022, we aim to help nature lovers find new green pockets of spaces in
+                        Singapore. Access by cycling or road. </span></div>
+            </div>
 
 
+            <div id="map"></div>
 
         </div>
 
 
-        <div id="map"></div>
+
     </div>
 
     <!-- Bootstrap 3-->
@@ -138,7 +129,7 @@
     <!-- Bootstrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script> -->
+        crossorigin="anonymous"></script>
 
     <!-- axios-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"
@@ -147,7 +138,7 @@
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
         integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-    crossorigin="" />
+    
     <!-- TWO LEAFLET PROVIDER LINKS. SOURCE: https://github.com/leaflet-extras/leaflet-providers -->
     <script src="http://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
     <script src="js/leaflet-providers.js"></script>
@@ -156,6 +147,7 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
     <!-- Our own JS -->
     <script src="script.js"></script>
+    <script src="functions.js"></script>
 </body>
 
 </html>

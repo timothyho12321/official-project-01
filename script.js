@@ -1,5 +1,5 @@
 
-// BOILER PLATE CODE from Paul 
+// BOILER PLATE CODE 
 // SOURCE: https://gist.githubusercontent.com/kunxin-chor/f1517e174acaf8d4d7196ad70b447f39/raw/0cabdff18d8ec0571b382346f97d020af63666a6/script.js
 // Use DOMContentLoaded as our main entry point
 
@@ -7,10 +7,16 @@
 window.addEventListener("DOMContentLoaded", async function () {
 
 
+    //SOURCE FOR CHANGING BASEMAP: https://leaflet-extras.github.io/leaflet-providers/preview/
 
     // SETUP //////////////////////////////////////////////////////////////////
     // create a map object
-    let map = L.map('map', { zoomControl: false });
+    let map = L.map('map',
+        {
+            zoomControl: false,
+            // closePopupOnClick: false
+
+        });
     // set the center point and the zoom
     map.setView([1.35, 103.81], 12);
 
@@ -25,9 +31,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-    //QUESTION WHAT IS THIS ERROR MESSAGE FOR ONE MAP DEFAULT? Cross-Origin Read Blocking (CORB) blocked cross-origin response <URL> with MIME type text/html. See <URL> for more details.
 
-    // need set up the tile layer
+    // set up the tile layer
     var leaflet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -87,22 +92,23 @@ window.addEventListener("DOMContentLoaded", async function () {
     // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
 
 
-    async function axiosCall(url) {
-        let callResponse = await axios.get(url);
-        return callResponse;
-    }
 
     // Adding Npark tracks 
     // Read in geojson data for park connector track 
     // let connectorResponse = await axios.get("nparks-tracks-geojson.geojson");
     let connectorResponse = await axiosCall("nparks-tracks-geojson.geojson");
 
+    // set up leaf logo icon 
+    // SOURCE: <a href="https://www.flaticon.com/free-icons/nature" title="nature icons">Nature icons created by Freepik - Flaticon</a>
+    // let icon = document.querySelector("#icon");
+    // icon.innerHTML = `<img src = "leaf-logo.png"/>`;
 
-    console.log(connectorResponse.data);
+
+
+    // console.log(connectorResponse.data);
 
     //Create Park Connector Track Network Layer
     let connectorLayer = L.geoJson(connectorResponse.data, {
-
         onEachFeature: function (features, subLayer) {
             let holderElement = document.createElement("div");
             holderElement.innerHTML = features.properties.Description;
@@ -305,6 +311,41 @@ window.addEventListener("DOMContentLoaded", async function () {
     parkClusterLayer.addTo(map);
 
 
+
+    let aboutButton = document.querySelector(".about-button");
+    // console.log(aboutButton);
+
+    aboutButton.addEventListener("click", function () {
+        let aboutUsBanner = document.querySelector("#about-us");
+        let aboutUsDisplay = aboutUsBanner.style.display;
+        //    console.dir(aboutUsBanner);
+        //    console.log(aboutUsDisplay);
+
+        if (!aboutUsDisplay || aboutUsDisplay == "none") {
+            // document.querySelector("#about-us").style.display = "block";
+            aboutUsBanner.style.display = "block";
+
+            aboutButton.innerText = "Close banner"
+
+        } else if (aboutUsDisplay) {
+            // document.querySelector("#about-us").style.display = "block";
+            aboutUsBanner.style.display = "none";
+            aboutButton.innerText = "About SGParks"
+        }
+
+    })
+
+    // aboutButton.addEventListener("click", function () {
+    //     let aboutUsBanner = document.querySelector("#about-us");
+    //     let aboutUsDisplay = aboutUsBanner.style.display;
+    //  //    console.dir(aboutUsBanner);
+    //  //    console.log(aboutUsDisplay);
+
+
+    //  }
+
+    //  })
+
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
     let searchPark = document.querySelector("#search-input-click");
 
@@ -482,6 +523,8 @@ window.addEventListener("DOMContentLoaded", async function () {
             //     return el;
             // })
 
+            //SOURCE OF TREE PHOTO: https://www.pexels.com/photo/bottom-view-of-green-leaved-tree-during-daytime-91153/
+
             async function getPhoto(fsq_id) {
                 let response = await axios.get(FSQUARE_URL + `${fsq_id}/photos`, {
                     'headers': headers
@@ -505,9 +548,16 @@ window.addEventListener("DOMContentLoaded", async function () {
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
                     console.log(photos);
-                    let firstPhoto = photos[0];
-                    let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
-                    el.innerHTML += `<img src ="${url}"/>`
+
+                    if (photos.length) {
+                        let firstPhoto = photos[0];
+                        let url = firstPhoto.prefix + "300x200" + firstPhoto.suffix;
+                        el.innerHTML += `<img src ="${url}"/>`
+                    } else {
+                        // console.log("Insert stock photo");
+                        el.innerHTML += `<img src ="tree-when-invalid-photo.jpg"/>`
+                    }
+
                 }
 
                 getPicture();
@@ -548,11 +598,37 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                 parkClusterLayer.zoomToShowLayer(searchMarker,
 
+                    //CHANGE ZOOM TO SO THAT NOT BLOCKED BY SEARCH BAR 
                     (function () {
-                        map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+                        // console.log(p.geocodes.main.latitude);
+                        finalLat = parseFloat(p.geocodes.main.latitude) + 0.0024
+                        // console.log(finalLat)
 
-                        setTimeout(() => {searchMarker.openPopup() }, 2000);
+                        // console.log(p.geocodes.main.longitude);
+                        // finalLng= parseFloat(p.geocodes.main.longitude) - 0.0009
+                        // console.log(finalLng)
+                        map.flyTo([finalLat, p.geocodes.main.longitude], 17)
+
+                        setTimeout(() => { searchMarker.openPopup() }, 2000);
+
+                        // Collapse search list with Javascript after call 
+                        var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+                        var collapseList = collapseElementList.map(function (collapseEl) {
+                            return new bootstrap.Collapse(collapseEl)
+                        })
+
+
+
                     }))
+
+
+
+                // (function () {
+                //     console.log(p.geocodes.main.latitude);
+                //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)
+
+                //     setTimeout(() => { searchMarker.openPopup() }, 2000);
+                // }))
 
                 // parkClusterLayer.zoomToShowLayer(searchMarker, (function () {
                 //     map.flyTo([p.geocodes.main.latitude, p.geocodes.main.longitude], 17)

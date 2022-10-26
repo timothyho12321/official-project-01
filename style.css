@@ -25,7 +25,7 @@ body {
 
 
 
-.search-peri{
+.search-peri {
 
     background-color: rgba(247, 247, 241, 0.60);
     z-index: 34000;
@@ -48,7 +48,49 @@ body {
     position: absolute;
     z-index: 35000;
     left: 1.5%;
-    top:1.5%
+    top: 1.5%
+}
+
+
+/* To control the leaf icon image styling */
+.leaf-icon {
+    position: absolute;
+    z-index: 34500;
+    width: 8vh;
+    top: 78%;
+    left: 4%
+}
+
+.about-button {
+    margin-top: 4px;
+    position: absolute;
+    z-index: 34500;
+    top: 86%;
+    left: 2%;
+    font-size: 0.7em;
+    width:80px
+}
+/* 
+.click-about-us {
+    position: absolute;
+    z-index: 34500;
+    top: 91%;
+    left: 2%
+} */
+
+
+
+#about-us {
+position:absolute;
+z-index: 34500;
+top:79%;
+left:25%;
+background-color: #32CD32;
+display: none;
+margin-right: 6px;
+border-radius: 15px;
+padding: 2px;
+min-height: 85px
 }
 
 /* 
@@ -61,7 +103,7 @@ body {
 } */
 
 #display-search {
-/* 
+    /* 
     position: absolute;
     z-index: 35000;
     top: 33%;
@@ -71,15 +113,19 @@ body {
     overflow-y: scroll;
 }
 
-#categories-error,  #sort-error{
-font-size:xx-small;
-color:red;
-font-weight: 500;
+#categories-error,
+#sort-error {
+    font-size: xx-small;
+    color: red;
+    font-weight: 500;
 }
 
-
-.popup{
+#search-terms
+{
+    font-weight: 800;
+}
+.popup {
     overflow: scroll;
-    width:320px;
-    height:150px;
+    width: 320px;
+    height: 150px;
 }
