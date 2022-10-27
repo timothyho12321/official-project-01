@@ -50,6 +50,7 @@ body {
     z-index: 35000;
     left: 1.5%;
     top: 1.5%;
+    border-radius: 15px
     
     
 }
@@ -137,7 +138,8 @@ body {
     max-width: 243px;
     overflow-y: scroll;
     background-color: rgba(255, 255, 255, 0.90);
-    color: black
+    color: black;
+    border-radius: 15px
 }
 
 #categories-error,

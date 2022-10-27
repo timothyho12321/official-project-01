@@ -358,7 +358,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     let searchPark = document.querySelector("#search-input-click");
 
     searchPark.addEventListener("click", async function () {
-
+        map.flyTo([1.35, 103.81], 12)
 
         //Input validation 
         let isCategoriesValid = false;
@@ -482,17 +482,17 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-            let weatherSearch = await searchWeather(lat, lng);
+            // let weatherSearch = await searchWeather(lat, lng);
             // console.log(weatherSearch);
 
-            let weatherDescription = weatherSearch.weather[0].description;
+            // let weatherDescription = weatherSearch.weather[0].description;
             // console.log(weatherDescription);
 
-            let weatherTemp = weatherSearch.main.temp;
+            // let weatherTemp = weatherSearch.main.temp;
             // console.log(weatherTemp);
 
             //TO CONSIDER WHETHER TO INCLUDE IMAGE OF WEATHER ICON
-            let weatherIcon = weatherSearch.weather[0].description;
+            // let weatherIcon = weatherSearch.weather[0].description;
             // console.log(weatherIcon);
 
             //PLACE MARKERS FOR PARK SEARCH 
@@ -522,11 +522,11 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                 let el = document.createElement('div');
                 el.classList.add("popup")
-                // el.innerHTML = `This place is <h4>${p.name}.</h4>`
-                // el.style.fontFamily = 'Roboto Slab, serif';
+                el.innerHTML = `This place is <h4>${p.name}.</h4>`
+                el.style.fontFamily = 'Roboto Slab, serif';
 
-                el.innerHTML = `<div> Place: ${p.name}. <br> Weather pattern: ${weatherDescription}. <br> Current Temperature: ${weatherTemp} °C.</div>`
-                el.style.fontFamily='Roboto Slab, serif';
+                // el.innerHTML = `<div> Place: ${p.name}. <br> Weather pattern: ${weatherDescription}. <br> Current Temperature: ${weatherTemp} °C.</div>`
+                // el.style.fontFamily='Roboto Slab, serif';
                 
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
