@@ -1,3 +1,12 @@
+
+const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
+const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
+
+const headers = {
+    "Accept": "application/json",
+    "Authorization": FSQUARE_KEY
+}
+
 async function search(categories, query, sort, limit = "") {
 
     let url = FSQUARE_URL + "search";
@@ -14,6 +23,9 @@ async function search(categories, query, sort, limit = "") {
             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
         }
     });
-
+ 
     return response.data;  // return the search results from the function
 }
+
+
+

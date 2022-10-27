@@ -267,13 +267,13 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // Add foursquare input to search for nearby parks
 
-    const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
-    const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
+    // const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
+    // const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
 
-    const headers = {
-        "Accept": "application/json",
-        "Authorization": FSQUARE_KEY
-    }
+    // const headers = {
+    //     "Accept": "application/json",
+    //     "Authorization": FSQUARE_KEY
+    // }
 
     // Global search function for nearby category - TO DELETE IF NOT RELEVANT ANYMORE
     // async function search(ll, search = "", radius, category = "") {
@@ -296,25 +296,25 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
     // Try out test Search (success)
-    async function search(categories, query, sort, limit = "") {
+    // async function search(categories, query, sort, limit = "") {
 
-        let url = FSQUARE_URL + "search";
-        let response = await axios.get(url, {
-            "headers": headers,
-            "params": {
-                "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
-                "query": query,// example location name (clementi)
-                "sort": sort, //sort by 
-                "limit": limit, // number of search results 
-                "ll": "1.3521,103.8198", // latLng of SG
-                "radius": 15000,//radius of search
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
+    //             "query": query,// example location name (clementi)
+    //             "sort": sort, //sort by 
+    //             "limit": limit, // number of search results 
+    //             "ll": "1.3521,103.8198", // latLng of SG
+    //             "radius": 15000,//radius of search
 
-                "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
-            }
-        });
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
 
-        return response.data;  // return the search results from the function
-    }
+    //     return response.data;  // return the search results from the function
+    // }
 
     // let testSearch = await search(16019, "", "relevance", 50);
     // console.log(testSearch.results);
@@ -459,6 +459,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
         //Pass firstSearch case 
+       
         let firstSearch = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
         // console.log(firstSearch.results);
 
