@@ -78,6 +78,8 @@ async function main() {
     // console.log(topSports);
 
 
+    // Add in topsport walkingoutdoor
+
     function transformData(rawData) {
         let shortlisted = [];
         // console.log(rawData);
@@ -94,16 +96,78 @@ async function main() {
     }
     let walkingOutdoorNum = transformData(topSports);
 
+    // chart.updateSeries([
+    //     {
+    //         name: "Walking Outdoor",
+    //         data: walkingOutdoorNum
+
+    //     }
+
+    // ])
+
+    // Add in top sport jogging running
+    function transformData2(rawData) {
+        let shortlisted = [];
+        // console.log(rawData);
+        for (let record of rawData) {
+            shortlisted.push({
+                'x': parseInt(record.annual),
+                'y': parseInt(record.joggingrunning)
+            });
+        }
+        console.log(shortlisted);
+        return shortlisted;
+    }
+    let joggingRunning = transformData2(topSports);
+
+    // chart.updateSeries([
+    //     {
+    //         name: "Walking Outdoor",
+    //         data: walkingOutdoorNum
+
+    //     },
+    //     {
+    //         name: "Jogging-running",
+    //         data: joggingRunning
+
+    //     }
+
+    // ])
+
+
+    // Add in topsport cycling 
+    function transformData3(rawData) {
+        let shortlisted = [];
+        // console.log(rawData);
+        for (let record of rawData) {
+            shortlisted.push({
+                'x': parseInt(record.annual),
+                'y': parseInt(record.cycling)
+            });
+        }
+        console.log(shortlisted);
+        return shortlisted;
+    }
+    let cycling = transformData3(topSports);
+
     chart.updateSeries([
         {
             name: "Walking Outdoor",
             data: walkingOutdoorNum
 
+        },
+        {
+            name: "Jogging-running",
+            data: joggingRunning
+
+        },
+        {
+            name: "Cycling",
+            data: cycling
+
         }
 
     ])
-
-
 }
 main();
 
