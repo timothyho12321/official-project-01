@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
         bounds: [[1.56073, 104.11475], [1.16, 103.502]],
         attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
-    }).addTo(map);
+    });
 
     var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -59,7 +59,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
         maxZoom: 20,
         attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    });
+    }).addTo(map);
 
     var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
         maxZoom: 20,
@@ -90,6 +90,15 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // // Add popup marker to park icon
     // parkMarker.bindPopup(`<h2>This is Ang Mo Kio Park</h2>`);
+
+
+    // Javascript for Modal to display about us message - gives error of undefined for myinput
+    // var myModal = document.getElementById('exampleModal')
+    // var myInput = document.getElementById('myInput')
+
+    // myModal.addEventListener('shown.bs.modal', function () {
+    //     myInput.focus()
+    // })
 
 
 
@@ -126,7 +135,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // Adjust style of park connector layer
     connectorLayer.setStyle({
-        'color': '#2E8B57',
+        'color': '#228C22',
         'strokeWidth': '0.5'
     })
 
@@ -159,10 +168,10 @@ window.addEventListener("DOMContentLoaded", async function () {
     cyclingLayer.addTo(map);
 
     cyclingLayer.setStyle({
-        'color': '#cd5252',
+        'color': '  #0999ec',
         'strokeWidth': '0.5'
     })
-
+//#414288
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
@@ -181,8 +190,8 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Park Connectors": connectorLayer,
         "Cycling path track": cyclingLayer
     }
-
-    let layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+   
+    let layerControl = L.control.layers(baseMaps, overlayMaps, {position:'bottomright'}).addTo(map);
     // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
 
     // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?

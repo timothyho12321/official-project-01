@@ -32,7 +32,11 @@
 <body>
 
     <div id="overall-container">
+
+
         <div id="interaction-container">
+
+
             <!-- <div id="top-bar-left">
                 <input type="checkbox" class="travel-mode" value="show-tracks" /><label>Display Npark Tracks</label>
                 <input type="checkbox" class="travel-mode" value="show-cycle" /><label>Display Cycling Tracks</label>
@@ -43,7 +47,7 @@
 
             <div id="search-surrounding" class="">
                 <div id="top-bar-right" class="search-peri bg-rgba(15, 201, 37, 0.18)">
-                    <div id="search-terms">Search Terms</div>
+                    <div id="search-terms">SINGAPORE</div>
                     <!-- BELOW IS CATEGORIES SEARCH ALL PARK, HIKING TRAILS, OR GARDEN. -->
                     <div><input type="radio" value="16032" id="categories-park" class="categories"
                             name="categories" /><label>Park</label>
@@ -54,7 +58,7 @@
                     </div>
                     <div class="error mb-1" id="categories-error"></div>
                     <!-- SEARCH TEXT BOX FOR PARK LOCATION -->
-                    <div><input type="text" id="search-park-type" placeholder="Park location" />
+                    <div><input type="text" id="search-park-type" placeholder="Region (e.g. Bishan)" />
                     </div>
 
                     <!-- RADIO BUTTON FOR RELEVANCE INPUT FOR FOURSQUARE -->
@@ -77,19 +81,18 @@
                     <!-- Bootstrap for collapse function https://getbootstrap.com/docs/5.0/components/collapse/-->
                     <div class="mb-1">
                         <!-- This button combines the search and collapse function -->
-                        <button class="btn btn-info" style="padding-bottom: 2%" value="search" id="search-input-click"
+                        <button class="btn btn-light" style="padding-bottom: 2%" value="search" id="search-input-click"
                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample">
-                            Open results
+                            Search
                         </button>
                     </div>
                     <div class="collapse" id="collapseExample">
-                        <div class="card card-body"
-                            style="padding-top: 0%; background-color: rgba(247, 247, 241, 0.60)">
+                        <div class="card card-body" style="padding: 0%; background-color: #2D4620">
                             <div id="display-search" class="search-peri "></div>
                         </div>
                     </div>
-
+                    
                     <!-- Display search result -->
 
 
@@ -105,6 +108,42 @@
                 <div id="leaf-and-button">
                     <img src="leaf-logo.png" class="leaf-icon" />
                     <button class="btn btn-success about-button">About SGParks</button>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success modal-button" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        About SGParks
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">SGParks Map Search</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>Since 2022, we aim to help nature lovers find new green pockets of spaces in
+                                        Singapore. Access by cycling or road.
+                                    </div>
+                                    <br>
+                                    <div>A healthy and smart nation will talk walks in parks. You can breathe in the
+                                        air,
+                                        smell the roses and get a great workout!</div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- <a href="#" class = "click-about-us">About-us</a> -->
@@ -138,7 +177,7 @@
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
         integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-    
+
     <!-- TWO LEAFLET PROVIDER LINKS. SOURCE: https://github.com/leaflet-extras/leaflet-providers -->
     <script src="http://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
     <script src="js/leaflet-providers.js"></script>

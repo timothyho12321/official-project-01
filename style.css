@@ -12,6 +12,7 @@
 
 body {
     font-family: 'Roboto Slab', serif;
+    font-size: medium;
 }
 
 /* Latest attempt below */
@@ -27,13 +28,13 @@ body {
 
 .search-peri {
 
-    background-color: rgba(247, 247, 241, 0.60);
+    background-color: #2D4620;
     z-index: 34000;
     padding: 5px;
 }
 
 
-
+/*  rgb(97, 97, 96) grey */
 #top-bar-left {
 
     position: absolute;
@@ -44,11 +45,13 @@ body {
 
 
 #top-bar-right {
-
+    color: white;
     position: absolute;
     z-index: 35000;
     left: 1.5%;
-    top: 1.5%
+    top: 1.5%;
+    
+    
 }
 
 
@@ -68,8 +71,24 @@ body {
     top: 86%;
     left: 2%;
     font-size: 0.7em;
-    width:80px
+    width: 80px
 }
+
+
+.modal {
+    z-index: 36000;
+}
+
+.modal-button {
+    margin-top: 4px;
+    position: absolute;
+    z-index: 34500;
+    top: 86%;
+    left: 2%;
+    font-size: 0.7em;
+    width: 80px
+}
+
 /* 
 .click-about-us {
     position: absolute;
@@ -81,16 +100,16 @@ body {
 
 
 #about-us {
-position:absolute;
-z-index: 34500;
-top:79%;
-left:25%;
-background-color: #32CD32;
-display: none;
-margin-right: 6px;
-border-radius: 15px;
-padding: 2px;
-min-height: 85px
+    position: absolute;
+    z-index: 34500;
+    top: 79%;
+    left: 25%;
+    background-color: #32CD32;
+    display: none;
+    margin-right: 6px;
+    border-radius: 15px;
+    padding: 2px;
+    min-height: 85px
 }
 
 /* 
@@ -109,8 +128,10 @@ min-height: 85px
     top: 33%;
     left: 67%; */
     max-height: 200px;
-    max-width: 200px;
+    max-width: 243px;
     overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.90);
+    color: black
 }
 
 #categories-error,
@@ -120,10 +141,10 @@ min-height: 85px
     font-weight: 500;
 }
 
-#search-terms
-{
-    font-weight: 800;
+#search-terms {
+    font-size:large;
 }
+
 .popup {
     overflow: scroll;
     width: 320px;
