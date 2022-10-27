@@ -326,23 +326,23 @@ window.addEventListener("DOMContentLoaded", async function () {
     //SOURCE: https://openweathermap.org/api/one-call-api
     //Initial test search with OpenWeather
 
-    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
-    let app_id = "2a0076487a241d1a333c9896bc072673" //OpenWeather API Key 
+    // let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
+    // let app_id = "2a0076487a241d1a333c9896bc072673" //OpenWeather API Key 
 
-    let exclude = 'minutely,hourly,daily,alerts';
+    // let exclude = 'minutely,hourly,daily,alerts';
 
-    async function searchWeather(lat, lon) {
+    // async function searchWeather(lat, lon) {
 
-        // let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
-        // let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=629e361798b0ccce5466e1e70f3e4712"
+    //     // let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
+    //     // let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=629e361798b0ccce5466e1e70f3e4712"
 
-        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&appid=${app_id}&units=metric`
+    //     let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&appid=${app_id}&units=metric`
 
-        // console.log(url);
-        let response = await axios.get(url)
+    //     // console.log(url);
+    //     let response = await axios.get(url)
 
-        return (response.data);
-    };
+    //     return (response.data);
+    // };
 
     // return the test search results from the searchWeather function
     // let weatherSearch = await searchWeather(1.3521, 103.8198);
@@ -482,17 +482,17 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-            // let weatherSearch = await searchWeather(lat, lng);
+            let weatherSearch = await searchWeather(lat, lng);
             // console.log(weatherSearch);
 
-            // let weatherDescription = weatherSearch.weather[0].description;
+            let weatherDescription = weatherSearch.weather[0].description;
             // console.log(weatherDescription);
 
-            // let weatherTemp = weatherSearch.main.temp;
+            let weatherTemp = weatherSearch.main.temp;
             // console.log(weatherTemp);
 
             //TO CONSIDER WHETHER TO INCLUDE IMAGE OF WEATHER ICON
-            // let weatherIcon = weatherSearch.weather[0].description;
+            let weatherIcon = weatherSearch.weather[0].description;
             // console.log(weatherIcon);
 
             //PLACE MARKERS FOR PARK SEARCH 
@@ -503,34 +503,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-
-            //REFERENCE getPhoto function 
-            // async function getPhoto(fsq_id) {
-            //     let response = await axios.get(API_BASE_URL + `${fsq_id}/photos`,{
-            //         'headers': headers
-            //     });
-            //     return response.data;
-            // }
-
-
-            //REFERENCE 
-            // marker.bindPopup( function(){
-
-            //     let el = document.createElement('div');
-            //     // add the 'popup' class to the <div>
-            //     // see style.css for its definition
-            //     el.classList.add("popup")
-            //     el.innerHTML = `<h1>${r.name}</h1>`
-            //     async function getPicture() {
-            //         let photos = await getPhoto(r.fsq_id);
-            //         let firstPhoto = photos[0];
-            //         let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
-            //         el.innerHTML += `<img src="${url}"/>`
-            //     }
-
-            //      getPicture();
-            //     return el;
-            // })
 
             //SOURCE OF TREE PHOTO: https://www.pexels.com/photo/bottom-view-of-green-leaved-tree-during-daytime-91153/
 
@@ -550,10 +522,12 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                 let el = document.createElement('div');
                 el.classList.add("popup")
-                el.innerHTML = `This place is <h4>${p.name}.</h4>`
-                el.style.fontFamily = 'Roboto Slab, serif';
+                // el.innerHTML = `This place is <h4>${p.name}.</h4>`
+                // el.style.fontFamily = 'Roboto Slab, serif';
 
-                // el.innerHTML = `This place is <h4>${p.name}.</h4> Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`
+                el.innerHTML = `<div> Place: ${p.name}. <br> Weather pattern: ${weatherDescription}. <br> Current Temperature: ${weatherTemp} °C.</div>`
+                el.style.fontFamily='Roboto Slab, serif';
+                
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
                     // console.log(photos);
