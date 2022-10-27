@@ -80,16 +80,16 @@ window.addEventListener("DOMContentLoaded", async function () {
     // SOURCE FOR GARDEN ICON: <a href="https://www.flaticon.com/free-icons/maps-and-location" title="maps and location icons">Maps and location icons created by Rmpp - Flaticon</a>
 
     const parkIcon = L.icon({
-        iconUrl: 'tree.png',
+        iconUrl: 'images/tree.png',
 
         iconSize: [45, 50],
         iconAnchor: [23, 45],
         popupAnchor: [-3, -76]
     })
-
+   
     //Make icon for hiking trail (h symbol)
     const hikeIcon = L.icon({
-        iconUrl: 'h-for-hiking-trail.png',
+        iconUrl: 'images/h-for-hiking-trail.png',
 
         iconSize: [45, 45],
         iconAnchor: [23, 45],
@@ -98,7 +98,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     //Make icon for garden (h symbol)
     const gardenIcon = L.icon({
-        iconUrl: 'garden.png',
+        iconUrl: 'images/garden.png',
 
         iconSize: [50, 50],
         iconAnchor: [23, 45],
@@ -114,6 +114,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         '16017': gardenIcon
     }
 
+    
 
     // PLACING ICON ON THE MAP
     // let parkMarker = L.marker([1.2890, 103.8604], { icon: categoriesValue[16032] });
@@ -596,7 +597,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                         el.innerHTML += `<img src ="${url}"/>`
                     } else {
                         // console.log("Insert stock photo");
-                        el.innerHTML += `<img src ="tree-when-invalid-photo.jpg"/>`
+                        el.innerHTML += `<img src ="images/tree-when-invalid-photo.jpg" class="invalid-tree"/>`
                     }
 
                 }
@@ -650,7 +651,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                         // console.log(finalLng)
                         map.flyTo([finalLat, p.geocodes.main.longitude], 17)
 
-                        setTimeout(() => { searchMarker.openPopup() }, 2000);
+                        setTimeout(() => { searchMarker.openPopup() }, 1500);
 
                         // Collapse search list with Javascript after call 
                         var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
