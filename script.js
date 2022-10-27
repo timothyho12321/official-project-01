@@ -76,6 +76,9 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
+    // SOURCE FOR H ICON: <a href="https://www.flaticon.com/free-icons/maps-and-location" title="maps and location icons">Maps and location icons created by Freepik - Flaticon</a>
+    // SOURCE FOR GARDEN ICON: <a href="https://www.flaticon.com/free-icons/maps-and-location" title="maps and location icons">Maps and location icons created by Rmpp - Flaticon</a>
+
     const parkIcon = L.icon({
         iconUrl: 'tree.png',
 
@@ -84,8 +87,37 @@ window.addEventListener("DOMContentLoaded", async function () {
         popupAnchor: [-3, -76]
     })
 
+    //Make icon for hiking trail (h symbol)
+    const hikeIcon = L.icon({
+        iconUrl: 'h-for-hiking-trail.png',
+
+        iconSize: [45, 45],
+        iconAnchor: [23, 45],
+        popupAnchor: [-3, -76]
+    })
+
+    //Make icon for garden (h symbol)
+    const gardenIcon = L.icon({
+        iconUrl: 'garden.png',
+
+        iconSize: [50, 50],
+        iconAnchor: [23, 45],
+        popupAnchor: [-3, -76]
+    })
+
+
+    // LOOKUP TABLE FOR DIFFERENT MARKER ICONS 
+    const categoriesValue =
+    {
+        '16032': parkIcon,
+        '16019': hikeIcon,
+        '16017': gardenIcon
+    }
+
+
     // PLACING ICON ON THE MAP
-    // let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
+    // let parkMarker = L.marker([1.2890, 103.8604], { icon: categoriesValue[16032] });
+    // console.dir(categoriesValue[16032] );
     // parkMarker.addTo(map);
 
     // // Add popup marker to park icon
@@ -171,7 +203,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         'color': '  #0999ec',
         'strokeWidth': '0.5'
     })
-//#414288
+
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
@@ -190,8 +222,8 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Park Connectors": connectorLayer,
         "Cycling path track": cyclingLayer
     }
-   
-    let layerControl = L.control.layers(baseMaps, overlayMaps, {position:'bottomright'}).addTo(map);
+
+    let layerControl = L.control.layers(baseMaps, overlayMaps, { position: 'bottomright' }).addTo(map);
     // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
 
     // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?
@@ -544,7 +576,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 return response.data;
             }
 
-            let searchMarker = L.marker([lat, lng], { icon: parkIcon });
+            let searchMarker = L.marker([lat, lng], { icon: categoriesValue[selectedCategories]});
 
             searchMarker.bindPopup(function () {
 
