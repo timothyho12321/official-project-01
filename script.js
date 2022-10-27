@@ -76,16 +76,49 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
+    // SOURCE FOR H ICON: <a href="https://www.flaticon.com/free-icons/maps-and-location" title="maps and location icons">Maps and location icons created by Freepik - Flaticon</a>
+    // SOURCE FOR GARDEN ICON: <a href="https://www.flaticon.com/free-icons/maps-and-location" title="maps and location icons">Maps and location icons created by Rmpp - Flaticon</a>
+
     const parkIcon = L.icon({
-        iconUrl: 'tree.png',
+        iconUrl: 'images/tree.png',
 
         iconSize: [45, 50],
         iconAnchor: [23, 45],
         popupAnchor: [-3, -76]
     })
+   
+    //Make icon for hiking trail (h symbol)
+    const hikeIcon = L.icon({
+        iconUrl: 'images/h-for-hiking-trail.png',
+
+        iconSize: [45, 45],
+        iconAnchor: [23, 45],
+        popupAnchor: [-3, -76]
+    })
+
+    //Make icon for garden (h symbol)
+    const gardenIcon = L.icon({
+        iconUrl: 'images/garden.png',
+
+        iconSize: [50, 50],
+        iconAnchor: [23, 45],
+        popupAnchor: [-3, -76]
+    })
+
+
+    // LOOKUP TABLE FOR DIFFERENT MARKER ICONS 
+    const categoriesValue =
+    {
+        '16032': parkIcon,
+        '16019': hikeIcon,
+        '16017': gardenIcon
+    }
+
+    
 
     // PLACING ICON ON THE MAP
-    // let parkMarker = L.marker([1.2890, 103.8604], { icon: parkIcon });
+    // let parkMarker = L.marker([1.2890, 103.8604], { icon: categoriesValue[16032] });
+    // console.dir(categoriesValue[16032] );
     // parkMarker.addTo(map);
 
     // // Add popup marker to park icon
@@ -171,7 +204,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         'color': '  #0999ec',
         'strokeWidth': '0.5'
     })
-//#414288
+
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
@@ -190,8 +223,8 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Park Connectors": connectorLayer,
         "Cycling path track": cyclingLayer
     }
-   
-    let layerControl = L.control.layers(baseMaps, overlayMaps, {position:'bottomright'}).addTo(map);
+
+    let layerControl = L.control.layers(baseMaps, overlayMaps, { position: 'bottomright' }).addTo(map);
     // to add in BASEMAP LAYER above WHEN IT IS INCLUDED IN FUTURE 
 
     // QUESTION STYLING LAYER CONTROL WHAT DOES IT MEAN?
@@ -234,56 +267,56 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     // Add foursquare input to search for nearby parks
 
-    const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
-    const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
+    // const FSQUARE_URL = "https://api.foursquare.com/v3/places/";
+    // const FSQUARE_KEY = "fsq3TbSfyMgtndp0pmKicwLy+rc3GDql+ihBOKh7xSLyhgU=";
 
-    const headers = {
-        "Accept": "application/json",
-        "Authorization": FSQUARE_KEY
-    }
+    // const headers = {
+    //     "Accept": "application/json",
+    //     "Authorization": FSQUARE_KEY
+    // }
 
-    // Global search function for nearby category
-    async function search(ll, search = "", radius, category = "") {
+    // Global search function for nearby category - TO DELETE IF NOT RELEVANT ANYMORE
+    // async function search(ll, search = "", radius, category = "") {
 
-        let url = FSQUARE_URL + "search";
-        let response = await axios.get(url, {
-            "headers": headers,
-            "params": {
-                "ll": ll,
-                "query": search,
-                "radius": radius,
-                "category": category,  // ok for category to be empty string
-                "limit": 50,
-                "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
-            }
-        });
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "ll": ll,
+    //             "query": search,
+    //             "radius": radius,
+    //             "category": category,  // ok for category to be empty string
+    //             "limit": 50,
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
 
-        return response.data;  // return the search results from the function
-    }
+    //     return response.data;  // return the search results from the function
+    // }
 
 
     // Try out test Search (success)
-    async function search(categories, query, sort, limit = "") {
+    // async function search(categories, query, sort, limit = "") {
 
-        let url = FSQUARE_URL + "search";
-        let response = await axios.get(url, {
-            "headers": headers,
-            "params": {
-                "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
-                "query": query,// example location name (clementi)
-                "sort": sort, //sort by 
-                "limit": limit, // number of search results 
-                "ll": "1.3521,103.8198", // latLng of SG
-                "radius": 15000,//radius of search
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "categories": categories,// example either 16032(park),16019(hiking),16017(garden)
+    //             "query": query,// example location name (clementi)
+    //             "sort": sort, //sort by 
+    //             "limit": limit, // number of search results 
+    //             "ll": "1.3521,103.8198", // latLng of SG
+    //             "radius": 15000,//radius of search
 
-                "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
-            }
-        });
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
 
-        return response.data;  // return the search results from the function
-    }
+    //     return response.data;  // return the search results from the function
+    // }
 
-    let testSearch = await search(16019, "", "relevance", 50);
+    // let testSearch = await search(16019, "", "relevance", 50);
     // console.log(testSearch.results);
 
     let searchParkLayer = L.layerGroup();
@@ -293,23 +326,23 @@ window.addEventListener("DOMContentLoaded", async function () {
     //SOURCE: https://openweathermap.org/api/one-call-api
     //Initial test search with OpenWeather
 
-    let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
-    let app_id = "2a0076487a241d1a333c9896bc072673" //OpenWeather API Key 
+    // let WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
+    // let app_id = "2a0076487a241d1a333c9896bc072673" //OpenWeather API Key 
 
-    let exclude = 'minutely,hourly,daily,alerts';
+    // let exclude = 'minutely,hourly,daily,alerts';
 
-    async function searchWeather(lat, lon) {
+    // async function searchWeather(lat, lon) {
 
-        // let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
-        // let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=629e361798b0ccce5466e1e70f3e4712"
+    //     // let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${app_id}&units=metric`
+    //     // let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=629e361798b0ccce5466e1e70f3e4712"
 
-        let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&appid=${app_id}&units=metric`
+    //     let url = WEATHER_BASE_URL + `?lat=${lat}&lon=${lon}&appid=${app_id}&units=metric`
 
-        // console.log(url);
-        let response = await axios.get(url)
+    //     // console.log(url);
+    //     let response = await axios.get(url)
 
-        return (response.data);
-    };
+    //     return (response.data);
+    // };
 
     // return the test search results from the searchWeather function
     // let weatherSearch = await searchWeather(1.3521, 103.8198);
@@ -321,45 +354,11 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-    let aboutButton = document.querySelector(".about-button");
-    // console.log(aboutButton);
-
-    aboutButton.addEventListener("click", function () {
-        let aboutUsBanner = document.querySelector("#about-us");
-        let aboutUsDisplay = aboutUsBanner.style.display;
-        //    console.dir(aboutUsBanner);
-        //    console.log(aboutUsDisplay);
-
-        if (!aboutUsDisplay || aboutUsDisplay == "none") {
-            // document.querySelector("#about-us").style.display = "block";
-            aboutUsBanner.style.display = "block";
-
-            aboutButton.innerText = "Close banner"
-
-        } else if (aboutUsDisplay) {
-            // document.querySelector("#about-us").style.display = "block";
-            aboutUsBanner.style.display = "none";
-            aboutButton.innerText = "About SGParks"
-        }
-
-    })
-
-    // aboutButton.addEventListener("click", function () {
-    //     let aboutUsBanner = document.querySelector("#about-us");
-    //     let aboutUsDisplay = aboutUsBanner.style.display;
-    //  //    console.dir(aboutUsBanner);
-    //  //    console.log(aboutUsDisplay);
-
-
-    //  }
-
-    //  })
-
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
     let searchPark = document.querySelector("#search-input-click");
 
     searchPark.addEventListener("click", async function () {
-
+        map.flyTo([1.35, 103.81], 12)
 
         //Input validation 
         let isCategoriesValid = false;
@@ -460,8 +459,9 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
         //Pass firstSearch case 
+       
         let firstSearch = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
-        console.log(firstSearch.results);
+        // console.log(firstSearch.results);
 
 
         //create parkClusterLayer
@@ -504,34 +504,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-            //REFERENCE getPhoto function 
-            // async function getPhoto(fsq_id) {
-            //     let response = await axios.get(API_BASE_URL + `${fsq_id}/photos`,{
-            //         'headers': headers
-            //     });
-            //     return response.data;
-            // }
-
-
-            //REFERENCE 
-            // marker.bindPopup( function(){
-
-            //     let el = document.createElement('div');
-            //     // add the 'popup' class to the <div>
-            //     // see style.css for its definition
-            //     el.classList.add("popup")
-            //     el.innerHTML = `<h1>${r.name}</h1>`
-            //     async function getPicture() {
-            //         let photos = await getPhoto(r.fsq_id);
-            //         let firstPhoto = photos[0];
-            //         let url = firstPhoto.prefix + "original" + firstPhoto.suffix;
-            //         el.innerHTML += `<img src="${url}"/>`
-            //     }
-
-            //      getPicture();
-            //     return el;
-            // })
-
             //SOURCE OF TREE PHOTO: https://www.pexels.com/photo/bottom-view-of-green-leaved-tree-during-daytime-91153/
 
             async function getPhoto(fsq_id) {
@@ -544,7 +516,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 return response.data;
             }
 
-            let searchMarker = L.marker([lat, lng], { icon: parkIcon });
+            let searchMarker = L.marker([lat, lng], { icon: categoriesValue[selectedCategories]});
 
             searchMarker.bindPopup(function () {
 
@@ -553,10 +525,12 @@ window.addEventListener("DOMContentLoaded", async function () {
                 el.innerHTML = `This place is <h4>${p.name}.</h4>`
                 el.style.fontFamily = 'Roboto Slab, serif';
 
-                // el.innerHTML = `This place is <h4>${p.name}.</h4> Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`
+                // el.innerHTML = `<div> Place: ${p.name}. <br> Weather pattern: ${weatherDescription}. <br> Current Temperature: ${weatherTemp} °C.</div>`
+                // el.style.fontFamily='Roboto Slab, serif';
+                
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
-                    console.log(photos);
+                    // console.log(photos);
 
                     if (photos.length) {
                         let firstPhoto = photos[0];
@@ -564,7 +538,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                         el.innerHTML += `<img src ="${url}"/>`
                     } else {
                         // console.log("Insert stock photo");
-                        el.innerHTML += `<img src ="tree-when-invalid-photo.jpg"/>`
+                        el.innerHTML += `<img src ="images/tree-when-invalid-photo.jpg" class="invalid-tree"/>`
                     }
 
                 }
@@ -618,7 +592,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                         // console.log(finalLng)
                         map.flyTo([finalLat, p.geocodes.main.longitude], 17)
 
-                        setTimeout(() => { searchMarker.openPopup() }, 2000);
+                        setTimeout(() => { searchMarker.openPopup() }, 1500);
 
                         // Collapse search list with Javascript after call 
                         var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
