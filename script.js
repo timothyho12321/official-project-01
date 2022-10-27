@@ -275,24 +275,24 @@ window.addEventListener("DOMContentLoaded", async function () {
         "Authorization": FSQUARE_KEY
     }
 
-    // Global search function for nearby category
-    async function search(ll, search = "", radius, category = "") {
+    // Global search function for nearby category - TO DELETE IF NOT RELEVANT ANYMORE
+    // async function search(ll, search = "", radius, category = "") {
 
-        let url = FSQUARE_URL + "search";
-        let response = await axios.get(url, {
-            "headers": headers,
-            "params": {
-                "ll": ll,
-                "query": search,
-                "radius": radius,
-                "category": category,  // ok for category to be empty string
-                "limit": 50,
-                "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
-            }
-        });
+    //     let url = FSQUARE_URL + "search";
+    //     let response = await axios.get(url, {
+    //         "headers": headers,
+    //         "params": {
+    //             "ll": ll,
+    //             "query": search,
+    //             "radius": radius,
+    //             "category": category,  // ok for category to be empty string
+    //             "limit": 50,
+    //             "v": '20221017'  // (Unique FourSquare) YYMMDD format (its for version control). I want to use your version of API dated before this date
+    //         }
+    //     });
 
-        return response.data;  // return the search results from the function
-    }
+    //     return response.data;  // return the search results from the function
+    // }
 
 
     // Try out test Search (success)
@@ -316,7 +316,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         return response.data;  // return the search results from the function
     }
 
-    let testSearch = await search(16019, "", "relevance", 50);
+    // let testSearch = await search(16019, "", "relevance", 50);
     // console.log(testSearch.results);
 
     let searchParkLayer = L.layerGroup();
