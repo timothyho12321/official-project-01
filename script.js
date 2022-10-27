@@ -354,40 +354,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-    let aboutButton = document.querySelector(".about-button");
-    // console.log(aboutButton);
-
-    aboutButton.addEventListener("click", function () {
-        let aboutUsBanner = document.querySelector("#about-us");
-        let aboutUsDisplay = aboutUsBanner.style.display;
-        //    console.dir(aboutUsBanner);
-        //    console.log(aboutUsDisplay);
-
-        if (!aboutUsDisplay || aboutUsDisplay == "none") {
-            // document.querySelector("#about-us").style.display = "block";
-            aboutUsBanner.style.display = "block";
-
-            aboutButton.innerText = "Close banner"
-
-        } else if (aboutUsDisplay) {
-            // document.querySelector("#about-us").style.display = "block";
-            aboutUsBanner.style.display = "none";
-            aboutButton.innerText = "About SGParks"
-        }
-
-    })
-
-    // aboutButton.addEventListener("click", function () {
-    //     let aboutUsBanner = document.querySelector("#about-us");
-    //     let aboutUsDisplay = aboutUsBanner.style.display;
-    //  //    console.dir(aboutUsBanner);
-    //  //    console.log(aboutUsDisplay);
-
-
-    //  }
-
-    //  })
-
     //CREATE EVENT LAYER - CLICK OF SUBMIT BUTTON
     let searchPark = document.querySelector("#search-input-click");
 
@@ -494,7 +460,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
         //Pass firstSearch case 
         let firstSearch = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
-        console.log(firstSearch.results);
+        // console.log(firstSearch.results);
 
 
         //create parkClusterLayer
@@ -589,7 +555,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 // el.innerHTML = `This place is <h4>${p.name}.</h4> Weather pattern: ${weatherDescription}. <div>Current Temperature: ${weatherTemp} °C.</div>`
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
-                    console.log(photos);
+                    // console.log(photos);
 
                     if (photos.length) {
                         let firstPhoto = photos[0];
