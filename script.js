@@ -201,7 +201,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     cyclingLayer.addTo(map);
 
     cyclingLayer.setStyle({
-        'color': '  #0999ec',
+        'color': '#0999ec',
         'strokeWidth': '0.5'
     })
 

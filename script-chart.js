@@ -47,8 +47,16 @@ async function main() {
 
         noData: {
             text: "Please wait while data loads"
+        },
+        // colors:[' #2D4620', '#0999ec', '#9C27B0']
+        theme: {
+            monochrome: {
+                enabled: true,
+                color: '#228B22',
+                shadeTo: 'light',
+                shadeIntensity: 0.85
+            }
         }
-
     }
 
 
@@ -187,6 +195,14 @@ async function main() {
 
         noData: {
             text: "Please wait while data loads"
+        },
+        theme: {
+            monochrome: {
+                enabled: true,
+                color: '#0999ec',
+                shadeTo: 'light',
+                shadeIntensity: 0.85
+            }
         }
 
     }
@@ -230,57 +246,57 @@ async function main() {
         return shortlisted
     }
 
-     //Add data of irregular participate
-     let irregularParticipate = transformData5(participateSports);
-     function transformData5(rawData) {
-         let shortlisted = [];
-         // console.log(rawData);
-         for (let record of rawData) {
-             shortlisted.push({
-                 'x': parseInt(record.annual),
-                 'y': parseInt(record.irregular)
- 
- 
-             });
-         }
-         console.log(shortlisted);
-         return shortlisted
-     }
+    //Add data of irregular participate
+    let irregularParticipate = transformData5(participateSports);
+    function transformData5(rawData) {
+        let shortlisted = [];
+        // console.log(rawData);
+        for (let record of rawData) {
+            shortlisted.push({
+                'x': parseInt(record.annual),
+                'y': parseInt(record.irregular)
 
-     //Add data of sedentary
-     let sedentary = transformData6(participateSports);
-     function transformData6(rawData) {
-         let shortlisted = [];
-         // console.log(rawData);
-         for (let record of rawData) {
-             shortlisted.push({
-                 'x': parseInt(record.annual),
-                 'y': parseInt(record.sedentary)
- 
- 
-             });
-         }
-         console.log(shortlisted);
-         return shortlisted
-     }
 
-      //Add data of noparticipate
-      let noparticipate = transformData7(participateSports);
-      function transformData7(rawData) {
-          let shortlisted = [];
-          // console.log(rawData);
-          for (let record of rawData) {
-              shortlisted.push({
-                  'x': parseInt(record.annual),
-                  'y': parseInt(record.didnotparticipatepastyear)
-  
-  
-              });
-          }
-          console.log(shortlisted);
-          return shortlisted
-      }
- 
+            });
+        }
+        console.log(shortlisted);
+        return shortlisted
+    }
+
+    //Add data of sedentary
+    let sedentary = transformData6(participateSports);
+    function transformData6(rawData) {
+        let shortlisted = [];
+        // console.log(rawData);
+        for (let record of rawData) {
+            shortlisted.push({
+                'x': parseInt(record.annual),
+                'y': parseInt(record.sedentary)
+
+
+            });
+        }
+        console.log(shortlisted);
+        return shortlisted
+    }
+
+    //Add data of noparticipate
+    let noparticipate = transformData7(participateSports);
+    function transformData7(rawData) {
+        let shortlisted = [];
+        // console.log(rawData);
+        for (let record of rawData) {
+            shortlisted.push({
+                'x': parseInt(record.annual),
+                'y': parseInt(record.didnotparticipatepastyear)
+
+
+            });
+        }
+        console.log(shortlisted);
+        return shortlisted
+    }
+
 
 
 
@@ -305,6 +321,14 @@ async function main() {
 
     ])
 
+
+    let buttonMain = document.getElementById("button-to-main");
+    // console.log(buttonMain);
+    buttonMain.addEventListener("click", function () {
+
+
+
+    })
 }
 main();
 
