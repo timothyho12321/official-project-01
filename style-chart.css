@@ -1,4 +1,50 @@
 body {
-background-color: #fff3e6;
+    background-color: #fff3e6;
+    font-family: 'Roboto Slab', serif;
 
+}
+
+h1 {
+    margin-bottom: 5px;
+    margin-left: 8%;
+    margin-right: 8%
+}
+
+hr {
+    margin: 8px;
+
+}
+
+
+.go-back-tab  {
+    margin-top:16px; 
+    margin-left: 8%;
+}
+
+
+.go-back-tab p {
+
+    display: inline;
+    font-weight: bold
+}
+
+.box-around-chart-title{
+margin-top: 12px;
+margin-left:8px;
+border: 1px solid rgb(231, 174, 41);
+display: inline-block;
+padding:5px;
+background-color: rgb(231, 174, 41);
+
+}
+
+.box-around-chart-title p{
+margin-bottom: 0;
+color: white;
+font-weight: bold;
+}
+
+.btn-success {
+    font-size: small;
+    
 }
