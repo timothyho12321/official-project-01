@@ -31,7 +31,7 @@ body {
     background-color: #2D4620;
     z-index: 34000;
     padding: 5px;
-    display: none
+    /* display: none */
 }
 
 
@@ -49,8 +49,8 @@ body {
     color: white;
     position: absolute;
     z-index: 35000;
-    left: 1.5%;
-    top: 1.5%;
+    left: 4%;     
+    top: 20%;
     border-radius: 15px
 }
 
@@ -170,9 +170,10 @@ body {
 } */
 
 
-.offcanvas{
+.offcanvas {
 
     background-color: rgba(211, 211, 211, 0.196);
+    z-index: 36000
 }
 
 #canvass-button {
