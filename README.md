@@ -33,13 +33,10 @@ Map
 - The current searched natural places are displayed on the map as per the park, hiking trail, garden marker. 
 - Clicking on the marker will reveal the local picture of the park.
 
-
+--- 
 Testing
 
-![Alt text](images\tree.png "Title")
-
-![Alt text](images\tree.png?raw=true "Test2")
-
+![Screenshots of image test](images/tree.png)
 
 Deployment
 github
