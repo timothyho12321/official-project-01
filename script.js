@@ -3,9 +3,7 @@
 // SOURCE: https://gist.githubusercontent.com/kunxin-chor/f1517e174acaf8d4d7196ad70b447f39/raw/0cabdff18d8ec0571b382346f97d020af63666a6/script.js
 // Use DOMContentLoaded as our main entry point
 
-
 window.addEventListener("DOMContentLoaded", async function () {
-
 
     //SOURCE FOR CHANGING BASEMAP: https://leaflet-extras.github.io/leaflet-providers/preview/
 
@@ -23,14 +21,10 @@ window.addEventListener("DOMContentLoaded", async function () {
     // var map = L.mapbox.map('map', { zoomControl: false });
     //const latLng =[1.3521,103.8198] // SINGAPORE's lat lng set as constant 
 
-
     // change position of zoomControl to top right
     L.control.zoom({
         position: 'topright'
     }).addTo(map);
-
-
-
 
     // set up the tile layer
     var leaflet = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -50,7 +44,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
         bounds: [[1.56073, 104.11475], [1.16, 103.502]],
         attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
-    });
+    }).addTo(map);
 
     var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -59,7 +53,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
         maxZoom: 20,
         attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    });
 
     var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
         maxZoom: 20,
@@ -72,7 +66,6 @@ window.addEventListener("DOMContentLoaded", async function () {
         bounds: [[1.56073, 104.11475], [1.16, 103.502]],
         attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
     });
-
 
     // CODE FOR CREATING ICON
     // SOURCE OF ICON IMAGE: <a href="https://www.flaticon.com/free-icons/park" title="park icons">Park icons created by Freepik - Flaticon</a>
@@ -204,7 +197,6 @@ window.addEventListener("DOMContentLoaded", async function () {
         'color': '#0999ec',
         'strokeWidth': '0.5'
     })
-
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
@@ -545,8 +537,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                 getPicture();
                 return el;
-
-
 
             })
 
