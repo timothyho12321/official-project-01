@@ -613,13 +613,13 @@ window.addEventListener("DOMContentLoaded", async function () {
                             <div>Weather pattern: ${weatherDescription}.</div>
                             <img src ="images/${lookUpWeather[weatherDescription]}"/>                          
                             <div>Current Temperature: ${weatherTemp} °C.</div>
-                            
                             `
 
 
                         })
-                        
-                            
+
+                        let foodDisplay = document.querySelector(".tab-pane .btn-success")
+                        console.log(foodDisplay);
                     }))
 
 
