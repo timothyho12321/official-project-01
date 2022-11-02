@@ -79,7 +79,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         iconAnchor: [23, 45],
         popupAnchor: [-3, -76]
     })
-   
+
     //Make icon for hiking trail (h symbol)
     const hikeIcon = L.icon({
         iconUrl: 'images/h-for-hiking-trail.png',
@@ -107,7 +107,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         '16017': gardenIcon
     }
 
-    
+
 
     // PLACING ICON ON THE MAP
     // let parkMarker = L.marker([1.2890, 103.8604], { icon: categoriesValue[16032] });
@@ -451,7 +451,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
         //Pass firstSearch case 
-       
+
         let firstSearch = await search(selectedCategories, queryLocationName.value, selectedSort, selectedLimit);
         // console.log(firstSearch.results);
 
@@ -474,18 +474,18 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-            // let weatherSearch = await searchWeather(lat, lng);
-            // console.log(weatherSearch);
+            let weatherSearch = await searchWeather(lat, lng);
+            console.log(weatherSearch);
 
-            // let weatherDescription = weatherSearch.weather[0].description;
-            // console.log(weatherDescription);
+            let weatherDescription = weatherSearch.weather[0].description;
+            console.log(weatherDescription);
 
-            // let weatherTemp = weatherSearch.main.temp;
-            // console.log(weatherTemp);
+            let weatherTemp = weatherSearch.main.temp;
+            console.log(weatherTemp);
 
-            //TO CONSIDER WHETHER TO INCLUDE IMAGE OF WEATHER ICON
-            // let weatherIcon = weatherSearch.weather[0].description;
-            // console.log(weatherIcon);
+            // TO CONSIDER WHETHER TO INCLUDE IMAGE OF WEATHER ICON
+            let weatherIcon = weatherSearch.weather[0].description;
+            console.log(weatherIcon);
 
             //PLACE MARKERS FOR PARK SEARCH 
             // let searchMarker = L.marker([lat, lng], { icon: parkIcon });
@@ -508,7 +508,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                 return response.data;
             }
 
-            let searchMarker = L.marker([lat, lng], { icon: categoriesValue[selectedCategories]});
+            let searchMarker = L.marker([lat, lng], { icon: categoriesValue[selectedCategories] });
 
             searchMarker.bindPopup(function () {
 
@@ -519,7 +519,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                 // el.innerHTML = `<div> Place: ${p.name}. <br> Weather pattern: ${weatherDescription}. <br> Current Temperature: ${weatherTemp} °C.</div>`
                 // el.style.fontFamily='Roboto Slab, serif';
-                
+
                 async function getPicture() {
                     let photos = await getPhoto(p.fsq_id);
                     // console.log(photos);
@@ -590,8 +590,36 @@ window.addEventListener("DOMContentLoaded", async function () {
                             return new bootstrap.Collapse(collapseEl)
                         })
 
+                        // On Click weather tab to see weather of location in weather offcanvass
+                        let weatherTab = document.getElementById("weather-tab")
+                        let weatherDisplay = document.querySelector(".weather-display")
+
+                        let lookUpWeather = {
+                            "clear sky": "clear-sky.png",
+                            "few clouds": "few-clouds.png",
+                            "scattered clouds": "scattered-clouds.png",
+                            "broken clouds": "broken-clouds.png",
+                            "shower rain": "shower-rain.png",
+                            "rain": "rain.png",
+                            "thunderstorm": "thunderstorm.png",
+                            "mist": "mist.png"
+                        }
+
+                        // console.log(weatherTab);
+                        // console.log(weatherDisplay);
+                        weatherTab.addEventListener("click", function () {
+                            console.log(weatherIcon);
+                            weatherDisplay.innerHTML = `
+                            <div>Weather pattern: ${weatherDescription}.</div>
+                            <img src ="images/${lookUpWeather[weatherDescription]}"/>                          
+                            <div>Current Temperature: ${weatherTemp} °C.</div>
+                            
+                            `
 
 
+                        })
+                        
+                            
                     }))
 
 
