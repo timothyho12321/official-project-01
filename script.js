@@ -198,6 +198,9 @@ window.addEventListener("DOMContentLoaded", async function () {
         'strokeWidth': '0.5'
     })
 
+    //CREATE FOOD LAYER FOR SEARCH NEARBY FOOD PLACES LATER
+    let foodLayer = L.layerGroup();
+
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
     let baseMaps = {
@@ -213,7 +216,8 @@ window.addEventListener("DOMContentLoaded", async function () {
         // "<span style = 'color: grayscale'>Grayscale</span>": grayscale,
         // ERROR MESSAGE ReferenceError: grayscale is not defined
         "Park Connectors": connectorLayer,
-        "Cycling path track": cyclingLayer
+        "Cycling path track": cyclingLayer,
+        "Show nearby Food": foodLayer
     }
 
     let layerControl = L.control.layers(baseMaps, overlayMaps, { position: 'bottomright' }).addTo(map);
@@ -575,9 +579,9 @@ window.addEventListener("DOMContentLoaded", async function () {
                     (function () {
                         // console.log(p.geocodes.main.latitude);
                         finalLat = parseFloat(p.geocodes.main.latitude) + 0.0024
-                        // console.log(finalLat)
+                        console.log(finalLat)
 
-                        // console.log(p.geocodes.main.longitude);
+                        console.log(p.geocodes.main.longitude);
                         // finalLng= parseFloat(p.geocodes.main.longitude) - 0.0009
                         // console.log(finalLng)
                         map.flyTo([finalLat, p.geocodes.main.longitude], 17)
@@ -618,8 +622,64 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                         })
 
+                        // when zoomed in to search park, and click on the tab to display nearby food places
                         let foodDisplay = document.querySelector(".tab-pane .btn-success")
-                        console.log(foodDisplay);
+                        // console.log(foodDisplay);
+
+                       
+
+                        foodDisplay.addEventListener("click", async function () {
+                            map.flyTo([finalLat, p.geocodes.main.longitude], 16)
+                           
+                            let ll = `${p.geocodes.main.latitude},${p.geocodes.main.longitude}`
+                            console.log(ll);
+
+                            let showFood = await searchFood(ll);
+                            let showFood2 = showFood.results;
+                            // console.log(showFood2);
+
+
+
+                            // Create bind pop up on search food place marker
+                            for (let f of showFood2) {
+                                let latLng = [f.geocodes.main.latitude, f.geocodes.main.longitude]
+                                console.log(latLng)
+                                let searchMarker = L.marker(latLng);
+                                searchMarker.bindPopup(function () {
+                                    let el = document.createElement("div");
+                                    el.classList.add("popupFood");
+
+                                    el.innerHTML = `<div>Food: ${f.name}</div>`;
+                                    el.style.fontFamily = `Roboto Slab, serif`;
+                                    el.style.fontSize = `medium`;
+
+                                    return el;
+                                })
+
+                                searchMarker.addTo(foodLayer);
+                                foodLayer.addTo(map);
+                                //               let el = document.createElement('div');
+                                // el.classList.add("popup")
+                                // el.innerHTML = `This place is <h4>${p.name}.</h4>`
+                                // el.style.fontFamily = 'Roboto Slab, serif';
+
+                            }
+
+                            //CREATE CIRCLE CIRCUMFERENCE AROUND SEARCHED FOOD PLACES
+                            // let ll = `${p.geocodes.main.latitude},${p.geocodes.main.longitude}`
+                            let latLng = [p.geocodes.main.latitude, p.geocodes.main.longitude]
+                                
+                            let foodCircle = L.circle(latLng, {
+                                'color': 'red',
+                                'fillColor': 'purple',
+                                'fillOpacity': 0.4,
+                                'radius': 500
+
+                            })
+                            foodCircle.addTo(foodLayer);
+
+                        })
+
                     }))
 
 

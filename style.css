@@ -158,6 +158,12 @@ body {
     height: 150px;
 }
 
+.popupFood {
+    overflow: scroll;
+    width: 150px;
+    
+}
+
 .btn-success {
 
     margin-top: 15px;
