@@ -195,9 +195,9 @@ body {
     position: absolute;
     /* top: 3%;
     right: 7%; */
-
+    margin-top: 0;
     bottom: 4.5%;
-    left: 24%;
+    left: 14vh;
 
     font-size: x-small;
     z-index: 34000
@@ -209,8 +209,8 @@ body {
 }
 
 
-.weather-display{
-    color:lightgreen;
+.weather-display {
+    color: lightgreen;
 }
 
 .food-button-description {
@@ -220,7 +220,7 @@ body {
 }
 
 
-#offcanvas-makepadding{
+#offcanvas-makepadding {
     padding-top: 0
 }
 
