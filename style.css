@@ -197,10 +197,26 @@ body {
     right: 7%; */
     margin-top: 0;
     bottom: 4.5%;
-    left: 14vh;
+    left: 24vw;
 
     font-size: x-small;
     z-index: 34000
+}
+
+@media (min-width:573px) {
+    #canvas-button {
+        
+        left: 19vw;
+
+    }
+}
+
+@media (min-width:768px) {
+    #canvas-button {
+        
+        left: 15vw;
+
+    }
 }
 
 
