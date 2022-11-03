@@ -14,6 +14,7 @@
 
 
     <!-- Bootstrap  -->
+    <!-- change to version 5.2 and use bodyscrolling for offcanvas -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
@@ -36,20 +37,19 @@
 
 
         <div id="interaction-container">
-            <!-- Off canvas -->
-            <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                id="canvass-button" aria-controls="offcanvasExample">
-                Open Canvas
-            </button>
+            <!-- Offcanvas with bodyscrolling -->
+            <button class="btn btn-success" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" id="canvas-button">Second search</button>
 
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Singapore Nature</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
+
 
                     <!-- Add tabbable region -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -87,9 +87,9 @@
                                     <div><input type="text" id="search-park-type" placeholder="Region (e.g. Bishan)" />
                                     </div>
 
-                                    <!-- RADIO BUTTON FOR RELEVANCE INPUT FOR FOURSQUARE -->
+
                                     <div>
-                                        <!-- QUESTION: HOW COME THE SELECTOR CIRCLE CANNOT GO TO THE NEXT LINE??? -->
+
                                         <input type="radio" value="relevance" id="sort-relevance" class="sort-button"
                                             name="sort-button" /><label>By Relevance</label>
                                         <input type="radio" value="rating" id="sort-rating" class="sort-button"
@@ -116,6 +116,7 @@
                                             Search
                                         </button>
                                     </div>
+
                                     <div class="collapse" id="collapseExample">
                                         <div class="card card-body" style="padding: 0%; background-color: #2D4620">
                                             <div id="display-search" class="search-peri "></div>
@@ -131,12 +132,13 @@
 
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="weather" role="tabpanel" aria-labelledby="weather-tab">
-                            <div class = "weather-display">No weather displayed yet.</div>
-                        
+                        <div class="tab-pane fade " id="weather" role="tabpanel" aria-labelledby="weather-tab">
+                            <div class="weather-display">No weather displayed yet.</div>
+
                         </div>
                         <div class="tab-pane fade" id="layer" role="tabpanel" aria-labelledby="layer-tab">
-                           <button type ="button" class ="btn btn-success">Display</button><span>Food places in 1km radius</span>
+                            <button type="button" class="btn btn-success" id="display-button">Display</button>
+                            <span class="food-button-description align-middle">Food places in 1km radius</span>
                         </div>
                     </div>
 
@@ -158,84 +160,79 @@
                         </ul>
                     </div> -->
                 </div>
+
             </div>
+        </div>
 
 
-
-            <!-- <div id="top-bar-left">
-                <input type="checkbox" class="travel-mode" value="show-tracks" /><label>Display Npark Tracks</label>
-                <input type="checkbox" class="travel-mode" value="show-cycle" /><label>Display Cycling Tracks</label>
-
-            </div> -->
-            <!-- TO ONLY INCLUDE ABOVE IF WANTED TO MANUAL CODE LAYER CONTROL -->
+       
 
 
 
 
-            <div class="icon" id="icon">
+        <div class="icon" id="icon">
 
-                <div id="leaf-and-button">
-                    <img src="images/leaf-logo.png" class="leaf-icon" />
+            <div id="leaf-and-button">
+                <img src="images/leaf-logo.png" class="leaf-icon" />
 
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success modal-button" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        About SGParks
-                    </button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success modal-button" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    About SGParks
+                </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">SGParks Map Search</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">SGParks Map Search</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>Since 2022, we aim to help nature lovers find new green pockets of spaces in
+                                    Singapore. Access by cycling or road.
                                 </div>
-                                <div class="modal-body">
-                                    <div>Since 2022, we aim to help nature lovers find new green pockets of spaces in
-                                        Singapore. Access by cycling or road.
-                                    </div>
 
-                                    <br>
+                                <br>
 
-                                    <div>A healthy and smart nation will talk walks in parks. You can breathe in the
-                                        air,
-                                        smell the roses and get a great workout!</div>
+                                <div>A healthy and smart nation will talk walks in parks. You can breathe in the
+                                    air,
+                                    smell the roses and get a great workout!</div>
 
-                                    <div> <br>See the percentage chart of people who are doing outdoor exercise the last
-                                        5 years!
-                                    </div>
-
-                                    <div class="text-center"><a href="chart.html" class="btn btn-success "> Figures</a>
-                                    </div>
-
+                                <div> <br>See the percentage chart of people who are doing outdoor exercise the last
+                                    5 years!
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
 
+                                <div class="text-center"><a href="chart.html" class="btn btn-success "> Figures</a>
                                 </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- <a href="#" class = "click-about-us">About-us</a> -->
-                <div id="about-us"><span>Since 2022, we aim to help nature lovers find new green pockets of spaces in
-                        Singapore. Access by cycling or road. </span>
-
-
-                </div>
             </div>
 
+            <!-- <a href="#" class = "click-about-us">About-us</a> -->
+            <div id="about-us"><span>Since 2022, we aim to help nature lovers find new green pockets of spaces in
+                    Singapore. Access by cycling or road. </span>
 
-            <div id="map"></div>
 
+            </div>
         </div>
+
+
+        <div id="map"></div>
+
+    </div>
 
 
 

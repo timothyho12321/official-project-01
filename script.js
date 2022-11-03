@@ -43,7 +43,8 @@ window.addEventListener("DOMContentLoaded", async function () {
         maxZoom: 18,
 
         bounds: [[1.56073, 104.11475], [1.16, 103.502]],
-        attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
+        // attribution: '<div class = "attribution-word"><img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a></div>'
+        attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px"/> New OneMap | Map data &copy; contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
     }).addTo(map);
 
     var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -198,6 +199,10 @@ window.addEventListener("DOMContentLoaded", async function () {
         'strokeWidth': '0.5'
     })
 
+    //CREATE FOOD LAYER FOR SEARCH NEARBY FOOD PLACES LATER
+    let foodLayer = L.layerGroup();
+    foodLayer.addTo(map);
+
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
     let baseMaps = {
@@ -213,7 +218,8 @@ window.addEventListener("DOMContentLoaded", async function () {
         // "<span style = 'color: grayscale'>Grayscale</span>": grayscale,
         // ERROR MESSAGE ReferenceError: grayscale is not defined
         "Park Connectors": connectorLayer,
-        "Cycling path track": cyclingLayer
+        "Cycling path track": cyclingLayer,
+        "Show nearby Food": foodLayer
     }
 
     let layerControl = L.control.layers(baseMaps, overlayMaps, { position: 'bottomright' }).addTo(map);
@@ -546,12 +552,6 @@ window.addEventListener("DOMContentLoaded", async function () {
             // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
 
 
-
-            // TO DELETE AFTER CONFIRMING DOES NOT INTERACT WITH OTHER CODE (REPEAT LAYER)
-            // searchMarker.addTo(searchParkLayer);
-
-            //maybe generate another marker group with all the park spread out over SIngapore
-            //and assign that layer as the parkClusterLayer
             searchMarker.addTo(parkClusterLayer);
 
 
@@ -574,10 +574,10 @@ window.addEventListener("DOMContentLoaded", async function () {
                     //CHANGE ZOOM TO SO THAT NOT BLOCKED BY SEARCH BAR 
                     (function () {
                         // console.log(p.geocodes.main.latitude);
-                        finalLat = parseFloat(p.geocodes.main.latitude) + 0.0024
-                        // console.log(finalLat)
+                        finalLat = parseFloat(p.geocodes.main.latitude) + 0.0030
+                        console.log(finalLat)
 
-                        // console.log(p.geocodes.main.longitude);
+                        console.log(p.geocodes.main.longitude);
                         // finalLng= parseFloat(p.geocodes.main.longitude) - 0.0009
                         // console.log(finalLng)
                         map.flyTo([finalLat, p.geocodes.main.longitude], 17)
@@ -613,13 +613,78 @@ window.addEventListener("DOMContentLoaded", async function () {
                             <div>Weather pattern: ${weatherDescription}.</div>
                             <img src ="images/${lookUpWeather[weatherDescription]}"/>                          
                             <div>Current Temperature: ${weatherTemp} °C.</div>
-                            
                             `
 
 
                         })
-                        
-                            
+
+                        // when zoomed in to search park, and click on the tab to display nearby food places
+                        let foodDisplay = document.querySelector(".tab-pane .btn-success")
+                        console.log(foodDisplay);
+
+
+
+                       
+
+                        foodDisplay.addEventListener("click", async function () {
+                            //QUESTION WHY DOES THIS CLEARLAYERS ON FOODLAYER NOT WORK?
+                            foodLayer.clearLayers();
+                            map.removeLayer(foodLayer);
+                            console.log("Clear the rubbish");
+
+
+
+                            map.flyTo([finalLat, p.geocodes.main.longitude], 16)
+
+                            let ll = `${p.geocodes.main.latitude},${p.geocodes.main.longitude}`
+                            console.log(ll);
+
+                            let showFood = await searchFood(ll);
+                            let showFood2 = showFood.results;
+                            // console.log(showFood2);
+
+
+
+                            // Create bind pop up on search food place marker
+                            for (let f of showFood2) {
+                                let latLng = [f.geocodes.main.latitude, f.geocodes.main.longitude]
+                                console.log(latLng)
+                                let searchMarker = L.marker(latLng);
+                                searchMarker.bindPopup(function () {
+                                    let el = document.createElement("div");
+                                    el.classList.add("popupFood");
+
+                                    el.innerHTML = `<div>Food: ${f.name}</div>`;
+                                    el.style.fontFamily = `Roboto Slab, serif`;
+                                    el.style.fontSize = `medium`;
+
+                                    return el;
+                                })
+
+                                searchMarker.addTo(foodLayer);
+                                // foodLayer.addTo(map);
+                                //               let el = document.createElement('div');
+                                // el.classList.add("popup")
+                                // el.innerHTML = `This place is <h4>${p.name}.</h4>`
+                                // el.style.fontFamily = 'Roboto Slab, serif';
+
+                            }
+
+                            //CREATE CIRCLE CIRCUMFERENCE AROUND SEARCHED FOOD PLACES
+                            // let ll = `${p.geocodes.main.latitude},${p.geocodes.main.longitude}`
+                            let latLng = [p.geocodes.main.latitude, p.geocodes.main.longitude]
+
+                            let foodCircle = L.circle(latLng, {
+                                'color': 'red',
+                                'fillColor': 'purple',
+                                'fillOpacity': 0.4,
+                                'radius': 500
+
+                            })
+                            foodCircle.addTo(foodLayer);
+                            foodLayer.addTo(map);
+                        })
+
                     }))
 
 

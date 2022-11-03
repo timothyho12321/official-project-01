@@ -27,8 +27,8 @@ body {
 
 
 .search-peri {
-
-    background-color: #2D4620;
+    background-color: #2d46203d;
+    /* background-color: #2D4620; */
     z-index: 34000;
     padding: 5px;
     /* display: none */
@@ -49,7 +49,7 @@ body {
     color: white;
     position: absolute;
     z-index: 35000;
-    left: 4%;     
+    left: 4%;
     top: 22%;
     border-radius: 15px
 }
@@ -81,8 +81,11 @@ body {
 } */
 
 
+
+
 .modal {
     z-index: 36000;
+
 }
 
 .modal-button {
@@ -104,6 +107,11 @@ body {
 } */
 
 
+/* 
+.attribution-word{
+    height:15px;
+    font-size:x-small
+} */
 
 #about-us {
     position: absolute;
@@ -158,6 +166,11 @@ body {
     height: 150px;
 }
 
+.popupFood {
+    width: 150px;
+
+}
+
 .btn-success {
 
     margin-top: 15px;
@@ -172,13 +185,73 @@ body {
 
 .offcanvas {
 
-    background-color: rgba(211, 211, 211, 0.196);
+    /* background-color: rgba(255, 255, 255, 0.41); */
+    background-color: transparent !important;
+
     z-index: 36000
 }
 
-#canvass-button {
+#canvas-button {
     position: absolute;
-    top: 3%;
-    right: 7%;
+    /* top: 3%;
+    right: 7%; */
+    margin-top: 0;
+    bottom: 4.5%;
+    left: 24vw;
+
+    font-size: x-small;
     z-index: 34000
+}
+
+@media (min-width:573px) {
+    #canvas-button {
+        
+        left: 19vw;
+
+    }
+}
+
+@media (min-width:768px) {
+    #canvas-button {
+        
+        left: 15vw;
+
+    }
+}
+
+
+#display-button {
+    margin-top: 4px;
+}
+
+
+.weather-display {
+    color: lightgreen;
+}
+
+.food-button-description {
+    color: lightgreen;
+    margin-left: 4px;
+
+}
+
+
+#offcanvas-makepadding {
+    padding-top: 0
+}
+
+#offcanvasExampleLabel {
+    color: lightgreen;
+
+}
+
+#search-tab,
+#weather-tab,
+#layer-tab {
+    color: lightgreen;
+}
+
+
+.leaflet-control-attribution {
+    font-size: 8px;
 }
