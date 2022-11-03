@@ -201,6 +201,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     //CREATE FOOD LAYER FOR SEARCH NEARBY FOOD PLACES LATER
     let foodLayer = L.layerGroup();
+    foodLayer.addTo(map);
 
     // CREATE BASE MAP AND OVERLAY MAP LAYER FOR LAYER CONTROL
     // SOURCE: https://leafletjs.com/examples/layers-control/
@@ -551,12 +552,6 @@ window.addEventListener("DOMContentLoaded", async function () {
             // searchMarker.bindPopup(`This place is <h4>${p.name}.</h4>`);
 
 
-
-            // TO DELETE AFTER CONFIRMING DOES NOT INTERACT WITH OTHER CODE (REPEAT LAYER)
-            // searchMarker.addTo(searchParkLayer);
-
-            //maybe generate another marker group with all the park spread out over SIngapore
-            //and assign that layer as the parkClusterLayer
             searchMarker.addTo(parkClusterLayer);
 
 
@@ -625,13 +620,22 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                         // when zoomed in to search park, and click on the tab to display nearby food places
                         let foodDisplay = document.querySelector(".tab-pane .btn-success")
-                        // console.log(foodDisplay);
+                        console.log(foodDisplay);
+
+
 
                        
 
                         foodDisplay.addEventListener("click", async function () {
+                            //QUESTION WHY DOES THIS CLEARLAYERS ON FOODLAYER NOT WORK?
+                            foodLayer.clearLayers();
+                            map.removeLayer(foodLayer);
+                            console.log("Clear the rubbish");
+
+
+
                             map.flyTo([finalLat, p.geocodes.main.longitude], 16)
-                           
+
                             let ll = `${p.geocodes.main.latitude},${p.geocodes.main.longitude}`
                             console.log(ll);
 
@@ -658,7 +662,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                                 })
 
                                 searchMarker.addTo(foodLayer);
-                                foodLayer.addTo(map);
+                                // foodLayer.addTo(map);
                                 //               let el = document.createElement('div');
                                 // el.classList.add("popup")
                                 // el.innerHTML = `This place is <h4>${p.name}.</h4>`
@@ -669,7 +673,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                             //CREATE CIRCLE CIRCUMFERENCE AROUND SEARCHED FOOD PLACES
                             // let ll = `${p.geocodes.main.latitude},${p.geocodes.main.longitude}`
                             let latLng = [p.geocodes.main.latitude, p.geocodes.main.longitude]
-                                
+
                             let foodCircle = L.circle(latLng, {
                                 'color': 'red',
                                 'fillColor': 'purple',
@@ -678,7 +682,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
                             })
                             foodCircle.addTo(foodLayer);
-
+                            foodLayer.addTo(map);
                         })
 
                     }))
