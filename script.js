@@ -624,7 +624,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 
 
-                       
+
 
                         foodDisplay.addEventListener("click", async function () {
                             //QUESTION WHY DOES THIS CLEARLAYERS ON FOODLAYER NOT WORK?
@@ -639,17 +639,34 @@ window.addEventListener("DOMContentLoaded", async function () {
                             let ll = `${p.geocodes.main.latitude},${p.geocodes.main.longitude}`
                             console.log(ll);
 
+
+
+
                             let showFood = await searchFood(ll);
                             let showFood2 = showFood.results;
                             // console.log(showFood2);
 
+                            // create foodIcon
 
+                            //SOURCE: <a href="https://www.flaticon.com/free-icons/bistro" title="bistro icons">Bistro icons created by Ehtisham Abid - Flaticon</a>
+                            const foodIcon = L.icon({
+                                iconUrl: 'images/food.png',
+
+                                iconSize: [40, 45],
+                                iconAnchor: [23, 45],
+                                popupAnchor: [-3, -50]
+                            })
 
                             // Create bind pop up on search food place marker
                             for (let f of showFood2) {
                                 let latLng = [f.geocodes.main.latitude, f.geocodes.main.longitude]
                                 console.log(latLng)
-                                let searchMarker = L.marker(latLng);
+                                let searchMarker = L.marker(latLng, {icon: foodIcon});
+
+
+
+                                // let searchMarker = L.marker([lat, lng], { icon: categoriesValue[selectedCategories] });
+
                                 searchMarker.bindPopup(function () {
                                     let el = document.createElement("div");
                                     el.classList.add("popupFood");

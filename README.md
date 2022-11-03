@@ -151,11 +151,8 @@ Weather information is from openweather api (https://openweathermap.org/api).
 Other basemaps are from https://leaflet-extras.github.io/leaflet-providers/preview/ 
 
 
-
-
-
-
-
+README reference
+https://github.com/e0026557/TGC-18-Project-1/blob/main/README.md 
 
 
 
