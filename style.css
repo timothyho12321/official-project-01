@@ -186,9 +186,21 @@ body {
 .offcanvas {
 
     /* background-color: rgba(255, 255, 255, 0.41); */
-    background-color: transparent !important;
+    background-color: rgba(41, 111, 2, 0.2);
 
     z-index: 36000
+}
+
+#close-offcanvas-button{
+color:red;
+
+
+}
+
+#div-for-close-canvas-button{
+    background-color: orange;
+    display: flex;
+    width:20px
 }
 
 #canvas-button {
@@ -226,12 +238,13 @@ body {
 
 
 .weather-display {
-    color: lightgreen;
+    color: rgb(255, 255, 255);
 }
 
 .food-button-description {
-    color: lightgreen;
+    color: rgb(255, 255, 255);
     margin-left: 4px;
+    display: inline-block
 
 }
 
@@ -241,14 +254,16 @@ body {
 }
 
 #offcanvasExampleLabel {
-    color: lightgreen;
+    color: #ffffff;
+    font-weight: bold;
 
 }
 
 #search-tab,
 #weather-tab,
 #layer-tab {
-    color: lightgreen;
+    color: rgb(0, 208, 255);
+    font-weight: bold
 }
 
 
