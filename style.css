@@ -27,8 +27,8 @@ body {
 
 
 .search-peri {
-
-    background-color: #2D4620;
+    background-color: #2d46203d;
+    /* background-color: #2D4620; */
     z-index: 34000;
     padding: 5px;
     /* display: none */
@@ -159,7 +159,6 @@ body {
 }
 
 .popupFood {
-    overflow: scroll;
     width: 150px;
     
 }
@@ -178,7 +177,7 @@ body {
 
 .offcanvas {
 
-    background-color: rgba(211, 211, 211, 0.196);
+    background-color: rgba(255, 255, 255, 0.41);
     z-index: 36000
 }
 

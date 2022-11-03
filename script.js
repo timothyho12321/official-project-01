@@ -578,7 +578,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                     //CHANGE ZOOM TO SO THAT NOT BLOCKED BY SEARCH BAR 
                     (function () {
                         // console.log(p.geocodes.main.latitude);
-                        finalLat = parseFloat(p.geocodes.main.latitude) + 0.0024
+                        finalLat = parseFloat(p.geocodes.main.latitude) + 0.0030
                         console.log(finalLat)
 
                         console.log(p.geocodes.main.longitude);
