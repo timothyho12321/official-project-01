@@ -183,7 +183,8 @@ body {
 
 .offcanvas {
 
-    background-color: rgba(255, 255, 255, 0.41);
+    /* background-color: rgba(255, 255, 255, 0.41); */
+    background-color: rgba(255, 255, 255, 0);;
     z-index: 36000
 }
 
@@ -197,4 +198,21 @@ body {
     
     font-size: x-small;
     z-index: 34000
+}
+
+.food-button-description{
+    color:rgb(1, 70, 1)
+}
+
+.offcanvass-body{
+    margin-top:0
+}
+
+#offcanvasExampleLabel{
+color: lightgreen;
+
+}
+
+#search-tab,#weather-tab,#layer-tab {
+    color: lightgreen;
 }
