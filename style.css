@@ -203,14 +203,16 @@ body {
 
 #canvas-button {
     position: absolute;
-    /* top: 3%;
-    right: 7%; */
+    
     margin-top: 0;
     bottom: 4.5%;
     left: 24vw;
 
     font-size: x-small;
-    z-index: 34000
+    z-index: 34000;
+    
+    border: 5px dotted orange
+
 }
 
 @media (min-width:573px) {
@@ -245,6 +247,7 @@ body {
     display: inline-flex
 
 }
+
 
 
 #offcanvas-makepadding {
