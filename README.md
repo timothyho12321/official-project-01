@@ -138,6 +138,7 @@ Netlify
 1. [Font Awesome](https://fontawesome.com/) - Used in tabs and buttons of website
 
 2. [Flaticon](https://www.flaticon.com/) - Used in map marker icons of website
+-  <a href="https://www.flaticon.com/free-icons/bistro" title="bistro icons"> Create food icon
 
 3. 
  https://leaflet-extras.github.io/leaflet-providers/preview/  

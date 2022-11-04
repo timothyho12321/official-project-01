@@ -650,14 +650,7 @@ window.addEventListener("DOMContentLoaded", async function () {
                                 popupAnchor: [-3, -50]
                             })
 
-                            //SOURCE: <a href="https://www.flaticon.com/free-icons/bistro" title="bistro icons">Bistro icons created by Ehtisham Abid - Flaticon</a>
-                            const foodIcon = L.icon({
-                                iconUrl: 'images/food.png',
-
-                                iconSize: [40, 45],
-                                iconAnchor: [23, 45],
-                                popupAnchor: [-3, -50]
-                            })
+                           
 
                             // Create bind pop up on search food place marker
                             for (let f of showFood2) {
