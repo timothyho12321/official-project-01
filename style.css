@@ -144,8 +144,10 @@ body {
     max-height: 200px;
     max-width: 243px;
     overflow-y: scroll;
-    background-color: rgba(255, 255, 255, 0.90);
-    color: black;
+    /* background-color: rgba(255, 255, 255, 0.90);
+    color: black; */
+    background-color:#2d46203d;
+    color: white;
     border-radius: 15px
 }
 
@@ -186,21 +188,17 @@ body {
 .offcanvas {
 
     /* background-color: rgba(255, 255, 255, 0.41); */
-    background-color: rgba(41, 111, 2, 0.2);
+    background-color: rgba(41, 111, 2, 0.29);
 
     z-index: 36000
 }
 
 #close-offcanvas-button{
-color:red;
-
-
-}
-
-#div-for-close-canvas-button{
+    display:flex; 
+    padding: 0px;
     background-color: orange;
-    display: flex;
-    width:20px
+    width:15px
+
 }
 
 #canvas-button {
@@ -240,13 +238,13 @@ color:red;
 
 
 .weather-display {
-    color: rgb(255, 255, 255);
+    color: white;
 }
 
 .food-button-description {
-    color: rgb(255, 255, 255);
+    color: white;
     margin-left: 4px;
-    display: inline-block
+    display: inline-flex
 
 }
 
@@ -257,7 +255,7 @@ color:red;
 }
 
 #offcanvasExampleLabel {
-    color: #ffffff;
+    color: white;
     font-weight: bold;
 
 }
@@ -265,8 +263,8 @@ color:red;
 #search-tab,
 #weather-tab,
 #layer-tab {
-    color: rgb(0, 208, 255);
-    font-weight: bold
+    color: rgb(40, 229, 250);
+    font-weight: bold;
 }
 
 

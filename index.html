@@ -13,10 +13,15 @@
         rel="stylesheet">
 
 
-    <!-- Bootstrap  -->
-    <!-- change to version 5.2 and use bodyscrolling for offcanvas -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
     <!-- leaflet css-->
@@ -39,17 +44,15 @@
         <div id="interaction-container">
             <!-- Offcanvas with bodyscrolling -->
             <button class="btn btn-success" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" id="canvas-button">Search</button>
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" id="canvas-button">
+                Search</button>
 
             <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
                 id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Singapore Nature</h5>
-                    <div id="div-for-close-canvas-button">
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                            aria-label="Close" id="close-offcanvas-button"></button>
-
-                    </div>
+                    <button type="button" class="text-reset" data-bs-dismiss="offcanvas" aria-label="Close" id ="close-offcanvas-button"> <i
+                            class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="offcanvas-body">
 
@@ -67,7 +70,7 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="layer-tab" data-bs-toggle="tab" data-bs-target="#layer"
-                                type="button" role="tab" aria-controls="layer" aria-selected="false">Food Nearby</button>
+                                type="button" role="tab" aria-controls="layer" aria-selected="false">Nearby Food</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -140,8 +143,8 @@
 
                         </div>
                         <div class="tab-pane fade" id="layer" role="tabpanel" aria-labelledby="layer-tab">
-                            <button type="button" class="btn btn-success" id="display-button">Display</button>
-                            <span class="food-button-description align-middle">After choosing place in New Search, click to see food places within 1km</span>
+                            <button type="button" class="btn btn-success" id="display-button">Hungry After Exercise</button>
+                            <span class="food-button-description align-middle">Find food within 1km of nature place</span>
                         </div>
                     </div>
 
@@ -247,8 +250,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
     <!-- Bootstrap 5 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
     <!-- axios-->

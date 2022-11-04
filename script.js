@@ -1,8 +1,4 @@
 
-// BOILER PLATE CODE 
-// SOURCE: https://gist.githubusercontent.com/kunxin-chor/f1517e174acaf8d4d7196ad70b447f39/raw/0cabdff18d8ec0571b382346f97d020af63666a6/script.js
-// Use DOMContentLoaded as our main entry point
-
 window.addEventListener("DOMContentLoaded", async function () {
 
     //SOURCE FOR CHANGING BASEMAP: https://leaflet-extras.github.io/leaflet-providers/preview/
@@ -646,7 +642,13 @@ window.addEventListener("DOMContentLoaded", async function () {
                             let showFood2 = showFood.results;
                             // console.log(showFood2);
 
-                            // create foodIcon
+                            const foodIcon = L.icon({
+                                iconUrl: 'images/food.png',
+
+                                iconSize: [40, 45],
+                                iconAnchor: [23, 45],
+                                popupAnchor: [-3, -50]
+                            })
 
                             //SOURCE: <a href="https://www.flaticon.com/free-icons/bistro" title="bistro icons">Bistro icons created by Ehtisham Abid - Flaticon</a>
                             const foodIcon = L.icon({
@@ -662,11 +664,6 @@ window.addEventListener("DOMContentLoaded", async function () {
                                 let latLng = [f.geocodes.main.latitude, f.geocodes.main.longitude]
                                 console.log(latLng)
                                 let searchMarker = L.marker(latLng, {icon: foodIcon});
-
-
-
-                                // let searchMarker = L.marker([lat, lng], { icon: categoriesValue[selectedCategories] });
-
                                 searchMarker.bindPopup(function () {
                                     let el = document.createElement("div");
                                     el.classList.add("popupFood");
