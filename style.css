@@ -186,9 +186,17 @@ body {
 .offcanvas {
 
     /* background-color: rgba(255, 255, 255, 0.41); */
-    background-color: transparent !important;
+    background-color: rgba(41, 111, 2, 0.29);
 
     z-index: 36000
+}
+
+#close-offcanvas-button{
+    display:flex; 
+    padding: 0px;
+    background-color: orange;
+    width:15px
+
 }
 
 #canvas-button {
@@ -241,14 +249,16 @@ body {
 }
 
 #offcanvasExampleLabel {
-    color: lightgreen;
+    color: white;
+    font-weight: bold;
 
 }
 
 #search-tab,
 #weather-tab,
 #layer-tab {
-    color: lightgreen;
+    color: rgb(40, 229, 250);
+    font-weight: bold;
 }
 
 
