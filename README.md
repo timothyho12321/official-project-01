@@ -7,13 +7,13 @@
 ## Summary
 Park Projector is a park finder website for nature lovers. 
 
-It helps people to locate the nearby parks, trails and gardens based on typing a location name. It intends to encourage people to appreciate and discover the green places in the city of Singapore. It helps people discover nearby green spaces to enjoy life in.
+It helps people to locate the nearby parks, trails and gardens based on typing a location name. It intends to encourage people to appreciate and discover the green places in the city of Singapore. It helps people discover nearby green spaces to relax and exercise in.
 
 ---
 
 ## UI/UX
 
-The users of this app are usually busy with school or work, and would use this app for greater convenience to search for nature places to exercise. The app is designed to help them lcoate themselves, nearby park spaces and other useful amenities such as pathways or foodstops nearby. 
+The users of this app are usually busy with school or work, and would use this app for greater convenience to search for nature places to exercise. The app is designed to help them locate nearby park spaces and other useful amenities such as pathways or resting foodstops nearby. 
 
 ### User Goals
 The project caters to working adults who exercise, nature hikers and cyclists. The project aim allows easy search of all the parks, gardens and hiking trails in Singapore. 
@@ -25,19 +25,15 @@ It allows them to find connecting paths and nearby places to relax and work out 
 Companies like the NParks and Singapore Sports Council would encourage such apps in line with the ActiveSG initiative.
 
 
-### Structure and Skeleton
-
-![Sitemap](assets/wireframes/sitemap.jpg)
-
-[Wireframes](assets/wireframes/wireframes.pdf)
-
-
 ### Design Decisions
 
 #### Color scheme
 
-![Screenshot of color scheme](assets/color-schemes/color-scheme.png)
-The main color of the app was green because it is in line with the naturalness, beauty and serenity of nature. In a green space, people are more relaxed and they have a good backdrop to conduct their exercise activities. 
+![Color palette](images/color-palette.png)
+
+The main color of the app was green because it is in line with the naturalness, beauty and serenity of nature. In a green space, people are more relaxed and they have a good backdrop to conduct their exercise activities. The other 
+colors are to provide contrast
+to the green but is also harmonious with green.
 
 ### Fonts
 
@@ -50,16 +46,16 @@ The font chosen is Roboto Slab. This is a look that is in line with some fonts u
 | Functions | Explanation |
 | ----------- | ----------- |
 | Search park, hiking trail, garden| This allows to search general outdoor places in Singapore to suggest to the user.|
-| Search by region| This allows search based on the lown name to cater to more personalised location for the user|
+| Search by region| This allows search based on the town name to cater to more personalised location for the user|
 | Sort search by relevance or rating| This allows user to indicate if they prefer results based on relevance or overall ratings to be reflected in their search results.|
 |Display 20 or 50 results| This allows user customise more or less search results to be reflected on the screen for a more comprehensive or generic search result.|
 | Drop down result list| This allows user to see the name of all the relevant nature places based on their search interest.|
 | Map| This allows user to see all the location and which area of Singapore more nature places are in.|
-| Map zoom on park| This allows user to see the specific location and the localised surrounding of the searched nature area.|
+| Map zoom on park| This allows user to see the specific location and surronding landmarks on the map of the park they wish to visit.|
 | Map pop up| This allows user to see the name and associated picture of the park.|
 | Map zoom on park| This allows user to see the specific location and the localised surrounding of the searched nature area.|
-|Weather tab| This allows user to see the weather of the current nature location.|
-| Food nearby| This allows user to see the nearby food locations surrounding the nature area within a certain distance away for hungry park goers.|
+|Weather tab| This allows user to see the weather of the current park selected.|
+| Food nearby| This allows user to see the nearby food locations for park goers who want to eat after a hike.|
 |Other layers | This allows user to change look of the base map to display terrain, landscape or darkmode.|
 |Other amenities layers | This allows user to display park connectors, cycling path tracks nearby, and toggle the nearby food layers on and off.|
 |About SGPark | Describe to users the mission of the app.|
@@ -77,6 +73,10 @@ The font chosen is Roboto Slab. This is a look that is in line with some fonts u
 2. Incorporate public transport data into search
 - Only able to show MRT and bus stations on the map.
 - Allow users to see pop up marker of nearest bus station and MRT station.
+
+3. Allow clearing of food Marker layer after each new park selected
+- Only able to clear food layer when page refresh.
+
 
 
 
@@ -140,9 +140,7 @@ Netlify
 2. [Flaticon](https://www.flaticon.com/) - Used in map marker icons of website
 -  <a href="https://www.flaticon.com/free-icons/bistro" title="bistro icons"> Create food icon
 
-3. 
- https://leaflet-extras.github.io/leaflet-providers/preview/  
-
+3. [Leaflet Extras basemap]( https://leaflet-extras.github.io/leaflet-providers/preview/)
  - Provided photos for basemap layer
 
 ### Data :
@@ -152,7 +150,7 @@ Netlify
 2. [OpenWeather API](https://openweathermap.org/) 
     - Used to display current weather, weather forecast and icons on website
 
-3. foursquare.
+3. [Foursquare Places Search](https://location.foursquare.com/products/places-api/)
 - For search location API and image of location
 
 ### Screenshot :
