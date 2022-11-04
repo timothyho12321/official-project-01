@@ -1,8 +1,4 @@
 
-// BOILER PLATE CODE 
-// SOURCE: https://gist.githubusercontent.com/kunxin-chor/f1517e174acaf8d4d7196ad70b447f39/raw/0cabdff18d8ec0571b382346f97d020af63666a6/script.js
-// Use DOMContentLoaded as our main entry point
-
 window.addEventListener("DOMContentLoaded", async function () {
 
     //SOURCE FOR CHANGING BASEMAP: https://leaflet-extras.github.io/leaflet-providers/preview/
