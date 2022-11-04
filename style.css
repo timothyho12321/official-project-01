@@ -236,12 +236,13 @@ body {
 
 
 .weather-display {
-    color: lightgreen;
+    color: white;
 }
 
 .food-button-description {
-    color: lightgreen;
+    color: white;
     margin-left: 4px;
+    display: inline-flex
 
 }
 
