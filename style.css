@@ -144,8 +144,10 @@ body {
     max-height: 200px;
     max-width: 243px;
     overflow-y: scroll;
-    background-color: rgba(255, 255, 255, 0.90);
-    color: black;
+    /* background-color: rgba(255, 255, 255, 0.90);
+    color: black; */
+    background-color:#2d46203d;
+    color: white;
     border-radius: 15px
 }
 
