@@ -223,13 +223,22 @@ body {
     }
 }
 
-@media (min-width:768px) {
+@media (min-width:750px) {
     #canvas-button {
         
-        left: 15vw;
+        left: 13vw;
 
     }
 }
+
+@media (min-width:850px) {
+    #canvas-button {
+        
+        left: 11vw;
+
+    }
+}
+
 
 
 #display-button {
