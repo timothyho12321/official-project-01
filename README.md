@@ -7,7 +7,7 @@
 ## Summary
 Park Projector is a park finder website for nature lovers. 
 
-It helps people to locate the nearby parks, trails and gardens based on typing a location name. IT encourages people to spend more time exploring a park, exercise or talk a walk in it. 
+It helps people to locate the nearby parks, nature trails and gardens based on typing a location name. The site encourages people to spend more time exploring a park, or finding a nature place to exercise. 
 
 ---
 
@@ -16,9 +16,9 @@ It helps people to locate the nearby parks, trails and gardens based on typing a
 The users of this app are usually busy with school or work. They would use this app for greater convenience to search for nature places to unwind or exercise. The app is designed to help them locate nearby park spaces and other useful amenities such as pathways or resting foodstops nearby. 
 
 ### User Goals
-The project caters to working adults who exercise, nature hikers and cyclists. The project aim allows easy search of all the parks, gardens and hiking trails in Singapore. 
+The project caters to working adults who exercise, nature hikers and cyclists. The project aims to allow easy search of all the parks, gardens and hiking trails in Singapore. 
 
-It allows them to find connecting paths and nearby places; either to relax or talk a walk in. It also provides information on the weather patterns to plan their outdoor activity wisely.
+It allows users to find connecting paths and nearby places; either to relax or talk a walk in. It also provides information on the weather patterns to plan their outdoor activity wisely.
 
 
 ### Organisational Goals
@@ -31,7 +31,7 @@ Companies like the NParks and Singapore Sports Council would encourage such apps
 
 ![Color palette](images/color-palette.png)
 
-The main color of the app was green because it is in line with the naturalness, beauty and serenity of nature. In a green space, people are more relaxed and they have a good backdrop to conduct their exercise activities. The other 
+The main color of the app is green because it is in line with the naturalness, beauty and serenity of nature. In a green space, people are more relaxed and they have a good backdrop to conduct their exercise activities. The other 
 colors are to provide contrast
 to the green but is also harmonious with green.
 
@@ -75,7 +75,7 @@ The font chosen is Roboto Slab. This is a look that is in line with some fonts u
 - Allow users to see pop up marker of nearest bus station and MRT station.
 
 3. Allow clearing of food Marker layer after each new park selected
-- Only able to clear food layer when page refresh (due to closure possibly).
+- Only able to clear food layer when page refresh (unable to clear foodMarker Layer due to closure possibly).
 
 
 
@@ -99,7 +99,7 @@ The font chosen is Roboto Slab. This is a look that is in line with some fonts u
 
 | Test Case Number| Description |Step| Observation |
 | ----------- | ----------- |----------- | ----------- |
-|1. | Load park projector website|Go to the url| Page should not crash.|
+|1. | Load park projector website|Go to [Park Projector](https://frabjous-buttercream-d36934.netlify.app/)| Page should not crash.|
 |2. | Open Off Canvas bar |Click on green search button with orange dotted border|Off canvas bar should render with all the search options displayed.|
 |3A. | Search park, hiking trail, garden|Select radio button of either park, hiking trail or garden| Generated result should be of the selected button showing either park, hiking trail or garden.|
 |3B. |  Search by region|Key in one word input of town name (e.g. Serangoon).| Generated result should be showing nature places within the selected town (in this test case - Serangoon).|
@@ -109,25 +109,15 @@ The font chosen is Roboto Slab. This is a look that is in line with some fonts u
 |4B. | Zoom to Map park location|Click name of park in search result list| Map should zoomtoShow Layer park location and open the popUp of park description|
 |5A. | Show weather pattern at location|Click weather in offcanvas panel| Should reflect weather pattern at current park location|
 |5B. | Display food nearby|Click Food Nearby in offcanvas panel, followed by Display button| Should reflect markers of nearby food location and a circle circumference to show vicinity of the current park location|
-|5C. | Display name of food place|Click Food Marker on map. Note need to close offcanvas panel to do so.| Should reflect name in the popup on the food location marker.|
+|5C. | Display name of food place|Click Food Marker on map. Close offcanvas panel before doing so.| Should reflect name in the popup on the food location marker.|
 |6A. | Other layers |Click on other base map layers in the leaflet control panel| Can change base map layer to selected layer.|
 |6B. | Display amenities layers |Click Park Connectors,Cycling path track, Show nearby Food in the leaflet control panel| Should reflect layer of amenities on the park map|
 |7A. | Display About SGPark|Click  About SGPark button| Should display modal about mission of the app|
-|7B. | Display Figures of people who exercise|Click  Figures button in the modal panel| Should display webpage of two charts of people forms of exercise and frequency for regular exercise.|
+|7B. | Display Figures of people who exercise|Click  Figures button in the modal panel| Should display webpage of two charts of common type and frequency of outdoor exercise.|
 |7C. | Return to map|Click  green back button on chart webpage| Should return to map display with results fully refreshed.|
 
 
-
-
-Deployment
-Netlify
-
-
-
 ---
-
-
-
 
 
 ## Reference and credit
