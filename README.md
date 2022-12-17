@@ -2,7 +2,7 @@
 
 ![Park Projector Mockup](images/mockup.jpg)
 
-**Link to demo : [Park Projector](https://frabjous-buttercream-d36934.netlify.app/)**
+**Link to demo : [Park Projector](https://0-park-projector-project.netlify.app/)**
 
 ## Summary
 Park Projector is a park finder website for nature lovers. 
